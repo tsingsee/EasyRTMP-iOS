@@ -41,7 +41,7 @@ EasyRTMP是EasyDarwin流媒体团队开发的一个RTMP流媒体音/视频直播
 
 - QQ交流群：[465901074](http://jq.qq.com/?_wv=1027&k=2G045mo "EasyPusher & EasyRTSPClient")
 
-> EasyPusher是一款非常稳定的RTSP推流直播组件，各平台版本需要经过授权才能商业使用，商业授权方案可以通过以上渠道进行更深入的技术与合作咨询；
+> EasyRTMP-iOS是一款非常稳定的RTMP推流直播组件，各平台版本需要经过授权才能商业使用，商业授权方案可以通过以上渠道进行更深入的技术与合作咨询；
 
 
 ## 获取更多信息 ##
