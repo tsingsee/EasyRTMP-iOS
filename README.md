@@ -35,7 +35,8 @@ EasyPusher是EasyDarwin流媒体团队开发的一个RTSP/RTP流媒体音/视频
 - EasyRTMP iOS：支持前/后摄像头直播
 
 [https://itunes.apple.com/us/app/easyrtmp/id1222410811?mt=8](https://itunes.apple.com/us/app/easyrtmp/id1222410811?mt=8 "EasyRTMP_iOS")
-![](http://www.easydarwin.org/github/images/easyrtmpios20170409.png)
+
+![EasyRTMP_iOS](http://www.easydarwin.org/github/images/easyrtmpios20170409.png)
 
 
 ## 技术支持 ##
