@@ -16,8 +16,7 @@
 
 @end
 
-NSString * const naluTypesStrings[] =
-{
+NSString * const naluTypesStrings[] = {
     @"0: Unspecified (non-VCL)",
     @"1: Coded slice of a non-IDR picture (VCL)",    // P frame
     @"2: Coded slice data partition A (VCL)",
@@ -54,19 +53,17 @@ NSString * const naluTypesStrings[] =
 
 @implementation H264HWDecoder
 
-- (id)init
-{
+- (id)init {
     self = [super init];
-    if(self != nil)
-    {
+    if(self != nil) {
         self.delegate = nil;
     }
+    
     return self;
 }
 
-- (void) receivedRawVideoFrame:(uint8_t *)frame withSize:(uint32_t)frameSize isIFrame:(int)isIFrame
-{
-    OSStatus status;
+- (void) receivedRawVideoFrame:(uint8_t *)frame withSize:(uint32_t)frameSize isIFrame:(int)isIFrame {
+    OSStatus status = 0;
     
     uint8_t *data = NULL;
     uint8_t *pps = NULL;
@@ -88,21 +85,17 @@ NSString * const naluTypesStrings[] =
     
     // if we havent already set up our format description with our SPS PPS parameters, we
     // can't process any frames except type 7 that has our parameters
-    if (nalu_type != 7 && _formatDesc == NULL)
-    {
+    if (nalu_type != 7 && _formatDesc == NULL) {
 //        NSLog(@"Video error: Frame is not an I Frame and format description is null");
         return;
     }
     
     // NALU type 7 is the SPS parameter NALU
-    if (nalu_type == 7)
-    {
+    if (nalu_type == 7) {
         // find where the second PPS start code begins, (the 0x00 00 00 01 code)
         // from which we also get the length of the first SPS code
-        for (int i = startCodeIndex + 4; i < startCodeIndex + 40; i++)
-        {
-            if (frame[i] == 0x00 && frame[i+1] == 0x00 && frame[i+2] == 0x00 && frame[i+3] == 0x01)
-            {
+        for (int i = startCodeIndex + 4; i < startCodeIndex + 40; i++) {
+            if (frame[i] == 0x00 && frame[i+1] == 0x00 && frame[i+2] == 0x00 && frame[i+3] == 0x01) {
                 secondStartCodeIndex = i;
                 _spsSize = secondStartCodeIndex;   // includes the header in the size
                 break;
@@ -115,13 +108,10 @@ NSString * const naluTypesStrings[] =
     }
     
     // type 8 is the PPS parameter NALU
-    if(nalu_type == 8)
-    {
+    if(nalu_type == 8) {
         // find where the NALU after this one starts so we know how long the PPS parameter is
-        for (int i = _spsSize + 4; i < _spsSize + 30; i++)
-        {
-            if (frame[i] == 0x00 && frame[i+1] == 0x00 && frame[i+2] == 0x00 && frame[i+3] == 0x01)
-            {
+        for (int i = _spsSize + 4; i < _spsSize + 30; i++) {
+            if (frame[i] == 0x00 && frame[i+1] == 0x00 && frame[i+2] == 0x00 && frame[i+3] == 0x01) {
                 thirdStartCodeIndex = i;
                 _ppsSize = thirdStartCodeIndex - _spsSize;
                 break;
@@ -153,9 +143,8 @@ NSString * const naluTypesStrings[] =
         // to the new one, if not we need to remake the decomp session.
         // This snippet was not necessary for my applications but it could be for yours
         /*BOOL needNewDecompSession = (VTDecompressionSessionCanAcceptFormatDescription(_decompressionSession, _formatDesc) == NO);
-         if(needNewDecompSession)
-         {
-         [self createDecompSession];
+         if(needNewDecompSession) {
+            [self createDecompSession];
          }*/
         
         // now lets handle the IDR frame that (should) come after the parameter sets
@@ -165,14 +154,12 @@ NSString * const naluTypesStrings[] =
     }
     
     // create our VTDecompressionSession.  This isnt neccessary if you choose to use AVSampleBufferDisplayLayer
-    if((status == noErr) && (_decompressionSession == NULL))
-    {
+    if((status == noErr) && (_decompressionSession == NULL)) {
         [self createDecompSession];
     }
     
     // type 5 is an IDR frame NALU.  The SPS and PPS NALUs should always be followed by an IDR (or IFrame) NALU, as far as I know
-    if(nalu_type == 5)
-    {
+    if(nalu_type == 5) {
         // find the offset, or where the SPS and PPS NALUs end and the IDR frame NALU begins
         int offset = _spsSize + _ppsSize;
         blockLength = frameSize - offset;
@@ -197,8 +184,7 @@ NSString * const naluTypesStrings[] =
     }
     
     // NALU type 1 is non-IDR (or PFrame) picture
-    if (nalu_type == 1)
-    {
+    if (nalu_type == 1) {
         // non-IDR frames do not have an offset due to SPS and PSS, so the approach
         // is similar to the IDR frames just without the offset
         blockLength = frameSize;
@@ -220,8 +206,7 @@ NSString * const naluTypesStrings[] =
     }
     
     // now create our sample buffer from the block buffer,
-    if(status == noErr)
-    {
+    if(status == noErr) {
         // here I'm not bothering with any timing specifics since in my case we displayed all frames immediately
         const size_t sampleSize = blockLength;
         status = CMSampleBufferCreate(kCFAllocatorDefault,
@@ -232,8 +217,7 @@ NSString * const naluTypesStrings[] =
 //        NSLog(@"\t\t SampleBufferCreate: \t %@", (status == noErr) ? @"successful!" : @"failed...");
     }
     
-    if(status == noErr)
-    {
+    if(status == noErr) {
         // set some values of the sample buffer's attachments
         CFArrayRef attachments = CMSampleBufferGetSampleAttachmentsArray(sampleBuffer, YES);
         CFMutableDictionaryRef dict = (CFMutableDictionaryRef)CFArrayGetValueAtIndex(attachments, 0);
@@ -244,15 +228,13 @@ NSString * const naluTypesStrings[] =
     }
     
     // free memory to avoid a memory leak, do the same for sps, pps and blockbuffer
-    if (NULL != data)
-    {
+    if (NULL != data) {
         free (data);
         data = NULL;
     }
 }
 
--(void) createDecompSession
-{
+-(void) createDecompSession {
     // make sure to destroy the old VTD session
     _decompressionSession = NULL;
     VTDecompressionOutputCallbackRecord callBackRecord;
@@ -281,29 +263,22 @@ void decompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon,
                                              VTDecodeInfoFlags infoFlags,
                                              CVImageBufferRef imageBuffer,
                                              CMTime presentationTimeStamp,
-                                             CMTime presentationDuration)
-{
+                                             CMTime presentationDuration) {
     H264HWDecoder *streamManager = (__bridge H264HWDecoder *)decompressionOutputRefCon;
     
-    if (status != noErr)
-    {
+    if (status != noErr) {
         NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
-//        NSLog(@"Decompressed error: %@", error);
-    }
-    else
-    {
+        NSLog(@"Decompressed error: %@", error);
+    } else {
 //        NSLog(@"Decompressed sucessfully");
-        
         // do something with your resulting CVImageBufferRef that is your decompressed frame
-        if(streamManager.delegate != nil)
-        {
+        if(streamManager.delegate != nil) {
             [streamManager.delegate displayDecodedFrame:imageBuffer];
         }
     }
 }
 
-- (void) render:(CMSampleBufferRef)sampleBuffer
-{
+- (void) render:(CMSampleBufferRef)sampleBuffer {
     VTDecodeFrameFlags flags = kVTDecodeFrame_EnableAsynchronousDecompression;
     VTDecodeInfoFlags flagOut;
     NSDate* currentTime = [NSDate date];

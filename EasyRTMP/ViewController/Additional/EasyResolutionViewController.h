@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @protocol EasyResolutionDelegate <NSObject>
 
 -(void)onSelecedesolution:(NSInteger)resolutionNo;
@@ -15,6 +16,7 @@
 
 @interface EasyResolutionViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
-@property(nonatomic , weak)IBOutlet UITableView *myTabel;
-@property(nonatomic , weak)id<EasyResolutionDelegate>delegate;
+@property (nonatomic, weak) IBOutlet UITableView *myTabel;
+@property (nonatomic, weak) id<EasyResolutionDelegate> delegate;
+
 @end

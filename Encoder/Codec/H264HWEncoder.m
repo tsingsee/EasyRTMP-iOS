@@ -11,8 +11,7 @@
 @import VideoToolbox;
 @import AVFoundation;
 
-@implementation H264HWEncoder
-{
+@implementation H264HWEncoder {
     VTCompressionSessionRef session;
     CGSize outputSize;
 }
@@ -26,12 +25,11 @@
         session = NULL;
         outputSize = CGSizeMake(1920, 1080);
     }
+    
     return self;
 }
 
-void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStatus status, VTEncodeInfoFlags infoFlags,
-                     CMSampleBufferRef sampleBuffer )
-{
+void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStatus status, VTEncodeInfoFlags infoFlags, CMSampleBufferRef sampleBuffer ) {
     H264HWEncoder* encoder = (__bridge H264HWEncoder*)outputCallbackRefCon;
     
     if (status == noErr) {
@@ -54,22 +52,19 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
     }
 }
 
-- (void) setOutputSize:(CGSize)size
-{
+- (void) setOutputSize:(CGSize)size {
     outputSize = size;
 }
 
-- (void) initSession
-{
-    CFMutableDictionaryRef encoderSpecifications = NULL;
+- (void) initSession {
+//    CFMutableDictionaryRef encoderSpecifications = NULL;
     
     NSString *resolution = [[NSUserDefaults standardUserDefaults] objectForKey:@"resolition"];
     NSArray *resolutionArray = [resolution componentsSeparatedByString:@"*"];
     int width = [resolutionArray[0] intValue];
     int height = [resolutionArray[1] intValue];
     OSStatus status = VTCompressionSessionCreate(kCFAllocatorDefault, width , height, kCMVideoCodecType_H264, NULL, NULL, NULL, didCompressH264, (__bridge void *)(self), &session);
-    if (status == noErr)
-    {
+    if (status == noErr) {
         int fps = 25;
         int bt = 640 * 1000;
         
@@ -84,7 +79,7 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
         CFRelease(ref);
 
         ref = CFNumberCreate(NULL, kCFNumberSInt32Type, &fps);
-        OSStatus ret = VTSessionSetProperty(session, kVTCompressionPropertyKey_ExpectedFrameRate, ref);
+        VTSessionSetProperty(session, kVTCompressionPropertyKey_ExpectedFrameRate, ref);
         CFRelease(ref);
       
         VTSessionSetProperty(session, kVTCompressionPropertyKey_RealTime, kCFBooleanTrue);
@@ -96,10 +91,8 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
     }
 }
 
-- (void) invalidate
-{
-    if(session)
-    {
+- (void) invalidate {
+    if(session) {
         VTCompressionSessionCompleteFrames(session, kCMTimeInvalid);
         VTCompressionSessionInvalidate(session);
         CFRelease(session);
@@ -107,17 +100,14 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
     }
 }
 
-- (void) encode:(CMSampleBufferRef )sampleBuffer
-{
+- (void) encode:(CMSampleBufferRef )sampleBuffer {
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     
-    if(session == NULL)
-    {
+    if(session == NULL) {
         [self initSession];
     }
     
-    if( session != NULL && sampleBuffer != NULL )
-    {
+    if( session != NULL && sampleBuffer != NULL) {
         // Create properties
         
         CMTime timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);

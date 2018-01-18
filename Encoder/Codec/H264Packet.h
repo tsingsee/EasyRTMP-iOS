@@ -13,8 +13,8 @@
 
 @property (strong, nonatomic) NSMutableData *packet;
 @property (assign, nonatomic) BOOL keyFrame;
-- (id)initWithCMSampleBuffer:(CMSampleBufferRef)sample;
 
+- (id)initWithCMSampleBuffer:(CMSampleBufferRef)sample;
 - (void)packetizeAVC:(CMSampleBufferRef)sample;
 
 @end

@@ -21,7 +21,6 @@
 		A1195D2F1E73D81E00535E11 /* NoNetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1195D2D1E73D81E00535E11 /* NoNetTableViewCell.m */; };
 		A1195D301E73D81E00535E11 /* NoNetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1195D2E1E73D81E00535E11 /* NoNetTableViewCell.xib */; };
 		A175F55B1E24D32F00C76B21 /* EasySetingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A175F55A1E24D32F00C76B21 /* EasySetingViewController.m */; };
-		A17DCC9B1E98959600230574 /* EasyRTMP.png in Resources */ = {isa = PBXBuildFile; fileRef = A17DCC9A1E98959600230574 /* EasyRTMP.png */; };
 		A1CBFC4B1E4F099900588740 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1CBFC4A1E4F099900588740 /* AVFoundation.framework */; };
 		A1DBC62B1E8BA7EA001E25E8 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A1DBC62A1E8BA7EA001E25E8 /* libc++.tbd */; };
 		A1DBC6311E8BA886001E25E8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1DBC6301E8BA886001E25E8 /* CFNetwork.framework */; };
@@ -57,9 +56,9 @@
 		3622FEB31DE07CFA007B9A52 /* PureLayout+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PureLayout+Internal.h"; sourceTree = "<group>"; };
 		3622FEB41DE07CFA007B9A52 /* PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayout.h; sourceTree = "<group>"; };
 		3622FEB51DE07CFA007B9A52 /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayoutDefines.h; sourceTree = "<group>"; };
-		363856861DE340FE0052B0F9 /* ServerInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerInfoViewController.h; path = EasyRTMP/ServerInfoViewController.h; sourceTree = SOURCE_ROOT; };
-		363856871DE340FE0052B0F9 /* ServerInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerInfoViewController.m; path = EasyRTMP/ServerInfoViewController.m; sourceTree = SOURCE_ROOT; };
-		363856881DE340FE0052B0F9 /* ServerInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ServerInfoViewController.xib; path = EasyRTMP/ServerInfoViewController.xib; sourceTree = SOURCE_ROOT; };
+		363856861DE340FE0052B0F9 /* ServerInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerInfoViewController.h; path = EasyRTMP/ViewController/Additional/ServerInfoViewController.h; sourceTree = SOURCE_ROOT; };
+		363856871DE340FE0052B0F9 /* ServerInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerInfoViewController.m; path = EasyRTMP/ViewController/Additional/ServerInfoViewController.m; sourceTree = SOURCE_ROOT; };
+		363856881DE340FE0052B0F9 /* ServerInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ServerInfoViewController.xib; path = EasyRTMP/ViewController/Additional/ServerInfoViewController.xib; sourceTree = SOURCE_ROOT; };
 		A1195C551E69A22300535E11 /* EasyResolutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyResolutionViewController.h; sourceTree = "<group>"; };
 		A1195C561E69A22300535E11 /* EasyResolutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyResolutionViewController.m; sourceTree = "<group>"; };
 		A1195C571E69A22300535E11 /* EasyResolutionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EasyResolutionViewController.xib; sourceTree = "<group>"; };
@@ -74,7 +73,6 @@
 		A1195D2E1E73D81E00535E11 /* NoNetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoNetTableViewCell.xib; sourceTree = "<group>"; };
 		A175F5591E24D32F00C76B21 /* EasySetingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasySetingViewController.h; sourceTree = "<group>"; };
 		A175F55A1E24D32F00C76B21 /* EasySetingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasySetingViewController.m; sourceTree = "<group>"; };
-		A17DCC9A1E98959600230574 /* EasyRTMP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EasyRTMP.png; sourceTree = "<group>"; };
 		A1CBFC4A1E4F099900588740 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A1DBC62A1E8BA7EA001E25E8 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		A1DBC62C1E8BA833001E25E8 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -152,6 +150,39 @@
 			path = PureLayout;
 			sourceTree = "<group>";
 		};
+		667D99D82007AD8F00F580D7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F6C510331D858306001EB536 /* ViewController.h */,
+				F6C510341D858306001EB536 /* ViewController.m */,
+				667D99D92007B17200F580D7 /* Additional */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		667D99D92007B17200F580D7 /* Additional */ = {
+			isa = PBXGroup;
+			children = (
+				A1195C551E69A22300535E11 /* EasyResolutionViewController.h */,
+				A1195C561E69A22300535E11 /* EasyResolutionViewController.m */,
+				A1195C571E69A22300535E11 /* EasyResolutionViewController.xib */,
+				A175F5591E24D32F00C76B21 /* EasySetingViewController.h */,
+				A175F55A1E24D32F00C76B21 /* EasySetingViewController.m */,
+				A1195C5A1E6A6FE200535E11 /* EasyDarwinInfoViewController.h */,
+				A1195C5B1E6A6FE200535E11 /* EasyDarwinInfoViewController.m */,
+				A1195C5C1E6A6FE200535E11 /* EasyDarwinInfoViewController.xib */,
+				A1195D261E73D43200535E11 /* NoNetNotifieViewController.h */,
+				A1195D271E73D43200535E11 /* NoNetNotifieViewController.m */,
+				A1195D2C1E73D81E00535E11 /* NoNetTableViewCell.h */,
+				A1195D2D1E73D81E00535E11 /* NoNetTableViewCell.m */,
+				A1195D2E1E73D81E00535E11 /* NoNetTableViewCell.xib */,
+				363856861DE340FE0052B0F9 /* ServerInfoViewController.h */,
+				363856871DE340FE0052B0F9 /* ServerInfoViewController.m */,
+				363856881DE340FE0052B0F9 /* ServerInfoViewController.xib */,
+			);
+			path = Additional;
+			sourceTree = "<group>";
+		};
 		A1CBFC491E4F099900588740 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,29 +223,11 @@
 		F6C5102C1D858306001EB536 /* EasyRTMP */ = {
 			isa = PBXGroup;
 			children = (
-				A17DCC9A1E98959600230574 /* EasyRTMP.png */,
+				667D99D82007AD8F00F580D7 /* ViewController */,
 				F6C510491D865516001EB536 /* Encoder */,
 				F6C510441D858319001EB536 /* EasyRTMPLib */,
-				F6C510301D858306001EB536 /* AppDelegate.h */,
-				F6C510311D858306001EB536 /* AppDelegate.m */,
-				F6C510331D858306001EB536 /* ViewController.h */,
-				F6C510341D858306001EB536 /* ViewController.m */,
-				F6C510361D858306001EB536 /* Main.storyboard */,
 				3622FEAC1DE07CFA007B9A52 /* PureLayout */,
-				F6C510391D858306001EB536 /* Assets.xcassets */,
-				F6C5103B1D858306001EB536 /* LaunchScreen.storyboard */,
-				F6C5103E1D858306001EB536 /* Info.plist */,
 				F6C5102D1D858306001EB536 /* Supporting Files */,
-				A175F5591E24D32F00C76B21 /* EasySetingViewController.h */,
-				A175F55A1E24D32F00C76B21 /* EasySetingViewController.m */,
-				A1195C5A1E6A6FE200535E11 /* EasyDarwinInfoViewController.h */,
-				A1195C5B1E6A6FE200535E11 /* EasyDarwinInfoViewController.m */,
-				A1195C5C1E6A6FE200535E11 /* EasyDarwinInfoViewController.xib */,
-				A1195D261E73D43200535E11 /* NoNetNotifieViewController.h */,
-				A1195D271E73D43200535E11 /* NoNetNotifieViewController.m */,
-				A1195D2C1E73D81E00535E11 /* NoNetTableViewCell.h */,
-				A1195D2D1E73D81E00535E11 /* NoNetTableViewCell.m */,
-				A1195D2E1E73D81E00535E11 /* NoNetTableViewCell.xib */,
 			);
 			path = EasyRTMP;
 			sourceTree = "<group>";
@@ -222,7 +235,13 @@
 		F6C5102D1D858306001EB536 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F6C5103E1D858306001EB536 /* Info.plist */,
 				F6C5102E1D858306001EB536 /* main.m */,
+				F6C510301D858306001EB536 /* AppDelegate.h */,
+				F6C510311D858306001EB536 /* AppDelegate.m */,
+				F6C510361D858306001EB536 /* Main.storyboard */,
+				F6C5103B1D858306001EB536 /* LaunchScreen.storyboard */,
+				F6C510391D858306001EB536 /* Assets.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -242,13 +261,7 @@
 			children = (
 				F6C5106F1D880B76001EB536 /* CameraEncoder.h */,
 				F6C510701D880B76001EB536 /* CameraEncoder.m */,
-				363856861DE340FE0052B0F9 /* ServerInfoViewController.h */,
-				363856871DE340FE0052B0F9 /* ServerInfoViewController.m */,
-				363856881DE340FE0052B0F9 /* ServerInfoViewController.xib */,
 				F6C5105A1D8669DA001EB536 /* Codec */,
-				A1195C551E69A22300535E11 /* EasyResolutionViewController.h */,
-				A1195C561E69A22300535E11 /* EasyResolutionViewController.m */,
-				A1195C571E69A22300535E11 /* EasyResolutionViewController.xib */,
 			);
 			path = Encoder;
 			sourceTree = SOURCE_ROOT;
@@ -258,12 +271,12 @@
 			children = (
 				F6C5105B1D8669DA001EB536 /* AACEncoder.h */,
 				F6C5105C1D8669DA001EB536 /* AACEncoder.m */,
-				F6C5105D1D8669DA001EB536 /* H264HWDecoder.h */,
-				F6C5105E1D8669DA001EB536 /* H264HWDecoder.m */,
 				F6C5105F1D8669DA001EB536 /* H264HWEncoder.h */,
 				F6C510601D8669DA001EB536 /* H264HWEncoder.m */,
 				F6C510611D8669DA001EB536 /* H264Packet.h */,
 				F6C510621D8669DA001EB536 /* H264Packet.m */,
+				F6C5105D1D8669DA001EB536 /* H264HWDecoder.h */,
+				F6C5105E1D8669DA001EB536 /* H264HWDecoder.m */,
 			);
 			path = Codec;
 			sourceTree = "<group>";
@@ -331,7 +344,6 @@
 				F6C5103D1D858306001EB536 /* LaunchScreen.storyboard in Resources */,
 				A1195C591E69A22300535E11 /* EasyResolutionViewController.xib in Resources */,
 				F6C5103A1D858306001EB536 /* Assets.xcassets in Resources */,
-				A17DCC9B1E98959600230574 /* EasyRTMP.png in Resources */,
 				F6C510381D858306001EB536 /* Main.storyboard in Resources */,
 				A1195D301E73D81E00535E11 /* NoNetTableViewCell.xib in Resources */,
 				3638568A1DE340FE0052B0F9 /* ServerInfoViewController.xib in Resources */,

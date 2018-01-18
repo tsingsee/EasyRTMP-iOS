@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <VideoToolbox/VideoToolbox.h>
 
-@protocol H264HWDecoderDelegate <NSObject>
+@protocol H264HWDecoderDelegate<NSObject>
 
 - (void)displayDecodedFrame:(CVImageBufferRef)imageBuffer;
 
@@ -18,6 +18,6 @@
 
 @property (weak, nonatomic) id<H264HWDecoderDelegate> delegate;
 
--(void) receivedRawVideoFrame:(uint8_t *)frame withSize:(uint32_t)frameSize isIFrame:(int)isIFrame;
+- (void) receivedRawVideoFrame:(uint8_t *)frame withSize:(uint32_t)frameSize isIFrame:(int)isIFrame;
 
 @end

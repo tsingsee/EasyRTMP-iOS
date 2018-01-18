@@ -8,26 +8,23 @@
 
 #import "H264Packet.h"
 
-@interface H264Packet ()
-{
+@interface H264Packet () {
 }
 
 @end
 
 @implementation H264Packet
 
-- (id)initWithCMSampleBuffer:(CMSampleBufferRef)sample
-{
+- (id)initWithCMSampleBuffer:(CMSampleBufferRef)sample {
     self = [super init];
-    if(self)
-    {
+    if(self) {
         [self packetizeAVC:sample];
     }
+    
     return self;
 }
 
-- (void)packetizeAVC:(CMSampleBufferRef)sample
-{
+- (void)packetizeAVC:(CMSampleBufferRef)sample {
     self.packet = [NSMutableData data];
     
     NSData *sps, *pps;
@@ -37,21 +34,18 @@
     bool keyframe = !CFDictionaryContainsKey(ref , kCMSampleAttachmentKey_NotSync);
     
     int resultLen = 0;
-    if (keyframe)
-    {
+    if (keyframe) {
         CMFormatDescriptionRef format = CMSampleBufferGetFormatDescription(sample);
         
         size_t sparameterSetSize, sparameterSetCount;
         const uint8_t *sparameterSet;
         OSStatus statusCode = CMVideoFormatDescriptionGetH264ParameterSetAtIndex(format, 0, &sparameterSet, &sparameterSetSize, &sparameterSetCount, 0 );
-        if (statusCode == noErr)
-        {
+        if (statusCode == noErr) {
             // Found sps and now check for pps
             size_t pparameterSetSize, pparameterSetCount;
             const uint8_t *pparameterSet;
             OSStatus statusCode = CMVideoFormatDescriptionGetH264ParameterSetAtIndex(format, 1, &pparameterSet, &pparameterSetSize, &pparameterSetCount, 0 );
-            if (statusCode == noErr)
-            {
+            if (statusCode == noErr) {
                 // Found pps
                 sps = [NSData dataWithBytes:sparameterSet length:sparameterSetSize];
                 pps = [NSData dataWithBytes:pparameterSet length:pparameterSetSize];
@@ -74,13 +68,12 @@
             }
         }
     }
-
+    
     CMBlockBufferRef dataBuffer = CMSampleBufferGetDataBuffer(sample);
     size_t totalLength;
     char *dataPointer;
     OSStatus statusCodeRet = CMBlockBufferGetDataPointer(dataBuffer, 0, NULL, &totalLength, &dataPointer);
     if (statusCodeRet == noErr) {
-        
         size_t bufferOffset = 0;
         static const int AVCCHeaderLength = 4;
         while (bufferOffset < totalLength - AVCCHeaderLength) {

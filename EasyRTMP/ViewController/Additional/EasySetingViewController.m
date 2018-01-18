@@ -18,7 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
    
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -64,20 +63,18 @@
     [saveBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [saveBtn addTarget:self action:@selector(saveIpAndPort) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:saveBtn];
-    
-    
 }
 
-- (void)back{
+- (void)back {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }
 
-- (void)saveIpAndPort{
+- (void)saveIpAndPort {
     [self.view endEditing:YES];
     UITextField *ipConfig = (UITextField *)[self.view viewWithTag:1000];
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
@@ -94,20 +91,5 @@
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

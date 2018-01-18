@@ -13,15 +13,16 @@
 @protocol H264HWEncoderDelegate <NSObject>
 
 @required
+
 - (void)gotH264EncodedData:(NSData *)packet keyFrame:(BOOL)keyFrame timestamp:(CMTime)timestamp error:(NSError*)error;
 
 @end
 
-@interface H264HWEncoder : NSObject
-{
+@interface H264HWEncoder : NSObject {
     int     _spsppsFound;
     unsigned char *_EncoderBuffer;
 }
+
 - (void) invalidate;
 - (void) setOutputSize:(CGSize)size;
 - (void) encode:(CMSampleBufferRef )sampleBuffer;
