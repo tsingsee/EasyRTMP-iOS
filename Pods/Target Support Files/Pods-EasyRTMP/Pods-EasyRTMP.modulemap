@@ -1,0 +1,6 @@
+framework module Pods_EasyRTMP {
+  umbrella header "Pods-EasyRTMP-umbrella.h"
+
+  export *
+  module * { export * }
+}
