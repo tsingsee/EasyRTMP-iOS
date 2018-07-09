@@ -1,0 +1,30 @@
+PODS:
+  - Bugly (2.5.0)
+  - IQKeyboardManager (6.0.4)
+  - Masonry (1.1.0)
+  - RTRootNavigationController (0.6.7):
+    - RTRootNavigationController/Core (= 0.6.7)
+  - RTRootNavigationController/Core (0.6.7)
+
+DEPENDENCIES:
+  - Bugly
+  - IQKeyboardManager
+  - Masonry
+  - RTRootNavigationController
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Bugly
+    - IQKeyboardManager
+    - Masonry
+    - RTRootNavigationController
+
+SPEC CHECKSUMS:
+  Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
+  IQKeyboardManager: 29514134ef0334a6fa33cf4eee11c36c064baeaf
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  RTRootNavigationController: d6aa6cbb78a3eaecea4f6e4df63f15dd887836b8
+
+PODFILE CHECKSUM: 6c9bb9039d1e8a4c033c726551fd88bd9a3f7406
+
+COCOAPODS: 1.5.0
