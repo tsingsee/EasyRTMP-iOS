@@ -8,7 +8,6 @@
 
 #import "NoNetNotifieViewController.h"
 #import "NoNetTableViewCell.h"
-#import "PureLayout.h"
 
 @interface NoNetNotifieViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -22,20 +21,20 @@
     UIView *topView = [[UIView alloc] init];
     [self.view addSubview:topView];
     topView.translatesAutoresizingMaskIntoConstraints = NO;
-    [topView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0.0];
-    [topView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0.0];
-    [topView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0.0];
-    [topView autoSetDimension:ALDimensionHeight toSize:64];
+//    [topView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0.0];
+//    [topView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0.0];
+//    [topView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0.0];
+//    [topView autoSetDimension:ALDimensionHeight toSize:64];
     topView.backgroundColor = [UIColor colorWithWhite:0.98 alpha:0.9];
     UILabel *solveLabel = [[UILabel alloc] init];
     solveLabel.translatesAutoresizingMaskIntoConstraints = NO;
     solveLabel.text = @"解决方案";
     solveLabel.textColor = [UIColor darkGrayColor];
     [topView addSubview:solveLabel];
-    [solveLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:20.0];
-    [solveLabel autoSetDimension:ALDimensionHeight toSize:44];
-     [solveLabel autoSetDimension:ALDimensionWidth toSize:100];
-    [solveLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:topView];
+//    [solveLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:20.0];
+//    [solveLabel autoSetDimension:ALDimensionHeight toSize:44];
+//     [solveLabel autoSetDimension:ALDimensionWidth toSize:100];
+//    [solveLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:topView];
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [backBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 20)];
@@ -43,19 +42,19 @@
     [backBtn setImage:[UIImage imageNamed:@"BackVideo"] forState:UIControlStateNormal];
     [topView addSubview:backBtn];
     [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    [backBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:20.0];
-    [backBtn autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:0.0];
-    [backBtn autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0.0];
-    [backBtn autoSetDimension:ALDimensionWidth toSize:64];
+//    [backBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:20.0];
+//    [backBtn autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:0.0];
+//    [backBtn autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0.0];
+//    [backBtn autoSetDimension:ALDimensionWidth toSize:64];
     
     UITableView *tabel = [[UITableView alloc] init];
      [self.view addSubview:tabel];
     tabel.translatesAutoresizingMaskIntoConstraints = NO;
     tabel.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [tabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0.0];
-    [tabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:64.0];
-    [tabel autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:0.0];
-    [tabel autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:0.0];
+//    [tabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0.0];
+//    [tabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:64.0];
+//    [tabel autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:0.0];
+//    [tabel autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:0.0];
     tabel.estimatedRowHeight = 660;
     tabel.delegate = self;
     tabel.dataSource = self;

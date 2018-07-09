@@ -3,49 +3,49 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "EasyRTMP-7.png",
+      "filename" : "RTMP-2.png",
       "scale" : "2x"
     },
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "EasyRTMP-5.png",
+      "filename" : "RTMP-3.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "EasyRTMP-6.png",
+      "filename" : "RTMP-4.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "EasyRTMP-3.png",
+      "filename" : "RTMP-5.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "EasyRTMP-4.png",
+      "filename" : "RTMP-6.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "EasyRTMP-2.png",
+      "filename" : "RTMP-7.png",
       "scale" : "3x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "EasyRTMP-1.png",
+      "filename" : "RTMP-1.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "EasyRTMP.png",
+      "filename" : "RTMP.png",
       "scale" : "3x"
     },
     {
@@ -94,8 +94,9 @@
       "scale" : "2x"
     },
     {
-      "idiom" : "ios-marketing",
       "size" : "1024x1024",
+      "idiom" : "ios-marketing",
+      "filename" : "RTMP-8.png",
       "scale" : "1x"
     }
   ],
