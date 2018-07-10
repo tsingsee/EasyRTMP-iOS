@@ -657,6 +657,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 33USAS7KQX;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/EasyRTMP/Main/PrefixHeader.pch";
@@ -730,6 +731,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 33USAS7KQX;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/EasyRTMP/Main/PrefixHeader.pch";
