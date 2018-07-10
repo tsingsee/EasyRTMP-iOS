@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7E3F095888F7FBD9FF132AC1D88FCA09"
+               BlueprintIdentifier = "7A825724FD0A966CA75A7B4DFEED6441"
                BuildableName = "Pods_EasyRTMP.framework"
                BlueprintName = "Pods-EasyRTMP"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7E3F095888F7FBD9FF132AC1D88FCA09"
+            BlueprintIdentifier = "7A825724FD0A966CA75A7B4DFEED6441"
             BuildableName = "Pods_EasyRTMP.framework"
             BlueprintName = "Pods-EasyRTMP"
             ReferencedContainer = "container:Pods.xcodeproj">

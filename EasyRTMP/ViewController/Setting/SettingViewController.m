@@ -8,6 +8,8 @@
 
 #import "SettingViewController.h"
 #import "ScanViewController.h"
+#import "RecordViewController.h"
+#import "ResolutionViewController2.h"
 #import "URLTool.h"
 
 @interface SettingViewController ()<UITextFieldDelegate>
@@ -39,6 +41,7 @@
     HRGViewBorderRadius(self.recordBtn, 3.0, 0, [UIColor clearColor]);
     HRGViewBorderRadius(self.relolutionBtn, 3.0, 0, [UIColor clearColor]);
     HRGViewBorderRadius(self.saveBtn, 3.0, 0, [UIColor clearColor]);
+    self.saveBtn.hidden = YES;
     
     [self.codeBtn setImage:[UIImage imageNamed:@"set_select"] forState:UIControlStateNormal];
     [self.codeBtn setImage:[UIImage imageNamed:@"set_selected"] forState:UIControlStateSelected];
@@ -91,28 +94,34 @@
 - (IBAction)code:(id)sender {
     self.codeBtn.selected = !self.codeBtn.selected;
     
+    // TODO
 }
 
 // 水印
 - (IBAction)mark:(id)sender {
     self.markBtn.selected = !self.markBtn.selected;
     
+    // TODO
 }
 
 // 仅推送音频
 - (IBAction)onlyAudio:(id)sender {
     self.audioBtn.selected = !self.audioBtn.selected;
     
+    [URLTool saveOnlyAudio:self.audioBtn.selected];
 }
 
 // 录像文件
 - (IBAction)record:(id)sender {
-    
+    RecordViewController *controllr = [[RecordViewController alloc] initWithStoryborad];
+    [self basePushViewController:controllr];
 }
 
 // 分辨率
 - (IBAction)resolution:(id)sender {
-    
+    ResolutionViewController2 *controller = [[ResolutionViewController2 alloc] init];
+    controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 // 保存

@@ -9,6 +9,8 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
+#import <ReactiveCocoa/ReactiveCocoa.h>
+
 //是否iPhoneX YES:iPhoneX屏幕 NO:传统屏幕
 #define kIs_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
@@ -49,5 +51,8 @@
 #define HRGColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 
 #define ThemeColor 0x5E90FF
+#define HRGTextBlackColor 0x333333
+
+#define HRGTextFont 15.0
 
 #endif /* PrefixHeader_pch */

@@ -10,11 +10,14 @@
 		047A9DD820F33569003CC39F /* URLTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A9DD720F33569003CC39F /* URLTool.m */; };
 		047A9DDB20F3448A003CC39F /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A9DD920F34489003CC39F /* BaseViewController.m */; };
 		047A9E0720F34BFE003CC39F /* Pods_EasyRTMP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94BD2DDB07309B15B104DE2 /* Pods_EasyRTMP.framework */; };
-		047A9E0920F34E01003CC39F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 047A9E0820F34E01003CC39F /* Security.framework */; };
-		047A9E0B20F34E15003CC39F /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 047A9E0A20F34E15003CC39F /* JavaScriptCore.framework */; };
 		047A9E0E20F36479003CC39F /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A9E0D20F36479003CC39F /* WebViewController.m */; };
 		047A9E1220F37C25003CC39F /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A9E1120F37C25003CC39F /* ScanViewController.m */; };
 		047A9E1520F37E8F003CC39F /* RecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A9E1420F37E8F003CC39F /* RecordViewController.m */; };
+		04C61CA220F44B1500D755D9 /* ResolutionViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C61CA120F44B1500D755D9 /* ResolutionViewController2.m */; };
+		04C61CA620F45FBF00D755D9 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C61CA520F45FBF00D755D9 /* VideoViewController.m */; };
+		04C61CAA20F484FD00D755D9 /* PromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C61CA920F484FD00D755D9 /* PromptView.m */; };
+		04C61CAD20F4857D00D755D9 /* VideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C61CAC20F4857D00D755D9 /* VideoCell.m */; };
+		04C61CB020F48B5200D755D9 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C61CAF20F48B5200D755D9 /* PhotoViewController.m */; };
 		04DF407620F2FE120002EAB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DF407420F2FE120002EAB9 /* Main.storyboard */; };
 		04F7286D20F2F2460089EDCA /* libEasyRTMP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F7286020F2F2460089EDCA /* libEasyRTMP.a */; };
 		04F7286E20F2F2460089EDCA /* H264HWDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7286720F2F2460089EDCA /* H264HWDecoder.m */; };
@@ -63,6 +66,16 @@
 		047A9E1120F37C25003CC39F /* ScanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
 		047A9E1320F37E8F003CC39F /* RecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordViewController.h; sourceTree = "<group>"; };
 		047A9E1420F37E8F003CC39F /* RecordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordViewController.m; sourceTree = "<group>"; };
+		04C61CA020F44B1400D755D9 /* ResolutionViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResolutionViewController2.h; sourceTree = "<group>"; };
+		04C61CA120F44B1500D755D9 /* ResolutionViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResolutionViewController2.m; sourceTree = "<group>"; };
+		04C61CA420F45FBF00D755D9 /* VideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
+		04C61CA520F45FBF00D755D9 /* VideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
+		04C61CA820F484FD00D755D9 /* PromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromptView.h; sourceTree = "<group>"; };
+		04C61CA920F484FD00D755D9 /* PromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromptView.m; sourceTree = "<group>"; };
+		04C61CAB20F4857D00D755D9 /* VideoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoCell.h; sourceTree = "<group>"; };
+		04C61CAC20F4857D00D755D9 /* VideoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoCell.m; sourceTree = "<group>"; };
+		04C61CAE20F48B5200D755D9 /* PhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
+		04C61CAF20F48B5200D755D9 /* PhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		04DF407520F2FE120002EAB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		04DF407720F30F760002EAB9 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		04F7285E20F2F2460089EDCA /* EasyTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTypes.h; sourceTree = "<group>"; };
@@ -121,8 +134,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				047A9E0B20F34E15003CC39F /* JavaScriptCore.framework in Frameworks */,
-				047A9E0920F34E01003CC39F /* Security.framework in Frameworks */,
 				A1DBC6381E8BA92C001E25E8 /* libbz2.tbd in Frameworks */,
 				A1DBC6361E8BA91C001E25E8 /* libz.tbd in Frameworks */,
 				A1DBC6351E8BA90A001E25E8 /* libiconv.tbd in Frameworks */,
@@ -148,12 +159,11 @@
 			children = (
 				A175F5591E24D32F00C76B21 /* SettingViewController.h */,
 				A175F55A1E24D32F00C76B21 /* SettingViewController.m */,
-				A1195C551E69A22300535E11 /* ResolutionViewController.h */,
-				A1195C561E69A22300535E11 /* ResolutionViewController.m */,
 				047A9E1020F37C25003CC39F /* ScanViewController.h */,
 				047A9E1120F37C25003CC39F /* ScanViewController.m */,
-				047A9E1320F37E8F003CC39F /* RecordViewController.h */,
-				047A9E1420F37E8F003CC39F /* RecordViewController.m */,
+				04C61CA320F45F7400D755D9 /* Record */,
+				04C61CA020F44B1400D755D9 /* ResolutionViewController2.h */,
+				04C61CA120F44B1500D755D9 /* ResolutionViewController2.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -167,6 +177,30 @@
 				047A9E0D20F36479003CC39F /* WebViewController.m */,
 			);
 			path = Info;
+			sourceTree = "<group>";
+		};
+		04C61CA320F45F7400D755D9 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				047A9E1320F37E8F003CC39F /* RecordViewController.h */,
+				047A9E1420F37E8F003CC39F /* RecordViewController.m */,
+				04C61CA420F45FBF00D755D9 /* VideoViewController.h */,
+				04C61CA520F45FBF00D755D9 /* VideoViewController.m */,
+				04C61CAE20F48B5200D755D9 /* PhotoViewController.h */,
+				04C61CAF20F48B5200D755D9 /* PhotoViewController.m */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		04C61CA720F484F300D755D9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04C61CA820F484FD00D755D9 /* PromptView.h */,
+				04C61CA920F484FD00D755D9 /* PromptView.m */,
+				04C61CAB20F4857D00D755D9 /* VideoCell.h */,
+				04C61CAC20F4857D00D755D9 /* VideoCell.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		04DF407820F3352F0002EAB9 /* DataLayer */ = {
@@ -241,6 +275,8 @@
 				047A9DD920F34489003CC39F /* BaseViewController.m */,
 				F6C510331D858306001EB536 /* PushViewController.h */,
 				F6C510341D858306001EB536 /* PushViewController.m */,
+				A1195C551E69A22300535E11 /* ResolutionViewController.h */,
+				A1195C561E69A22300535E11 /* ResolutionViewController.m */,
 				047A9E0F20F37C02003CC39F /* Info */,
 				047A9DDC20F3452E003CC39F /* Setting */,
 				667D99D92007B17200F580D7 /* Additional */,
@@ -308,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				04F7287320F2F26D0089EDCA /* Main */,
+				04C61CA720F484F300D755D9 /* View */,
 				667D99D82007AD8F00F580D7 /* ViewController */,
 				04DF407820F3352F0002EAB9 /* DataLayer */,
 				04F7285D20F2F2460089EDCA /* EasyRTMPLib */,
@@ -408,12 +445,14 @@
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/RTRootNavigationController/RTRootNavigationController.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveCocoa/ReactiveCocoa.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RTRootNavigationController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveCocoa.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -449,11 +488,15 @@
 				047A9E1220F37C25003CC39F /* ScanViewController.m in Sources */,
 				A1195C581E69A22300535E11 /* ResolutionViewController.m in Sources */,
 				04F7286E20F2F2460089EDCA /* H264HWDecoder.m in Sources */,
+				04C61CA220F44B1500D755D9 /* ResolutionViewController2.m in Sources */,
 				A1195D2F1E73D81E00535E11 /* NoNetTableViewCell.m in Sources */,
 				04F7286F20F2F2460089EDCA /* AACEncoder.m in Sources */,
 				04F7287820F2F26D0089EDCA /* main.m in Sources */,
 				F6C510351D858306001EB536 /* PushViewController.m in Sources */,
 				A1195C5D1E6A6FE200535E11 /* InfoViewController.m in Sources */,
+				04C61CB020F48B5200D755D9 /* PhotoViewController.m in Sources */,
+				04C61CA620F45FBF00D755D9 /* VideoViewController.m in Sources */,
+				04C61CAD20F4857D00D755D9 /* VideoCell.m in Sources */,
 				A1195D291E73D43200535E11 /* NoNetNotifieViewController.m in Sources */,
 				047A9E0E20F36479003CC39F /* WebViewController.m in Sources */,
 				047A9DD820F33569003CC39F /* URLTool.m in Sources */,
@@ -462,6 +505,7 @@
 				047A9DDB20F3448A003CC39F /* BaseViewController.m in Sources */,
 				047A9E1520F37E8F003CC39F /* RecordViewController.m in Sources */,
 				04F7287920F2F26D0089EDCA /* AppDelegate.m in Sources */,
+				04C61CAA20F484FD00D755D9 /* PromptView.m in Sources */,
 				04F7287220F2F2460089EDCA /* CameraEncoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -541,6 +585,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -594,6 +642,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -623,7 +675,48 @@
 					"$(PROJECT_DIR)/EasyRTMP/EasyRTMPLib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"sqlite3.0\"",
+					"-l\"stdc++.6.0.9\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"Bugly\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"IQKeyboardManager\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"RTRootNavigationController\"",
+					"-framework",
+					"\"ReactiveCocoa\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"VideoToolbox\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.easydarwin.easydarwinrtmp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -655,7 +748,48 @@
 					"$(PROJECT_DIR)/EasyRTMP/EasyRTMPLib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"sqlite3.0\"",
+					"-l\"stdc++.6.0.9\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"Bugly\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"IQKeyboardManager\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"RTRootNavigationController\"",
+					"-framework",
+					"\"ReactiveCocoa\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"VideoToolbox\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.easydarwin.easydarwinrtmp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

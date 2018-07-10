@@ -46,9 +46,6 @@
     // UI
     [self setUI];
     
-    [self.resolutionBtn setTitle:[NSString stringWithFormat:@"分辨率：%@", [URLTool gainResolition]] forState:UIControlStateNormal];
-    self.bitrateLabel.text = @"帧率:20 码率:100Kbps";// TODO
-    
     // 推流器
     encoder = [[CameraEncoder alloc] init];
     encoder.delegate = self;
@@ -73,6 +70,9 @@
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBarHidden = YES;
+    
+    [self.resolutionBtn setTitle:[NSString stringWithFormat:@"分辨率：%@", [URLTool gainResolition]] forState:UIControlStateNormal];
+    self.bitrateLabel.text = @"帧率:20 码率:100Kbps";// TODO
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
