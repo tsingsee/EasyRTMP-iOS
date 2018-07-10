@@ -7,14 +7,12 @@
 //
 
 #import "H264HWEncoder.h"
-#import "URLTool.h"
 
 @import VideoToolbox;
 @import AVFoundation;
 
 @implementation H264HWEncoder {
     VTCompressionSessionRef session;
-    CGSize outputSize;
 }
 
 - (void) dealloc {
@@ -24,7 +22,6 @@
 - (id) init {
     if (self = [super init]) {
         session = NULL;
-        outputSize = CGSizeMake(1920, 1080);
     }
     
     return self;
@@ -37,7 +34,7 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
         return [encoder didReceiveSampleBuffer:sampleBuffer];
     }
     
-    NSLog(@"Error %d : %@", infoFlags, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil]);
+    NSLog(@"Error %d : %@", (unsigned int)infoFlags, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil]);
 }
 
 - (void)didReceiveSampleBuffer:(CMSampleBufferRef)sampleBuffer {
@@ -53,36 +50,61 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
     }
 }
 
-- (void) setOutputSize:(CGSize)size {
-    outputSize = size;
-}
-
-- (void) initSession {
-    NSString *resolution = [URLTool gainResolition];
-    NSArray *resolutionArray = [resolution componentsSeparatedByString:@"*"];
-    int width = [resolutionArray[0] intValue];
-    int height = [resolutionArray[1] intValue];
-    OSStatus status = VTCompressionSessionCreate(kCFAllocatorDefault, width , height, kCMVideoCodecType_H264, NULL, NULL, NULL, didCompressH264, (__bridge void *)(self), &session);
+- (void) initSessionWithSize:(CGSize)size {
+//    CFMutableDictionaryRef encoderSpecifications = NULL;
+    
+    OSStatus status = VTCompressionSessionCreate(kCFAllocatorDefault,
+                                                 size.width,
+                                                 size.height,
+                                                 kCMVideoCodecType_H264,
+                                                 NULL,
+                                                 NULL,
+                                                 NULL,
+                                                 didCompressH264,
+                                                 (__bridge void *)(self),
+                                                 &session);
     if (status == noErr) {
-        int fps = 25;
-        int bt = 640 * 1000;
+        int fps = 20;
+        
+        // 设置码率
+//        int bt = [[[NSUserDefaults standardUserDefaults] objectForKey:Rate] intValue];
+        int bt = (int)(size.width * size.height * 20 * 2 * 0.04f);
+        if (size.width >= 1920 || size.height >= 1920) {
+            bt *= 0.3;
+        } else if (size.width >= 1280 || size.height >= 1280) {
+            bt *= 0.4;
+        } else if (size.width >= 720 || size.height >= 720) {
+            bt *= 0.6;
+        }
         
         // 设置编码码率(比特率)，如果不设置，默认将会以很低的码率编码，导致编码出来的视频很模糊
-        status  = VTSessionSetProperty(session, kVTCompressionPropertyKey_AverageBitRate, (__bridge CFTypeRef)@(bt)); // bps
-        status += VTSessionSetProperty(session, kVTCompressionPropertyKey_DataRateLimits, (__bridge CFArrayRef)@[@(bt*2/8), @1]); // Bps
-        NSLog(@"set bitrate   return: %d", (int)status);
+        status  = VTSessionSetProperty(session,
+                                       kVTCompressionPropertyKey_AverageBitRate,
+                                       (__bridge CFTypeRef)@(bt)); // bps
+        status += VTSessionSetProperty(session,
+                                       kVTCompressionPropertyKey_DataRateLimits,
+                                       (__bridge CFArrayRef)@[@(bt * 2 / 8), @1]); // Bps
+        NSLog(@"set bitrate return: %d", (int)status);
         
         const int32_t v = fps * 2; // 2-second kfi
         CFNumberRef ref = CFNumberCreate(NULL, kCFNumberSInt32Type, &v);
-        VTSessionSetProperty(session, kVTCompressionPropertyKey_MaxKeyFrameInterval, ref);
+        VTSessionSetProperty(session,
+                             kVTCompressionPropertyKey_MaxKeyFrameInterval,
+                             ref);
         CFRelease(ref);
 
         ref = CFNumberCreate(NULL, kCFNumberSInt32Type, &fps);
-        VTSessionSetProperty(session, kVTCompressionPropertyKey_ExpectedFrameRate, ref);
+        VTSessionSetProperty(session,
+                             kVTCompressionPropertyKey_ExpectedFrameRate,
+                             ref);
         CFRelease(ref);
-      
-        VTSessionSetProperty(session, kVTCompressionPropertyKey_RealTime, kCFBooleanTrue);
-        VTSessionSetProperty(session, kVTCompressionPropertyKey_ProfileLevel, kVTProfileLevel_H264_Baseline_AutoLevel);
+        
+        VTSessionSetProperty(session,
+                             kVTCompressionPropertyKey_RealTime,
+                             kCFBooleanTrue);
+        VTSessionSetProperty(session,
+                             kVTCompressionPropertyKey_ProfileLevel,
+                             kVTProfileLevel_H264_Baseline_AutoLevel);
         
         // 开始编码
         status = VTCompressionSessionPrepareToEncodeFrames(session);
@@ -99,19 +121,19 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
     }
 }
 
-- (void) encode:(CMSampleBufferRef )sampleBuffer {
+- (void) encode:(CMSampleBufferRef)sampleBuffer size:(CGSize)size {
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     
-    if(session == NULL) {
-        [self initSession];
+    if(session == NULL || size.width > 0) {
+        [self initSessionWithSize:size];
     }
     
     if( session != NULL && sampleBuffer != NULL) {
         // Create properties
         
         CMTime timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
-        CMTime pts = CMTimeMake(CMTimeGetSeconds(timestamp), 1000.0);
-        NSLog(@"%lld", pts.value);
+//        CMTime pts = CMTimeMake(CMTimeGetSeconds(timestamp), 1000.0);
+//        NSLog(@"%f", CMTimeGetSeconds(pts));
        
         VTEncodeInfoFlags flags;
         

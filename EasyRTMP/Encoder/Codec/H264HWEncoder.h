@@ -24,8 +24,7 @@
 }
 
 - (void) invalidate;
-- (void) setOutputSize:(CGSize)size;
-- (void) encode:(CMSampleBufferRef )sampleBuffer;
+- (void) encode:(CMSampleBufferRef)sampleBuffer size:(CGSize)size;
 
 @property (weak, nonatomic) id<H264HWEncoderDelegate> delegate;
 

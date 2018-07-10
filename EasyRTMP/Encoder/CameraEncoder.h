@@ -9,16 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
+#import <UIKit/UIKit.h>
 
 #import "H264HWEncoder.h"
-
-#import <UIKit/UIKit.h>
 #import "AACEncoder.h"
 #import "EasyRTMPAPI.h"
 
 @protocol ConnectDelegate<NSObject>
 
 - (void)getConnectStatus:(NSString *)status isFist:(int)tag;
+
+- (void)sendPacketFrameLength:(unsigned int)length;
 
 @end
 
@@ -45,14 +46,19 @@
 @property (nonatomic, strong) AVCaptureVideoDataOutput   *videoOutput;
 @property (nonatomic, strong) AVCaptureConnection        *videoConnection;
 @property (nonatomic, strong) AVCaptureConnection        *audioConnection;
-@property (nonatomic, strong)AVCaptureSession           *videoCaptureSession;
+@property (nonatomic, strong) AVCaptureSession           *videoCaptureSession;
 
-@property(nonatomic , weak) id<ConnectDelegate> delegate;
+@property (nonatomic) AVCaptureVideoOrientation orientation;
+
+@property (nonatomic, assign) CGSize outputSize;
+
+@property (nonatomic, weak) id<ConnectDelegate> delegate;
 
 - (void) initCameraWithOutputSize:(CGSize)size;
+- (void) activate;
 
 - (void) startCapture;
-- (void) startCamera;
+- (void) startCamera:(NSString *)hostUrl;
 - (void) stopCamera;
 
 - (void) swapFrontAndBackCameras;

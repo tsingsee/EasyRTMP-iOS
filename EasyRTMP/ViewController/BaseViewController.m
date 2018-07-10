@@ -41,6 +41,12 @@
     NSLog(@"%@ dealloc", NSStringFromClass([self class]));
 }
 
+#pragma mark - StatusBar
+
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - private method
 
 - (UIBarButtonItem *)rt_customBackItemWithTarget:(id)target action:(SEL)action {

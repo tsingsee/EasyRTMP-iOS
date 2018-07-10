@@ -20,7 +20,6 @@
 		04C61CB020F48B5200D755D9 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C61CAF20F48B5200D755D9 /* PhotoViewController.m */; };
 		04DF407620F2FE120002EAB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DF407420F2FE120002EAB9 /* Main.storyboard */; };
 		04F7286D20F2F2460089EDCA /* libEasyRTMP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F7286020F2F2460089EDCA /* libEasyRTMP.a */; };
-		04F7286E20F2F2460089EDCA /* H264HWDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7286720F2F2460089EDCA /* H264HWDecoder.m */; };
 		04F7286F20F2F2460089EDCA /* AACEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7286820F2F2460089EDCA /* AACEncoder.m */; };
 		04F7287020F2F2460089EDCA /* H264Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7286920F2F2460089EDCA /* H264Packet.m */; };
 		04F7287120F2F2460089EDCA /* H264HWEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7286A20F2F2460089EDCA /* H264HWEncoder.m */; };
@@ -85,11 +84,9 @@
 		04F7286420F2F2460089EDCA /* H264Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = H264Packet.h; sourceTree = "<group>"; };
 		04F7286520F2F2460089EDCA /* AACEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AACEncoder.h; sourceTree = "<group>"; };
 		04F7286620F2F2460089EDCA /* H264HWEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = H264HWEncoder.h; sourceTree = "<group>"; };
-		04F7286720F2F2460089EDCA /* H264HWDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = H264HWDecoder.m; sourceTree = "<group>"; };
 		04F7286820F2F2460089EDCA /* AACEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AACEncoder.m; sourceTree = "<group>"; };
 		04F7286920F2F2460089EDCA /* H264Packet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = H264Packet.m; sourceTree = "<group>"; };
 		04F7286A20F2F2460089EDCA /* H264HWEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = H264HWEncoder.m; sourceTree = "<group>"; };
-		04F7286B20F2F2460089EDCA /* H264HWDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = H264HWDecoder.h; sourceTree = "<group>"; };
 		04F7286C20F2F2460089EDCA /* CameraEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraEncoder.m; sourceTree = "<group>"; };
 		04F7287420F2F26D0089EDCA /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04F7287520F2F26D0089EDCA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -237,12 +234,10 @@
 			children = (
 				04F7286520F2F2460089EDCA /* AACEncoder.h */,
 				04F7286820F2F2460089EDCA /* AACEncoder.m */,
-				04F7286420F2F2460089EDCA /* H264Packet.h */,
-				04F7286920F2F2460089EDCA /* H264Packet.m */,
-				04F7286B20F2F2460089EDCA /* H264HWDecoder.h */,
-				04F7286720F2F2460089EDCA /* H264HWDecoder.m */,
 				04F7286620F2F2460089EDCA /* H264HWEncoder.h */,
 				04F7286A20F2F2460089EDCA /* H264HWEncoder.m */,
+				04F7286420F2F2460089EDCA /* H264Packet.h */,
+				04F7286920F2F2460089EDCA /* H264Packet.m */,
 			);
 			path = Codec;
 			sourceTree = "<group>";
@@ -347,8 +342,8 @@
 				04C61CA720F484F300D755D9 /* View */,
 				667D99D82007AD8F00F580D7 /* ViewController */,
 				04DF407820F3352F0002EAB9 /* DataLayer */,
-				04F7285D20F2F2460089EDCA /* EasyRTMPLib */,
 				04F7286120F2F2460089EDCA /* Encoder */,
+				04F7285D20F2F2460089EDCA /* EasyRTMPLib */,
 				F6C5102D1D858306001EB536 /* Supporting Files */,
 			);
 			path = EasyRTMP;
@@ -487,7 +482,6 @@
 				04F7287020F2F2460089EDCA /* H264Packet.m in Sources */,
 				047A9E1220F37C25003CC39F /* ScanViewController.m in Sources */,
 				A1195C581E69A22300535E11 /* ResolutionViewController.m in Sources */,
-				04F7286E20F2F2460089EDCA /* H264HWDecoder.m in Sources */,
 				04C61CA220F44B1500D755D9 /* ResolutionViewController2.m in Sources */,
 				A1195D2F1E73D81E00535E11 /* NoNetTableViewCell.m in Sources */,
 				04F7286F20F2F2460089EDCA /* AACEncoder.m in Sources */,

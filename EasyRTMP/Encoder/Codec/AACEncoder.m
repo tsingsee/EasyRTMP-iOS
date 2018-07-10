@@ -59,13 +59,18 @@
     if (!_audioConverter) {
         [self setupEncoderFromSampleBuffer:sampleBuffer];
     }
+    
     CMBlockBufferRef blockBuffer = CMSampleBufferGetDataBuffer(sampleBuffer);
+    if (blockBuffer == nil) {
+        return;
+    }
+    
     CFRetain(blockBuffer);
     OSStatus status = CMBlockBufferGetDataPointer(blockBuffer, 0, NULL, &_pcmBufferSize, &_pcmBuffer);
     NSError *error = nil;
     if (status != kCMBlockBufferNoErr) {
         error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
-        NSLog(@"err:%@",error);
+//        NSLog(@"err:%@",error);
     }
     
     memset(_aacBuffer, 0, _aacBufferSize);
@@ -91,7 +96,7 @@
         data = rawAAC;
     } else {
         error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
-        NSLog(@"%@",error);
+//        NSLog(@"%@",error);
     }
     if (self.delegate != nil) {
         dispatch_async(_callbackQueue, ^{
@@ -197,7 +202,7 @@ static OSStatus inInputDataProc(AudioConverterRef inAudioConverter, UInt32 *ioNu
 //    NSLog(@"Number of packets requested: %d", (unsigned int)requestedPackets);
     size_t copiedSize = [encoder copyPCMBuffer:ioData];
     if (copiedSize < requestedPackets * 2) {
-        NSLog(@"PCM buffer isn't full enough!");
+//        NSLog(@"PCM buffer isn't full enough!");
         *ioNumberDataPackets = 0;
         return -1;
     }

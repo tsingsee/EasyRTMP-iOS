@@ -21,31 +21,31 @@
 
 typedef struct __EASY_AV_Frame
 {
-    Easy_U32    u32AVFrameFlag;		/* å¸§æ ‡å¿—  è§†é¢‘ or éŸ³é¢‘ */
-    Easy_U32    u32AVFrameLen;		/* å¸§çš„é•¿åº¦ */
-    Easy_U32    u32VFrameType;		/* è§†é¢‘çš„ç±»å‹ï¼ŒIå¸§æˆ–På¸§ */
-    Easy_U8     *pBuffer;			/* æ•°æ® */
-	Easy_U32	u32TimestampSec;	/* æ—¶é—´æˆ³(ç§’)*/
-	Easy_U32	u32TimestampUsec;	/* æ—¶é—´æˆ³(å¾®ç§’) */
+    Easy_U32    u32AVFrameFlag;		/* Ö¡±êÖ¾  ÊÓÆµ or ÒôÆµ */
+    Easy_U32    u32AVFrameLen;		/* Ö¡µÄ³¤¶È */
+    Easy_U32    u32VFrameType;		/* ÊÓÆµµÄÀàĞÍ£¬IÖ¡»òPÖ¡ */
+    Easy_U8     *pBuffer;			/* Êı¾İ */
+	Easy_U32	u32TimestampSec;	/* Ê±¼ä´Á(Ãë)*/
+	Easy_U32	u32TimestampUsec;	/* Ê±¼ä´Á(Î¢Ãë) */
 } EASY_AV_Frame;
 
-/* æ¨é€äº‹ä»¶ç±»å‹å®šä¹‰ */
+/* ÍÆËÍÊÂ¼şÀàĞÍ¶¨Òå */
 typedef enum __EASY_RTMP_STATE_T
 {
-    EASY_RTMP_STATE_CONNECTING   =   1,     /* è¿æ¥ä¸­ */
-    EASY_RTMP_STATE_CONNECTED,              /* è¿æ¥æˆåŠŸ */
-    EASY_RTMP_STATE_CONNECT_FAILED,         /* è¿æ¥å¤±è´¥ */
-    EASY_RTMP_STATE_CONNECT_ABORT,          /* è¿æ¥å¼‚å¸¸ä¸­æ–­ */
-    EASY_RTMP_STATE_PUSHING,                /* æ¨æµä¸­ */
-    EASY_RTMP_STATE_DISCONNECTED,           /* æ–­å¼€è¿æ¥ */
+    EASY_RTMP_STATE_CONNECTING   =   1,     /* Á¬½ÓÖĞ */
+    EASY_RTMP_STATE_CONNECTED,              /* Á¬½Ó³É¹¦ */
+    EASY_RTMP_STATE_CONNECT_FAILED,         /* Á¬½ÓÊ§°Ü */
+    EASY_RTMP_STATE_CONNECT_ABORT,          /* Á¬½ÓÒì³£ÖĞ¶Ï */
+    EASY_RTMP_STATE_PUSHING,                /* ÍÆÁ÷ÖĞ */
+    EASY_RTMP_STATE_DISCONNECTED,           /* ¶Ï¿ªÁ¬½Ó */
     EASY_RTMP_STATE_ERROR
 } EASY_RTMP_STATE_T;
 
 /*
 	_frameType:		EASY_SDK_VIDEO_FRAME_FLAG/EASY_SDK_AUDIO_FRAME_FLAG/EASY_SDK_EVENT_FRAME_FLAG/...	
-	_pBuf:			å›è°ƒçš„æ•°æ®éƒ¨åˆ†ï¼Œå…·ä½“ç”¨æ³•çœ‹Demo
-	_frameInfo:		å¸§ç»“æ„æ•°æ®
-	_userPtr:		ç”¨æˆ·è‡ªå®šä¹‰æ•°æ®
+	_pBuf:			»Øµ÷µÄÊı¾İ²¿·Ö£¬¾ßÌåÓÃ·¨¿´Demo
+	_frameInfo:		Ö¡½á¹¹Êı¾İ
+	_userPtr:		ÓÃ»§×Ô¶¨ÒåÊı¾İ
 */
 typedef int (*EasyRTMPCallBack)(int _frameType, char *pBuf, EASY_RTMP_STATE_T _state, void *_userPtr);
 
@@ -53,29 +53,29 @@ typedef int (*EasyRTMPCallBack)(int _frameType, char *pBuf, EASY_RTMP_STATE_T _s
 extern "C" 
 {
 #endif
-	/* æ¿€æ´»EasyRTMP */
+	/* ¼¤»îEasyRTMP */
 #ifdef ANDROID
 	EasyRTMP_API Easy_I32 Easy_APICALL EasyRTMP_Activate(char *license, char* userPtr);
 #else
 	EasyRTMP_API Easy_I32 Easy_APICALL EasyRTMP_Activate(char *license);
 #endif
 
-	/* åˆ›å»ºRTMPæ¨é€Session è¿”å›æ¨é€å¥æŸ„ */
+	/* ´´½¨RTMPÍÆËÍSession ·µ»ØÍÆËÍ¾ä±ú */
 	EasyRTMP_API Easy_RTMP_Handle Easy_APICALL EasyRTMP_Create(void);
 
-	/* è®¾ç½®æ•°æ®å›è°ƒ */
+	/* ÉèÖÃÊı¾İ»Øµ÷ */
 	EasyRTMP_API Easy_I32 Easy_APICALL EasyRTMP_SetCallback(Easy_RTMP_Handle handle, EasyRTMPCallBack _callback, void * _userptr);
 
-	/* åˆ›å»ºRTMPæ¨é€çš„å‚æ•°ä¿¡æ¯ */
+	/* ´´½¨RTMPÍÆËÍµÄ²ÎÊıĞÅÏ¢ */
 	EasyRTMP_API Easy_I32 Easy_APICALL EasyRTMP_InitMetadata(Easy_RTMP_Handle handle, EASY_MEDIA_INFO_T*  pstruStreamInfo, Easy_U32 bufferKSize);
 	
-	/* è¿æ¥RTMPæœåŠ¡å™¨ */
+	/* Á¬½ÓRTMP·şÎñÆ÷ */
 	EasyRTMP_API Easy_Bool Easy_APICALL EasyRTMP_Connect(Easy_RTMP_Handle handle, const char *url);
 
-	/* æ¨é€H264æˆ–AACæµ */
+	/* ÍÆËÍH264»òAACÁ÷ */
 	EasyRTMP_API Easy_U32 Easy_APICALL EasyRTMP_SendPacket(Easy_RTMP_Handle handle, EASY_AV_Frame* frame);
 
-	/* åœæ­¢RTMPæ¨é€ï¼Œé‡Šæ”¾å¥æŸ„ */
+	/* Í£Ö¹RTMPÍÆËÍ£¬ÊÍ·Å¾ä±ú */
 	EasyRTMP_API void Easy_APICALL EasyRTMP_Release(Easy_RTMP_Handle handle);
 
 #ifdef __cplusplus

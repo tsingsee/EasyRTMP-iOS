@@ -7,11 +7,8 @@
 //
 
 #import "BaseViewController.h"
-#import "CameraEncoder.h"
 
-@interface PushViewController : BaseViewController {
-    CameraEncoder *encoder;
-}
+@interface PushViewController : BaseViewController
 
 - (instancetype) initWithStoryboard;
 

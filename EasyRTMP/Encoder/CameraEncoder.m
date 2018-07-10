@@ -7,13 +7,8 @@
 //
 
 #import "CameraEncoder.h"
+#include <pthread.h>
 #import "URLTool.h"
-
-char* ConfigName	= "ios11.sdp";      // Default Push StreamName
-char* ConfigUName	= "admin";			// SDK UserName
-char* ConfigPWD		= "admin";			// SDK Password
-char* ConfigDHost	= "192.168.66.189";	// SDK Host
-char* ConfigDPort	= "80";				// SDK Port
 
 static CameraEncoder *selfClass = nil;
 
@@ -21,24 +16,44 @@ static CameraEncoder *selfClass = nil;
     Easy_I32 isActivated;
     Easy_RTMP_Handle handle;
     
+    CGSize temp_outputSize;
+    
     dispatch_queue_t encodeQueue;
     
-//    NSString *h264File;
-//    NSString *aacFile;
-//    NSFileHandle *fileH264Handle;
-//    NSFileHandle *fileAACHandle;
+    dispatch_source_t _timer;
+    
+    pthread_mutex_t releaseLock;
 }
 
 @property (nonatomic, strong) H264HWEncoder *h264Encoder;
 @property (nonatomic, strong) AACEncoder *aacEncoder;
 
+@property (nonatomic, assign) int sendFrameLength;
+
 @end
 
 @implementation CameraEncoder
 
+- (void) setOutputSize:(CGSize)outputSize {
+    _outputSize = outputSize;
+    
+    temp_outputSize = CGSizeMake(_outputSize.width, _outputSize.height);
+}
+
+- (void) setOrientation:(AVCaptureVideoOrientation)orientation {
+    _orientation = orientation;
+    
+    if (_videoConnection) {
+        _videoConnection.videoOrientation = self.orientation;
+    }
+}
+
 - (void)initCameraWithOutputSize:(CGSize)size {
+    self.outputSize = size;
+    
+    pthread_mutex_init(&releaseLock, 0);
+    
     self.h264Encoder = [[H264HWEncoder alloc] init];
-    [self.h264Encoder setOutputSize:size];
     self.h264Encoder.delegate = self;
     
 #if TARGET_OS_IPHONE
@@ -48,19 +63,10 @@ static CameraEncoder *selfClass = nil;
     
     _running = NO;
     
-    // 激活授权码
-    if (EasyRTMP_Activate("7939703779662B32734B77414B694A5A707433527550644659584E35556C524E55434E58444661672B376A67523246326157346D516D466962334E68514449774D545A4659584E355247467964326C75564756686257566863336B3D") == 0) {
-        if (_delegate) {
-            [_delegate getConnectStatus:@"激活成功" isFist:1];
-        }
-    } else {
-        [_delegate getConnectStatus:@"激活失败" isFist:1];
-    }
+    [self activate];
     
-//    EasyPusher_SetEventCallback(handle,easyPusher_Callback, 1, "123");
-    
-    _encodeVideoQueue = dispatch_queue_create( "encodeVideoQueue", DISPATCH_QUEUE_SERIAL );
-    _encodeAudioQueue = dispatch_queue_create( "encodeAudioQueue", DISPATCH_QUEUE_SERIAL );
+    _encodeVideoQueue = dispatch_queue_create("encodeVideoQueue", DISPATCH_QUEUE_SERIAL);
+    _encodeAudioQueue = dispatch_queue_create("encodeAudioQueue", DISPATCH_QUEUE_SERIAL);
     
     CMSimpleQueueCreate(kCFAllocatorDefault, 2, &vbuffQueue);
     CMSimpleQueueCreate(kCFAllocatorDefault, 2, &abuffQueue);
@@ -73,11 +79,24 @@ static CameraEncoder *selfClass = nil;
     selfClass = self;
 }
 
+- (void) activate {
+    // 激活授权码
+    if (EasyRTMP_Activate("7939703779662B32734B77414B694A5A707433527550644659584E35556C524E55434E58444661672B376A67523246326157346D516D466962334E68514449774D545A4659584E355247467964326C75564756686257566863336B3D") == 0) {
+        if (_delegate) {
+            [_delegate getConnectStatus:@"激活成功" isFist:1];
+        }
+    } else {
+        [_delegate getConnectStatus:@"激活失败" isFist:1];
+    }
+}
+
 - (void)dealloc {
 #if TARGET_OS_IPHONE
     [self.h264Encoder invalidate];
 #endif
     _running = NO;
+    
+    pthread_mutex_destroy(&releaseLock);
 }
 
 #pragma mark - 设置音频采集配置
@@ -90,13 +109,14 @@ static CameraEncoder *selfClass = nil;
     if (error) {
         NSLog(@"Error getting audio input device:%@",error.description);
     }
+    
     if ([self.videoCaptureSession canAddInput:audioInput]) {
         [self.videoCaptureSession addInput:audioInput];
     }
-
+    
     self.AudioQueue = dispatch_queue_create("Audio Capture Queue", DISPATCH_QUEUE_SERIAL);
     AVCaptureAudioDataOutput *audioOutput = [AVCaptureAudioDataOutput new];
-
+    
     [audioOutput setSampleBufferDelegate:self queue:self.AudioQueue];
     
     if ([self.videoCaptureSession canAddOutput:audioOutput]) {
@@ -108,11 +128,6 @@ static CameraEncoder *selfClass = nil;
 #pragma mark - 设置视频采集配置
 
 - (void)setupVideoCapture {
-//    if ([self.videoCaptureSession canSetSessionPreset:AVCaptureSessionPreset1280x720]) {
-//        // 设置分辨率
-//        self.videoCaptureSession.sessionPreset = AVCaptureSessionPreset1280x720;
-//    }
-    
     NSString *resolution = [URLTool gainResolition];
     if ([resolution isEqualToString:@"480*640"]) {
         if ([self.videoCaptureSession canSetSessionPreset:AVCaptureSessionPreset640x480]) {
@@ -165,7 +180,7 @@ static CameraEncoder *selfClass = nil;
     }
     // 设置采集图像的方向,如果不设置，采集回来的图形会是旋转90度的
     _videoConnection = [_videoOutput connectionWithMediaType:AVMediaTypeVideo];
-    _videoConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
+    _videoConnection.videoOrientation = self.orientation;
     // 保存Connection,用于SampleBufferDelegate中判断数据来源(video or audio?)
     _videoConnection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
     _videoConnection = [_videoOutput connectionWithMediaType:AVMediaTypeVideo];
@@ -180,24 +195,24 @@ static CameraEncoder *selfClass = nil;
 
 - (void)swapFrontAndBackCameras {
     // Assume the session is already _running
-    NSArray *inputs =self.videoCaptureSession.inputs;
-    for (AVCaptureDeviceInput *input in inputs ) {
+    NSArray *inputs = self.videoCaptureSession.inputs;
+    for (AVCaptureDeviceInput *input in inputs) {
         AVCaptureDevice *device = input.device;
-        if ( [device hasMediaType:AVMediaTypeVideo] ) {
+        if ([device hasMediaType:AVMediaTypeVideo]) {
             AVCaptureDevicePosition position = device.position;
-            AVCaptureDevice *newCamera =nil;
-            AVCaptureDeviceInput *newInput =nil;
+            AVCaptureDevice *newCamera = nil;
+            AVCaptureDeviceInput *newInput = nil;
             CATransition *animation = [CATransition animation];
             animation.duration = .5f;
             animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
             animation.type = @"oglFlip";
             
-            if (position ==AVCaptureDevicePositionFront){
+            if (position == AVCaptureDevicePositionFront) {
                 newCamera = [self cameraWithPosition:AVCaptureDevicePositionBack];
-                animation.subtype = kCATransitionFromLeft;//动画翻转方向
+                animation.subtype = kCATransitionFromLeft;// 动画翻转方向
             } else {
                 newCamera = [self cameraWithPosition:AVCaptureDevicePositionFront];
-                animation.subtype = kCATransitionFromRight;//动画翻转方向
+                animation.subtype = kCATransitionFromRight;// 动画翻转方向
             }
             
             newInput = [AVCaptureDeviceInput deviceInputWithDevice:newCamera error:nil];
@@ -225,7 +240,7 @@ static CameraEncoder *selfClass = nil;
             }
             // 设置采集图像的方向,如果不设置，采集回来的图形会是旋转90度的
             _videoConnection = [new_videoOutput connectionWithMediaType:AVMediaTypeVideo];
-            _videoConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
+            _videoConnection.videoOrientation = self.orientation;
             // 保存Connection,用于SampleBufferDelegate中判断数据来源(video or audio?)
             _videoConnection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
             _videoConnection = [new_videoOutput connectionWithMediaType:AVMediaTypeVideo];
@@ -267,8 +282,8 @@ static CameraEncoder *selfClass = nil;
     
     if (![URLTool gainOnlyAudio]) {
         if (inputs.count < 2) {
-            AVCaptureDevice *newCamera =nil;
-            AVCaptureDeviceInput *newInput =nil;
+            AVCaptureDevice *newCamera = nil;
+            AVCaptureDeviceInput *newInput = nil;
             newCamera = [self cameraWithPosition:AVCaptureDevicePositionBack];
             newInput = [AVCaptureDeviceInput deviceInputWithDevice:newCamera error:nil];
             
@@ -295,7 +310,7 @@ static CameraEncoder *selfClass = nil;
             
             // 设置采集图像的方向,如果不设置，采集回来的图形会是旋转90度的
             _videoConnection = [new_videoOutput connectionWithMediaType:AVMediaTypeVideo];
-            _videoConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
+            _videoConnection.videoOrientation = self.orientation;
             // 保存Connection,用于SampleBufferDelegate中判断数据来源(video or audio?)
             _videoConnection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
             _videoConnection = [new_videoOutput connectionWithMediaType:AVMediaTypeVideo];
@@ -333,8 +348,16 @@ static CameraEncoder *selfClass = nil;
     [self.videoCaptureSession startRunning];
 }
 
-- (void) startCamera {
-    if (!handle) {
+- (void) startCamera:(NSString *)hostUrl {
+    if (handle) {
+        return;
+    }
+    
+    if (_outputSize.width == 0) {
+        _outputSize = CGSizeMake(temp_outputSize.width, temp_outputSize.height);
+    }
+    
+    if (handle == NULL) {
         handle = EasyRTMP_Create();
         EasyRTMP_SetCallback(handle, easyPusher_Callback, "123");
     }
@@ -348,21 +371,30 @@ static CameraEncoder *selfClass = nil;
         mediainfo.u32VideoFps = ~0; //~0只传音频
     }
     
-    mediainfo.u32AudioCodec = EASY_SDK_AUDIO_CODEC_AAC;//SDK output Audio PCMA
+    mediainfo.u32AudioCodec = EASY_SDK_AUDIO_CODEC_AAC;// SDK output Audio PCMA
     mediainfo.u32AudioSamplerate = 44100;
     mediainfo.u32AudioChannel = 2;
     mediainfo.u32AudioBitsPerSample = 16;
-    NSString *url = [URLTool gainURL];
-    EasyRTMP_Connect(handle, [url cStringUsingEncoding:NSUTF8StringEncoding]);
+    
+    EasyRTMP_Connect(handle, [hostUrl cStringUsingEncoding:NSUTF8StringEncoding]);
     EasyRTMP_InitMetadata(handle, &mediainfo, 1024);
-//    _running = YES;
 }
 
 - (void) stopCamera {
+    if (handle == NULL) {
+        return;
+    }
+    
     _running = NO;
     [self.h264Encoder invalidate];
+    
+    // EasyRTMP_Release完成后，才能继续
+    pthread_mutex_lock(&releaseLock);
+    
     EasyRTMP_Release(handle);
-    handle = nil;
+    handle = NULL;
+    
+    pthread_mutex_unlock(&releaseLock);
 }
 
 #pragma mark - 连接状态回调
@@ -376,8 +408,8 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
     } else if (_state == EASY_RTMP_STATE_CONNECTED) {
         if (selfClass.delegate) {
             [selfClass.delegate getConnectStatus:@"连接成功" isFist:0];
+            NSLog(@"连接成功");
             selfClass.running = YES;
-             NSLog(@"连接成功");
         }
     } else if (_state == EASY_RTMP_STATE_CONNECT_FAILED) {
         if (selfClass.delegate) {
@@ -387,11 +419,12 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
     } else if (_state == EASY_RTMP_STATE_CONNECT_ABORT) {
         if (selfClass.delegate) {
             [selfClass.delegate getConnectStatus:@"连接异常中断" isFist:0];
-             NSLog(@"连接异常中断");
+            NSLog(@"连接异常中断");
         }
     } else if (_state == EASY_RTMP_STATE_PUSHING) {
         if (selfClass.delegate) {
             [selfClass.delegate getConnectStatus:@"推流中" isFist:0];
+            NSLog(@"推流中");
         }
     } else if (_state == EASY_RTMP_STATE_DISCONNECTED) {
         if (selfClass.delegate) {
@@ -407,29 +440,34 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
 
 -(void) captureOutput:(AVCaptureOutput*)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection*)connection {
     CFRetain(sampleBuffer);
-    if(connection == self.videoConnection) {
-        if (_running) {
-            dispatch_async(encodeQueue, ^{
-                if (![URLTool gainOnlyAudio]) {
-                    [self.h264Encoder encode:sampleBuffer];
-                } else {
-                    [self.h264Encoder encode:sampleBuffer];
-                }
-                
-                CFRelease(sampleBuffer);
-            });
-        }
-    } else if(connection == self.audioConnection) {
-        if (_running) {
-            dispatch_async(encodeQueue, ^{
-                [self.aacEncoder encode:sampleBuffer];
-                CFRelease(sampleBuffer);
-            });
-        }
-    }
     
     if (!_running) {
         CFRelease(sampleBuffer);
+    } else {
+        if(connection == self.videoConnection) {
+            if (_running) {
+                dispatch_async(encodeQueue, ^{
+                    if (![URLTool gainOnlyAudio]) {
+                        [self.h264Encoder encode:sampleBuffer size:self.outputSize];
+                    } else {
+                        [self.h264Encoder encode:sampleBuffer size:self.outputSize];
+                    }
+                    
+                    // 输出尺寸置空，则不需要再初始化VTCompressionSessionRef
+                    self.outputSize = CGSizeMake(0, 0);
+                    
+                    CFRelease(sampleBuffer);
+                });
+            }
+        } else if(connection == self.audioConnection) {
+            if (_running) {
+                dispatch_async(encodeQueue, ^{
+                    [self.aacEncoder encode:sampleBuffer];
+                    
+                    CFRelease(sampleBuffer);
+                });
+            }
+        }
     }
 }
 
@@ -437,22 +475,27 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
     NSLog(@"drop frame");
 }
 
-#pragma mark -  H264HWEncoderDelegate declare
+#pragma mark - H264HWEncoderDelegate declare
 
 - (void)gotH264EncodedData:(NSData *)packet keyFrame:(BOOL)keyFrame timestamp:(CMTime)timestamp error:(NSError*)error {
-//    CGFloat secs = CMTimeGetSeconds(timestamp);
-//    UInt32 uSecs = (secs - (int)secs) * 1000 * 1000;
-    
     EASY_AV_Frame frame;
-    frame.pBuffer=(void*)packet.bytes;
-    frame.u32AVFrameFlag=EASY_SDK_VIDEO_FRAME_FLAG;
-    frame.u32AVFrameLen=(Easy_U32)packet.length;
+    frame.pBuffer = (void*) packet.bytes;
+    
+    if (frame.pBuffer == NULL) {
+        return;
+    }
+    
+    frame.u32AVFrameFlag = EASY_SDK_VIDEO_FRAME_FLAG;
+    frame.u32AVFrameLen = (Easy_U32)packet.length;
     frame.u32TimestampSec = 0;
     frame.u32TimestampUsec = 0;
-    frame.u32VFrameType= keyFrame ? EASY_SDK_VIDEO_FRAME_I : EASY_SDK_VIDEO_FRAME_P;
+    frame.u32VFrameType = keyFrame ? EASY_SDK_VIDEO_FRAME_I : EASY_SDK_VIDEO_FRAME_P;
     
     if(_running) {
-        EasyRTMP_SendPacket(handle, &frame);
+        int result = EasyRTMP_SendPacket(handle, &frame);
+        if (result == 0) {
+            [self sendPacket:frame.u32AVFrameLen];
+        }
     }
 }
 
@@ -460,23 +503,45 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
 #pragma mark - AACEncoderDelegate declare
 
 - (void)gotAACEncodedData:(NSData *)data timestamp:(CMTime)timestamp error:(NSError*)error {
-//    CGFloat secs = CMTimeGetSeconds(timestamp);
-//    UInt32 uSecs = (secs - (int)secs) * 1000 * 1000;
-    
     EASY_AV_Frame frame;
-    frame.pBuffer=(void*)[data bytes];
+    frame.pBuffer = (void*)[data bytes];
+    
+    if (frame.pBuffer == NULL) {
+        return;
+    }
+    
     frame.u32AVFrameLen = (Easy_U32)[data length];
     frame.u32VFrameType = EASY_SDK_AUDIO_CODEC_AAC;
-    frame.u32AVFrameFlag=EASY_SDK_AUDIO_FRAME_FLAG;
-   
+    frame.u32AVFrameFlag = EASY_SDK_AUDIO_FRAME_FLAG;
+    
     frame.u32TimestampSec= 0;//(Easy_U32)timestamp.value/timestamp.timescale;
     frame.u32TimestampUsec = 0;//timestamp.value%timestamp.timescale;
     
     if(_running) {
-        EasyRTMP_SendPacket(handle, &frame);
+        int result = EasyRTMP_SendPacket(handle, &frame);
+        if (result == 0) {
+            [self sendPacket:frame.u32AVFrameLen];
+        }
     }
 }
 
 #endif
+
+- (void) sendPacket:(unsigned int)u32AVFrameLen {
+    self.sendFrameLength += u32AVFrameLen;
+    
+    if (!_timer) {
+        NSTimeInterval period = 1.0; // 设置时间间隔
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+        dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), period * NSEC_PER_SEC, 0);
+        dispatch_source_set_event_handler(_timer, ^{
+            [self.delegate sendPacketFrameLength:self.sendFrameLength / 1];
+            self.sendFrameLength = 0;
+        });
+        
+        dispatch_resume(_timer);
+    }
+}
 
 @end
