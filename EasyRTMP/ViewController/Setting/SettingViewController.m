@@ -102,8 +102,6 @@
 
 // 保存
 - (IBAction)save:(id)sender {
-    [self.view endEditing:YES];
-    
     [URLTool saveURL:self.textView.text];
     
     if (self.audioBtn.selected) {

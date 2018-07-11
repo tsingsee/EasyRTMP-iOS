@@ -265,58 +265,57 @@ static CameraEncoder *selfClass = nil;
 
 - (void) changeCameraStatus:(BOOL) onlyAudio {
     self.onlyAudio = onlyAudio;
-    
-    NSArray *inputs = self.videoCaptureSession.inputs;
-    
-    if (self.onlyAudio) {
-        // 只传音频，则删除视频源
-        for (AVCaptureDeviceInput *input in inputs) {
-            AVCaptureDevice *device = input.device;
-            if ([device hasMediaType:AVMediaTypeVideo]) {
-                [self.videoCaptureSession beginConfiguration];
-                
-                [self.videoCaptureSession removeInput:input];
-                [self.videoCaptureSession removeOutput:self.videoOutput];
-                
-                [self.videoCaptureSession commitConfiguration];
-            }
-        }
-    } else {
-        if (inputs.count < 2) {
-            AVCaptureDevice *newCamera = nil;
-            AVCaptureDeviceInput *newInput = nil;
-            newCamera = [self cameraWithPosition:AVCaptureDevicePositionBack];
-            newInput = [AVCaptureDeviceInput deviceInputWithDevice:newCamera error:nil];
-            
-            [self.videoCaptureSession beginConfiguration];
-            
-            if ([self.videoCaptureSession canAddInput:newInput]) {
-                [self.videoCaptureSession addInput:newInput];
-            }
-            
-            AVCaptureVideoDataOutput *new_videoOutput = [AVCaptureVideoDataOutput new];
-            _videoOutput = new_videoOutput;
-            [new_videoOutput setSampleBufferDelegate:self queue:_videoQueue];
-            
-            // 配置输出视频图像格式
-            NSDictionary *captureSettings = @{(NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
-            new_videoOutput.videoSettings = captureSettings;
-            new_videoOutput.alwaysDiscardsLateVideoFrames = YES;
-            if ([self.videoCaptureSession canAddOutput:new_videoOutput]) {
-                [self.videoCaptureSession addOutput:new_videoOutput];
-            }
-            
-            // 设置采集图像的方向,如果不设置，采集回来的图形会是旋转90度的
-            _videoConnection = [new_videoOutput connectionWithMediaType:AVMediaTypeVideo];
-            _videoConnection.videoOrientation = self.orientation;
-            // 保存Connection,用于SampleBufferDelegate中判断数据来源(video or audio?)
-            _videoConnection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
-            _videoConnection = [new_videoOutput connectionWithMediaType:AVMediaTypeVideo];
-            
-            // Changes take effect once the outermost commitConfiguration is invoked.
-            [self.videoCaptureSession commitConfiguration];
-        }
-    }
+
+//    NSArray *inputs = self.videoCaptureSession.inputs;
+//    if (self.onlyAudio) {
+//        // 只传音频，则删除视频源
+//        for (AVCaptureDeviceInput *input in inputs) {
+//            AVCaptureDevice *device = input.device;
+//            if ([device hasMediaType:AVMediaTypeVideo]) {
+//                [self.videoCaptureSession beginConfiguration];
+//
+//                [self.videoCaptureSession removeInput:input];
+//                [self.videoCaptureSession removeOutput:self.videoOutput];
+//
+//                [self.videoCaptureSession commitConfiguration];
+//            }
+//        }
+//    } else {
+//        if (inputs.count < 2) {
+//            AVCaptureDevice *newCamera = nil;
+//            AVCaptureDeviceInput *newInput = nil;
+//            newCamera = [self cameraWithPosition:AVCaptureDevicePositionBack];
+//            newInput = [AVCaptureDeviceInput deviceInputWithDevice:newCamera error:nil];
+//
+//            [self.videoCaptureSession beginConfiguration];
+//
+//            if ([self.videoCaptureSession canAddInput:newInput]) {
+//                [self.videoCaptureSession addInput:newInput];
+//            }
+//
+//            AVCaptureVideoDataOutput *new_videoOutput = [AVCaptureVideoDataOutput new];
+//            _videoOutput = new_videoOutput;
+//            [new_videoOutput setSampleBufferDelegate:self queue:_videoQueue];
+//
+//            // 配置输出视频图像格式
+//            NSDictionary *captureSettings = @{(NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
+//            new_videoOutput.videoSettings = captureSettings;
+//            new_videoOutput.alwaysDiscardsLateVideoFrames = YES;
+//            if ([self.videoCaptureSession canAddOutput:new_videoOutput]) {
+//                [self.videoCaptureSession addOutput:new_videoOutput];
+//            }
+//
+//            // 设置采集图像的方向,如果不设置，采集回来的图形会是旋转90度的
+//            _videoConnection = [new_videoOutput connectionWithMediaType:AVMediaTypeVideo];
+//            _videoConnection.videoOrientation = self.orientation;
+//            // 保存Connection,用于SampleBufferDelegate中判断数据来源(video or audio?)
+//            _videoConnection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
+//            _videoConnection = [new_videoOutput connectionWithMediaType:AVMediaTypeVideo];
+//
+//            // Changes take effect once the outermost commitConfiguration is invoked.
+//            [self.videoCaptureSession commitConfiguration];
+//        }
+//    }
 }
 
 #pragma mark - private method

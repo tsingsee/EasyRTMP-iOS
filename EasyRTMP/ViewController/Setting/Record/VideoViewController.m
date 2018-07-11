@@ -48,11 +48,6 @@
 
 #pragma mark - UICollectionViewDataSource
 
-// 总共多少组
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
-
 // 每组cell的个数
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return 20;
@@ -66,13 +61,6 @@
     
     return cell;
 }
-
-//// 头部/底部
-//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-//    UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
-//    headerView.backgroundColor = UIColorFromRGB(0xeeeeee);
-//    return headerView;
-//}
 
 #pragma mark - UICollectionViewDelegate
 
@@ -107,6 +95,7 @@
 
 #pragma mark - setter
 
+// 读取本地录像
 - (void) gainVideoData {
     
     // TODO
