@@ -958,7 +958,7 @@ Cgo
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avw-Ca-1kV">
-                                <rect key="frame" x="50" y="40" width="44" height="44"/>
+                                <rect key="frame" x="10" y="40" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Tty-Hi-NyO"/>
                                     <constraint firstAttribute="width" constant="44" id="UJG-Nm-2gF"/>
@@ -991,7 +991,7 @@ Cgo
                             <constraint firstItem="dQl-mB-fT3" firstAttribute="centerX" secondItem="I95-0f-sbh" secondAttribute="centerX" id="JkJ-9Q-Cwn"/>
                             <constraint firstItem="avw-Ca-1kV" firstAttribute="top" secondItem="I95-0f-sbh" secondAttribute="top" constant="40" id="NLU-HB-uFY"/>
                             <constraint firstItem="6l9-aw-4tV" firstAttribute="top" secondItem="v9P-vB-EHh" secondAttribute="bottom" constant="25" id="NjJ-Jp-5b3"/>
-                            <constraint firstItem="avw-Ca-1kV" firstAttribute="leading" secondItem="I95-0f-sbh" secondAttribute="leading" constant="50" id="YeR-dX-hz7"/>
+                            <constraint firstItem="avw-Ca-1kV" firstAttribute="leading" secondItem="I95-0f-sbh" secondAttribute="leading" constant="10" id="YeR-dX-hz7"/>
                             <constraint firstItem="aaY-Xe-ahZ" firstAttribute="top" secondItem="I95-0f-sbh" secondAttribute="top" id="b7k-he-7a3"/>
                             <constraint firstItem="6l9-aw-4tV" firstAttribute="centerX" secondItem="I95-0f-sbh" secondAttribute="centerX" id="gGz-hF-Sbe"/>
                             <constraint firstItem="v9P-vB-EHh" firstAttribute="top" secondItem="dQl-mB-fT3" secondAttribute="top" id="hT4-Wg-ZPX"/>
