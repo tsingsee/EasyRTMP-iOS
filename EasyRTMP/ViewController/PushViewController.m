@@ -12,7 +12,7 @@
 #import "ResolutionViewController.h"
 #import "SettingViewController.h"
 #import "InfoViewController.h"
-#import "NoNetNotifieViewController.h"
+#import "NetNotifieViewController.h"
 #import "URLTool.h"
 #import "CameraEncoder.h"
 
@@ -56,8 +56,9 @@
     // 推流器
     self.encoder = [[CameraEncoder alloc] init];
     self.encoder.delegate = self;
-    [self.encoder initCameraWithOutputSize:CGSizeMake(HRGScreenWidth, HRGScreenHeight)];
+    [self.encoder initCameraWithOutputSize:CGSizeMake(HRGScreenWidth, HRGScreenHeight) resolution:[self captureSessionPreset]];
     self.encoder.previewLayer.frame = CGRectMake(0, 0, HRGScreenWidth, HRGScreenHeight);
+    self.encoder.orientation = AVCaptureVideoOrientationPortrait;
     [self.contentView.layer addSublayer:self.encoder.previewLayer];
     
     self.prev = self.encoder.previewLayer;
@@ -66,7 +67,7 @@
     
     self.encoder.previewLayer.hidden = NO;
     [self.encoder startCapture];
-    [self.encoder changeCameraStatus];
+    [self.encoder changeCameraStatus:[URLTool gainOnlyAudio]];
     
     // 根据应用生命周期的通知来设置推流器
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(someMethod:) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -87,20 +88,7 @@
     
     [self.resolutionBtn setTitle:[NSString stringWithFormat:@"分辨率：%@", [URLTool gainResolition]] forState:UIControlStateNormal];
     
-    // TODO
-    
-    CGSize size = CGSizeMake(HRGScreenWidth, HRGScreenHeight);
-    int bt = (int)(size.width * size.height * 20 * 2 * 0.04f);
-    if (size.width >= 1920 || size.height >= 1920) {
-        bt *= 0.3;
-    } else if (size.width >= 1280 || size.height >= 1280) {
-        bt *= 0.4;
-    } else if (size.width >= 720 || size.height >= 720) {
-        bt *= 0.6;
-    }
-    
-    // @"帧率:20 码率:100Kbps"
-    self.bitrateLabel.text = [NSString stringWithFormat:@"码率:%.0fKbps", bt / 1000.0];
+    self.bitrateLabel.text = [NSString stringWithFormat:@"码率：0Kbps"];
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
@@ -175,14 +163,31 @@
 
 // 设置页面修改了分辨率后的操作
 - (void)setFinish {
-    [self.encoder changeCameraStatus];
+    [self.encoder changeCameraStatus:[URLTool gainOnlyAudio]];
 }
 
 #pragma mark - EasyResolutionDelegate
 
 - (void)onSelecedesolution:(NSInteger)resolutionNo {
-    [self.encoder swapResolution];
+    [self.encoder swapResolution:[self captureSessionPreset]];
     [self.resolutionBtn setTitle:[NSString stringWithFormat:@"分辨率：%@", [URLTool gainResolition]] forState:UIControlStateNormal];
+}
+
+#pragma mark - private method
+
+- (AVCaptureSessionPreset) captureSessionPreset {
+    NSString *resolution = [URLTool gainResolition];
+    if ([resolution isEqualToString:@"288*352"]) {
+        return AVCaptureSessionPreset352x288;
+    } else if ([resolution isEqualToString:@"480*640"]) {
+        return AVCaptureSessionPreset640x480;
+    } else if ([resolution isEqualToString:@"720*1280"]) {
+        return AVCaptureSessionPreset1280x720;
+    } else if ([resolution isEqualToString:@"1080*1920"]) {
+        return AVCaptureSessionPreset1920x1080;
+    } else {
+        return AVCaptureSessionPreset1280x720;
+    }
 }
 
 #pragma mark - ConnectDelegate
@@ -222,10 +227,10 @@
 
 // 推流速度
 - (void) sendPacketFrameLength:(unsigned int)length {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        NSString *t = [NSString stringWithFormat:@"  %dKB/s", length / 1024];
-//        [_rateBtn setTitle:t forState:UIControlStateNormal];
-//    });
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.bitrateLabel.text = [NSString stringWithFormat:@"码率：%dKB/s", length / 1024];
+//        self.bitrateLabel.text = [NSString stringWithFormat:@"码率：%dkbps", length / 1024];
+    });
 }
 
 #pragma mark - click event
@@ -300,26 +305,16 @@
 
 // 推送
 - (IBAction)push:(id)sender {
+    
+    // 获取联网状态
     __weak typeof(self)weakSelf = self;
-    CTCellularData *cellularData = [[CTCellularData alloc]init];
+    CTCellularData *cellularData = [[CTCellularData alloc] init];
     cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState state) {
-        // 获取联网状态
-        switch (state) {
-            case kCTCellularDataRestricted:
-                NSLog(@"Restricrted");
-//                [weakSelf showAuthorityView];
-                break;
-            case kCTCellularDataNotRestricted:
-                NSLog(@"Not Restricted");
-                break;
-            case kCTCellularDataRestrictedStateUnknown: {
-                [weakSelf showAuthorityView];
-                return;
-            }
-                break;
-            default:
-                break;
-        };
+        if (state == kCTCellularDataRestricted || state == kCTCellularDataRestrictedStateUnknown) {
+            [self.encoder stopCamera];
+            [weakSelf showAuthorityView];
+            return ;
+        }
     };
     
     self.pushBtn.selected = !self.pushBtn.selected;
@@ -357,12 +352,14 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+#pragma mark - network
+
 - (void)showAuthorityView {
     __weak typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            NoNetNotifieViewController *vc = [[NoNetNotifieViewController alloc] init];
-            [weakSelf presentViewController:vc animated:YES completion:nil];
+            NetNotifieViewController *vc = [[NetNotifieViewController alloc] initWithStoryboard];
+            [weakSelf basePushViewController:vc];
         });
     });
 }

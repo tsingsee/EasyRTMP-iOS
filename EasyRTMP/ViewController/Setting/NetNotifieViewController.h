@@ -6,8 +6,10 @@
 //  Copyright © 2017年 phylony. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface NoNetNotifieViewController : UIViewController
+@interface NetNotifieViewController : BaseViewController
+
+- (instancetype) initWithStoryboard;
 
 @end

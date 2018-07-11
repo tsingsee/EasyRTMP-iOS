@@ -29,9 +29,7 @@
 		A1195C581E69A22300535E11 /* ResolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1195C561E69A22300535E11 /* ResolutionViewController.m */; };
 		A1195C5D1E6A6FE200535E11 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1195C5B1E6A6FE200535E11 /* InfoViewController.m */; };
 		A1195D251E73A1BD00535E11 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1195D241E73A1BD00535E11 /* CoreTelephony.framework */; };
-		A1195D291E73D43200535E11 /* NoNetNotifieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1195D271E73D43200535E11 /* NoNetNotifieViewController.m */; };
-		A1195D2F1E73D81E00535E11 /* NoNetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1195D2D1E73D81E00535E11 /* NoNetTableViewCell.m */; };
-		A1195D301E73D81E00535E11 /* NoNetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1195D2E1E73D81E00535E11 /* NoNetTableViewCell.xib */; };
+		A1195D291E73D43200535E11 /* NetNotifieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1195D271E73D43200535E11 /* NetNotifieViewController.m */; };
 		A175F55B1E24D32F00C76B21 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A175F55A1E24D32F00C76B21 /* SettingViewController.m */; };
 		A1CBFC4B1E4F099900588740 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1CBFC4A1E4F099900588740 /* AVFoundation.framework */; };
 		A1DBC62B1E8BA7EA001E25E8 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A1DBC62A1E8BA7EA001E25E8 /* libc++.tbd */; };
@@ -99,11 +97,8 @@
 		A1195C5A1E6A6FE200535E11 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		A1195C5B1E6A6FE200535E11 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		A1195D241E73A1BD00535E11 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		A1195D261E73D43200535E11 /* NoNetNotifieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoNetNotifieViewController.h; sourceTree = "<group>"; };
-		A1195D271E73D43200535E11 /* NoNetNotifieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoNetNotifieViewController.m; sourceTree = "<group>"; };
-		A1195D2C1E73D81E00535E11 /* NoNetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoNetTableViewCell.h; sourceTree = "<group>"; };
-		A1195D2D1E73D81E00535E11 /* NoNetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoNetTableViewCell.m; sourceTree = "<group>"; };
-		A1195D2E1E73D81E00535E11 /* NoNetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoNetTableViewCell.xib; sourceTree = "<group>"; };
+		A1195D261E73D43200535E11 /* NetNotifieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetNotifieViewController.h; sourceTree = "<group>"; };
+		A1195D271E73D43200535E11 /* NetNotifieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetNotifieViewController.m; sourceTree = "<group>"; };
 		A175F5591E24D32F00C76B21 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		A175F55A1E24D32F00C76B21 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		A1CBFC4A1E4F099900588740 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -159,6 +154,8 @@
 				047A9E1020F37C25003CC39F /* ScanViewController.h */,
 				047A9E1120F37C25003CC39F /* ScanViewController.m */,
 				04C61CA320F45F7400D755D9 /* Record */,
+				A1195D261E73D43200535E11 /* NetNotifieViewController.h */,
+				A1195D271E73D43200535E11 /* NetNotifieViewController.m */,
 				04C61CA020F44B1400D755D9 /* ResolutionViewController2.h */,
 				04C61CA120F44B1500D755D9 /* ResolutionViewController2.m */,
 			);
@@ -274,21 +271,8 @@
 				A1195C561E69A22300535E11 /* ResolutionViewController.m */,
 				047A9E0F20F37C02003CC39F /* Info */,
 				047A9DDC20F3452E003CC39F /* Setting */,
-				667D99D92007B17200F580D7 /* Additional */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		667D99D92007B17200F580D7 /* Additional */ = {
-			isa = PBXGroup;
-			children = (
-				A1195D261E73D43200535E11 /* NoNetNotifieViewController.h */,
-				A1195D271E73D43200535E11 /* NoNetNotifieViewController.m */,
-				A1195D2C1E73D81E00535E11 /* NoNetTableViewCell.h */,
-				A1195D2D1E73D81E00535E11 /* NoNetTableViewCell.m */,
-				A1195D2E1E73D81E00535E11 /* NoNetTableViewCell.xib */,
-			);
-			path = Additional;
 			sourceTree = "<group>";
 		};
 		A1CBFC491E4F099900588740 /* Frameworks */ = {
@@ -423,7 +407,6 @@
 				04DF407620F2FE120002EAB9 /* Main.storyboard in Resources */,
 				F6C5103D1D858306001EB536 /* LaunchScreen.storyboard in Resources */,
 				F6C5103A1D858306001EB536 /* Assets.xcassets in Resources */,
-				A1195D301E73D81E00535E11 /* NoNetTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,7 +466,6 @@
 				047A9E1220F37C25003CC39F /* ScanViewController.m in Sources */,
 				A1195C581E69A22300535E11 /* ResolutionViewController.m in Sources */,
 				04C61CA220F44B1500D755D9 /* ResolutionViewController2.m in Sources */,
-				A1195D2F1E73D81E00535E11 /* NoNetTableViewCell.m in Sources */,
 				04F7286F20F2F2460089EDCA /* AACEncoder.m in Sources */,
 				04F7287820F2F26D0089EDCA /* main.m in Sources */,
 				F6C510351D858306001EB536 /* PushViewController.m in Sources */,
@@ -491,7 +473,7 @@
 				04C61CB020F48B5200D755D9 /* PhotoViewController.m in Sources */,
 				04C61CA620F45FBF00D755D9 /* VideoViewController.m in Sources */,
 				04C61CAD20F4857D00D755D9 /* VideoCell.m in Sources */,
-				A1195D291E73D43200535E11 /* NoNetNotifieViewController.m in Sources */,
+				A1195D291E73D43200535E11 /* NetNotifieViewController.m in Sources */,
 				047A9E0E20F36479003CC39F /* WebViewController.m in Sources */,
 				047A9DD820F33569003CC39F /* URLTool.m in Sources */,
 				A175F55B1E24D32F00C76B21 /* SettingViewController.m in Sources */,

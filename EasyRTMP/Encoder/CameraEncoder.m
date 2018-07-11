@@ -2,53 +2,54 @@
 //  CameraEncoder.m
 //  EasyCapture
 //
-//  Created by phylony on 9/11/16.
-//  Copyright © 2016 phylony. All rights reserved.
+//  Created by lyy on 9/7/18.
+//  Copyright © 2018 lyy. All rights reserved.
 //
 
 #import "CameraEncoder.h"
 #include <pthread.h>
-#import "URLTool.h"
+#import "H264HWEncoder.h"
+#import "AACEncoder.h"
 
 static CameraEncoder *selfClass = nil;
 
-@interface CameraEncoder () {
-    Easy_I32 isActivated;
+@interface CameraEncoder ()<H264HWEncoderDelegate, AACEncoderDelegate> {
     Easy_RTMP_Handle handle;
     
-    CGSize temp_outputSize;
-    
-    dispatch_queue_t encodeQueue;
-    
-    dispatch_source_t _timer;
+    CGSize tempOutputSize;
     
     pthread_mutex_t releaseLock;
+    
+    CMSimpleQueueRef vbuffQueue;
+    CMSimpleQueueRef abuffQueue;
 }
+
+@property (nonatomic, strong) dispatch_queue_t encodeQueue;
+@property (nonatomic, strong) dispatch_queue_t videoQueue;
+@property (nonatomic, strong) dispatch_queue_t audioQueue;
+
+// 负责从 AVCaptureDevice 获得输入数据
+@property (nonatomic, strong) AVCaptureDeviceInput *captureDeviceInput;
+@property (nonatomic, strong) AVCaptureVideoDataOutput *videoOutput;
+
+@property (nonatomic, strong) AVCaptureConnection *videoConnection;
+@property (nonatomic, strong) AVCaptureConnection *audioConnection;
+
+@property (nonatomic, strong) AVCaptureSession *videoCaptureSession;
 
 @property (nonatomic, strong) H264HWEncoder *h264Encoder;
 @property (nonatomic, strong) AACEncoder *aacEncoder;
 
+@property (nonatomic, strong) dispatch_source_t timer;
 @property (nonatomic, assign) int sendFrameLength;
 
 @end
 
 @implementation CameraEncoder
 
-- (void) setOutputSize:(CGSize)outputSize {
-    _outputSize = outputSize;
-    
-    temp_outputSize = CGSizeMake(_outputSize.width, _outputSize.height);
-}
+#pragma mark - lifecycle
 
-- (void) setOrientation:(AVCaptureVideoOrientation)orientation {
-    _orientation = orientation;
-    
-    if (_videoConnection) {
-        _videoConnection.videoOrientation = self.orientation;
-    }
-}
-
-- (void)initCameraWithOutputSize:(CGSize)size {
+- (void)initCameraWithOutputSize:(CGSize)size resolution:(AVCaptureSessionPreset)resolution {
     self.outputSize = size;
     
     pthread_mutex_init(&releaseLock, 0);
@@ -61,22 +62,30 @@ static CameraEncoder *selfClass = nil;
     self.aacEncoder.delegate = self;
 #endif
     
-    _running = NO;
+    self.running = NO;
     
     [self activate];
-    
-    _encodeVideoQueue = dispatch_queue_create("encodeVideoQueue", DISPATCH_QUEUE_SERIAL);
-    _encodeAudioQueue = dispatch_queue_create("encodeAudioQueue", DISPATCH_QUEUE_SERIAL);
     
     CMSimpleQueueCreate(kCFAllocatorDefault, 2, &vbuffQueue);
     CMSimpleQueueCreate(kCFAllocatorDefault, 2, &abuffQueue);
     
-    _videoCaptureSession = [[AVCaptureSession alloc] init];
-    [self setupAudioCapture];
-    [self setupVideoCapture];
+    self.videoCaptureSession = [[AVCaptureSession alloc] init];
     
-    encodeQueue = dispatch_queue_create("encodeQueue", NULL);
+    [self setupAudioCapture];
+    [self setupVideoCapture:resolution];
+    
+    self.encodeQueue = dispatch_queue_create("encodeQueue", NULL);
+    
     selfClass = self;
+}
+
+- (void)dealloc {
+#if TARGET_OS_IPHONE
+    [self.h264Encoder invalidate];
+#endif
+    self.running = NO;
+    
+    pthread_mutex_destroy(&releaseLock);
 }
 
 - (void) activate {
@@ -90,34 +99,44 @@ static CameraEncoder *selfClass = nil;
     }
 }
 
-- (void)dealloc {
-#if TARGET_OS_IPHONE
-    [self.h264Encoder invalidate];
-#endif
-    _running = NO;
+#pragma mark - setter
+
+- (void) setOutputSize:(CGSize)outputSize {
+    _outputSize = outputSize;
     
-    pthread_mutex_destroy(&releaseLock);
+    if (_outputSize.width > 0) {
+        tempOutputSize = CGSizeMake(_outputSize.width, _outputSize.height);
+    }
 }
 
-#pragma mark - 设置音频采集配置
+- (void) setOrientation:(AVCaptureVideoOrientation)orientation {
+    _orientation = orientation;
+    
+    if (self.videoConnection) {
+        self.videoConnection.videoOrientation = self.orientation;
+    }
+}
 
+#pragma mark - 设置采集的 Video 和 Audio 格式，这两个是分开设置的，也就是说，你可以只采集视频
+
+// 音频采集配置
 - (void)setupAudioCapture {
     AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
-    NSError *error = nil;
-    AVCaptureDeviceInput *audioInput = [[AVCaptureDeviceInput alloc]initWithDevice:audioDevice error:&error];
     
+    NSError *error = nil;
+    AVCaptureDeviceInput *audioInput = [[AVCaptureDeviceInput alloc] initWithDevice:audioDevice error:&error];
     if (error) {
-        NSLog(@"Error getting audio input device:%@",error.description);
+        NSLog(@"Error getting audio input device:%@", error.description);
     }
     
     if ([self.videoCaptureSession canAddInput:audioInput]) {
         [self.videoCaptureSession addInput:audioInput];
     }
     
-    self.AudioQueue = dispatch_queue_create("Audio Capture Queue", DISPATCH_QUEUE_SERIAL);
+    self.audioQueue = dispatch_queue_create("Audio Capture Queue", DISPATCH_QUEUE_SERIAL);
     AVCaptureAudioDataOutput *audioOutput = [AVCaptureAudioDataOutput new];
     
-    [audioOutput setSampleBufferDelegate:self queue:self.AudioQueue];
+    [audioOutput setSampleBufferDelegate:self queue:self.audioQueue];
     
     if ([self.videoCaptureSession canAddOutput:audioOutput]) {
         [self.videoCaptureSession addOutput:audioOutput];
@@ -125,65 +144,45 @@ static CameraEncoder *selfClass = nil;
     self.audioConnection = [audioOutput connectionWithMediaType:AVMediaTypeAudio];
 }
 
-#pragma mark - 设置视频采集配置
-
-- (void)setupVideoCapture {
-    NSString *resolution = [URLTool gainResolition];
-    if ([resolution isEqualToString:@"480*640"]) {
-        if ([self.videoCaptureSession canSetSessionPreset:AVCaptureSessionPreset640x480]) {
-            self.videoCaptureSession.sessionPreset = AVCaptureSessionPreset640x480;
-        }
-    } else if ([resolution isEqualToString:@"720*1280"]) {
-        if ([self.videoCaptureSession canSetSessionPreset:AVCaptureSessionPreset1280x720]) {
-            self.videoCaptureSession.sessionPreset = AVCaptureSessionPreset1280x720;
-        }
-    } else if ([resolution isEqualToString:@"1080*1920"]) {
-        if ([self.videoCaptureSession canSetSessionPreset:AVCaptureSessionPreset1920x1080]) {
-            self.videoCaptureSession.sessionPreset = AVCaptureSessionPreset1920x1080;
-        }
-    } else if ([resolution isEqualToString:@"288*352"]) {
-        if ([self.videoCaptureSession canSetSessionPreset:AVCaptureSessionPreset352x288]) {
-            self.videoCaptureSession.sessionPreset = AVCaptureSessionPreset352x288;
-        }
+// 视频采集配置
+- (void)setupVideoCapture:(AVCaptureSessionPreset)resolution {
+    if ([self.videoCaptureSession canSetSessionPreset:resolution]) {
+        self.videoCaptureSession.sessionPreset = resolution;
     }
     
-    // 设置采集的 Video 和 Audio 格式，这两个是分开设置的，也就是说，你可以只采集视频。
     // 配置采集输入源(摄像头)
-    
     NSError *error = nil;
     // 获得一个采集设备, 例如前置/后置摄像头
     AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
-//    videoDevice = [self cameraWithPosition:AVCaptureDevicePositionBack];
-//    videoDevice.position = AVCaptureDevicePositionBack;
-    
     // 用设备初始化一个采集的输入对象
     AVCaptureDeviceInput *videoInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&error];
     if (error) {
-        NSLog(@"Error getting video input device:%@",error.description);
+        NSLog(@"Error getting video input device:%@", error.description);
     }
+    
     if ([self.videoCaptureSession canAddInput:videoInput]) {
         [self.videoCaptureSession addInput:videoInput];
     }
     
     // 配置采集输出,即我们取得视频图像的接口
-    _videoQueue = dispatch_queue_create("Video Capture Queue", DISPATCH_QUEUE_SERIAL);
-    _videoOutput = [AVCaptureVideoDataOutput new];
-    [_videoOutput setSampleBufferDelegate:self queue:_videoQueue];
+    self.videoQueue = dispatch_queue_create("Video Capture Queue", DISPATCH_QUEUE_SERIAL);
+    self.videoOutput = [AVCaptureVideoDataOutput new];
+    [self.videoOutput setSampleBufferDelegate:self queue:_videoQueue];
     
     // 配置输出视频图像格式
     NSDictionary *captureSettings = @{(NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
-    _videoOutput.videoSettings = captureSettings;
-    _videoOutput.alwaysDiscardsLateVideoFrames = YES;
-    if ([self.videoCaptureSession canAddOutput:_videoOutput]) {
-        [self.videoCaptureSession addOutput:_videoOutput];
+    self.videoOutput.videoSettings = captureSettings;
+    self.videoOutput.alwaysDiscardsLateVideoFrames = YES;
+    if ([self.videoCaptureSession canAddOutput:self.videoOutput]) {
+        [self.videoCaptureSession addOutput:self.videoOutput];
     }
     // 设置采集图像的方向,如果不设置，采集回来的图形会是旋转90度的
-    _videoConnection = [_videoOutput connectionWithMediaType:AVMediaTypeVideo];
-    _videoConnection.videoOrientation = self.orientation;
+    self.videoConnection = [self.videoOutput connectionWithMediaType:AVMediaTypeVideo];
+    self.videoConnection.videoOrientation = self.orientation;
     // 保存Connection,用于SampleBufferDelegate中判断数据来源(video or audio?)
-    _videoConnection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
-    _videoConnection = [_videoOutput connectionWithMediaType:AVMediaTypeVideo];
+    self.videoConnection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
+    self.videoConnection = [self.videoOutput connectionWithMediaType:AVMediaTypeVideo];
     
     // 将当前硬件采集视频图像显示到屏幕
     // 添加预览
@@ -193,43 +192,43 @@ static CameraEncoder *selfClass = nil;
 
 #pragma mark - public method
 
+// 切换前后摄像头
 - (void)swapFrontAndBackCameras {
     // Assume the session is already _running
     NSArray *inputs = self.videoCaptureSession.inputs;
     for (AVCaptureDeviceInput *input in inputs) {
         AVCaptureDevice *device = input.device;
         if ([device hasMediaType:AVMediaTypeVideo]) {
-            AVCaptureDevicePosition position = device.position;
-            AVCaptureDevice *newCamera = nil;
-            AVCaptureDeviceInput *newInput = nil;
             CATransition *animation = [CATransition animation];
             animation.duration = .5f;
             animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
             animation.type = @"oglFlip";
             
-            if (position == AVCaptureDevicePositionFront) {
+            AVCaptureDevice *newCamera = nil;
+            if (device.position == AVCaptureDevicePositionFront) {
                 newCamera = [self cameraWithPosition:AVCaptureDevicePositionBack];
-                animation.subtype = kCATransitionFromLeft;// 动画翻转方向
+                animation.subtype = kCATransitionFromLeft;  // 动画翻转方向
             } else {
                 newCamera = [self cameraWithPosition:AVCaptureDevicePositionFront];
-                animation.subtype = kCATransitionFromRight;// 动画翻转方向
+                animation.subtype = kCATransitionFromRight; // 动画翻转方向
             }
             
-            newInput = [AVCaptureDeviceInput deviceInputWithDevice:newCamera error:nil];
             [self.previewLayer addAnimation:animation forKey:nil];
             
             // beginConfiguration ensures that pending changes are not applied immediately
             [self.videoCaptureSession beginConfiguration];
             [self.videoCaptureSession removeInput:input];
+            AVCaptureDeviceInput *newInput = [AVCaptureDeviceInput deviceInputWithDevice:newCamera error:nil];
+            
             if ([self.videoCaptureSession canAddInput:newInput]) {
                 [self.videoCaptureSession addInput:newInput];
             } else {
                 [self.videoCaptureSession addInput:input];
             }
-            [self.videoCaptureSession removeOutput:_videoOutput];
             
-            AVCaptureVideoDataOutput *  new_videoOutput = [AVCaptureVideoDataOutput new];
-            _videoOutput = new_videoOutput;
+            [self.videoCaptureSession removeOutput:self.videoOutput];
+            AVCaptureVideoDataOutput *new_videoOutput = [AVCaptureVideoDataOutput new];
+            self.videoOutput = new_videoOutput;
             [new_videoOutput setSampleBufferDelegate:self queue:_videoQueue];
             // 配置输出视频图像格式
             NSDictionary *captureSettings = @{(NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
@@ -247,56 +246,55 @@ static CameraEncoder *selfClass = nil;
             
             // Changes take effect once the outermost commitConfiguration is invoked.
             [self.videoCaptureSession commitConfiguration];
+            
             break;
         }
     }
 }
 
-- (void)swapResolution {
+// 切换分辨率
+- (void) swapResolution:(AVCaptureSessionPreset)resolution {
     [self.videoCaptureSession beginConfiguration];
     
-    NSString *resolution = [URLTool gainResolition];
-    if ([resolution isEqualToString:@"480*640"]){
-        if ([self.videoCaptureSession canSetSessionPreset:AVCaptureSessionPreset640x480]) {
-            self.videoCaptureSession.sessionPreset = AVCaptureSessionPreset640x480;
-        }
-    }else if ([resolution isEqualToString:@"720*1280"]){
-        if ([self.videoCaptureSession canSetSessionPreset:AVCaptureSessionPreset1280x720]) {
-            self.videoCaptureSession.sessionPreset = AVCaptureSessionPreset1280x720;
-        }
-    }else if ([resolution isEqualToString:@"1080*1920"]){
-        if ([self.videoCaptureSession canSetSessionPreset:AVCaptureSessionPreset1920x1080]) {
-            self.videoCaptureSession.sessionPreset = AVCaptureSessionPreset1920x1080;
-        }
-    }else if ([resolution isEqualToString:@"288*352"]){
-        if ([self.videoCaptureSession canSetSessionPreset:AVCaptureSessionPreset352x288]) {
-            self.videoCaptureSession.sessionPreset = AVCaptureSessionPreset352x288;
-        }
+    if ([self.videoCaptureSession canSetSessionPreset:resolution]) {
+        self.videoCaptureSession.sessionPreset = resolution;
     }
     
     [self.videoCaptureSession commitConfiguration];
 }
 
-- (void)changeCameraStatus {
+- (void) changeCameraStatus:(BOOL) onlyAudio {
+    self.onlyAudio = onlyAudio;
+    
     NSArray *inputs = self.videoCaptureSession.inputs;
     
-    if (![URLTool gainOnlyAudio]) {
+    if (self.onlyAudio) {
+        // 只传音频，则删除视频源
+        for (AVCaptureDeviceInput *input in inputs) {
+            AVCaptureDevice *device = input.device;
+            if ([device hasMediaType:AVMediaTypeVideo]) {
+                [self.videoCaptureSession beginConfiguration];
+                
+                [self.videoCaptureSession removeInput:input];
+                [self.videoCaptureSession removeOutput:self.videoOutput];
+                
+                [self.videoCaptureSession commitConfiguration];
+            }
+        }
+    } else {
         if (inputs.count < 2) {
             AVCaptureDevice *newCamera = nil;
             AVCaptureDeviceInput *newInput = nil;
             newCamera = [self cameraWithPosition:AVCaptureDevicePositionBack];
             newInput = [AVCaptureDeviceInput deviceInputWithDevice:newCamera error:nil];
             
-//            [self.previewLayer addAnimation:animation forKey:nil];
             [self.videoCaptureSession beginConfiguration];
-//            [self.videoCaptureSession removeInput:input];
             
             if ([self.videoCaptureSession canAddInput:newInput]) {
                 [self.videoCaptureSession addInput:newInput];
             }
-//            [self.videoCaptureSession removeOutput:_videoOutput];
             
-            AVCaptureVideoDataOutput *  new_videoOutput = [AVCaptureVideoDataOutput new];
+            AVCaptureVideoDataOutput *new_videoOutput = [AVCaptureVideoDataOutput new];
             _videoOutput = new_videoOutput;
             [new_videoOutput setSampleBufferDelegate:self queue:_videoQueue];
             
@@ -318,25 +316,15 @@ static CameraEncoder *selfClass = nil;
             // Changes take effect once the outermost commitConfiguration is invoked.
             [self.videoCaptureSession commitConfiguration];
         }
-    } else {
-        for (AVCaptureDeviceInput *input in inputs ) {
-            AVCaptureDevice *device = input.device;
-            if ( [device hasMediaType:AVMediaTypeVideo] ) {
-                [self.videoCaptureSession beginConfiguration];
-                [self.videoCaptureSession removeInput:input];
-                [self.videoCaptureSession removeOutput:_videoOutput];
-                [self.videoCaptureSession commitConfiguration];
-            }
-        }
     }
 }
 
 #pragma mark - private method
 
-- (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition)position {
+- (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition) position {
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-    for (AVCaptureDevice *device in devices )
-        if ( device.position == position )
+    for (AVCaptureDevice *device in devices)
+        if (device.position == position)
             return device;
     
     return nil;
@@ -353,8 +341,8 @@ static CameraEncoder *selfClass = nil;
         return;
     }
     
-    if (_outputSize.width == 0) {
-        _outputSize = CGSizeMake(temp_outputSize.width, temp_outputSize.height);
+    if (_outputSize.width <= 0) {
+        _outputSize = CGSizeMake(tempOutputSize.width, tempOutputSize.height);
     }
     
     if (handle == NULL) {
@@ -365,10 +353,10 @@ static CameraEncoder *selfClass = nil;
     EASY_MEDIA_INFO_T mediainfo;
     memset(&mediainfo, 0, sizeof(EASY_MEDIA_INFO_T));
     mediainfo.u32VideoCodec = EASY_SDK_VIDEO_CODEC_H264;
-    if (![URLTool gainOnlyAudio]) {
-        mediainfo.u32VideoFps = 20;
-    } else {
+    if (self.onlyAudio) {
         mediainfo.u32VideoFps = ~0; //~0只传音频
+    } else {
+        mediainfo.u32VideoFps = 20;
     }
     
     mediainfo.u32AudioCodec = EASY_SDK_AUDIO_CODEC_AAC;// SDK output Audio PCMA
@@ -385,7 +373,7 @@ static CameraEncoder *selfClass = nil;
         return;
     }
     
-    _running = NO;
+    self.running = NO;
     [self.h264Encoder invalidate];
     
     // EasyRTMP_Release完成后，才能继续
@@ -441,33 +429,23 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
 -(void) captureOutput:(AVCaptureOutput*)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection*)connection {
     CFRetain(sampleBuffer);
     
-    if (!_running) {
-        CFRelease(sampleBuffer);
-    } else {
+    if (self.running) {
         if(connection == self.videoConnection) {
-            if (_running) {
-                dispatch_async(encodeQueue, ^{
-                    if (![URLTool gainOnlyAudio]) {
-                        [self.h264Encoder encode:sampleBuffer size:self.outputSize];
-                    } else {
-                        [self.h264Encoder encode:sampleBuffer size:self.outputSize];
-                    }
-                    
-                    // 输出尺寸置空，则不需要再初始化VTCompressionSessionRef
-                    self.outputSize = CGSizeMake(0, 0);
-                    
-                    CFRelease(sampleBuffer);
-                });
-            }
+            dispatch_async(self.encodeQueue, ^{
+                if (!self.onlyAudio) {
+                    [self.h264Encoder encode:sampleBuffer size:self.outputSize];
+                }
+                self.outputSize = CGSizeMake(0, 0);// 输出尺寸置空，则不需要再初始化VTCompressionSessionRef
+                CFRelease(sampleBuffer);
+            });
         } else if(connection == self.audioConnection) {
-            if (_running) {
-                dispatch_async(encodeQueue, ^{
-                    [self.aacEncoder encode:sampleBuffer];
-                    
-                    CFRelease(sampleBuffer);
-                });
-            }
+            dispatch_async(self.encodeQueue, ^{
+                [self.aacEncoder encode:sampleBuffer];
+                CFRelease(sampleBuffer);
+            });
         }
+    } else {
+        CFRelease(sampleBuffer);
     }
 }
 
@@ -491,7 +469,7 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
     frame.u32TimestampUsec = 0;
     frame.u32VFrameType = keyFrame ? EASY_SDK_VIDEO_FRAME_I : EASY_SDK_VIDEO_FRAME_P;
     
-    if(_running) {
+    if(self.running) {
         int result = EasyRTMP_SendPacket(handle, &frame);
         if (result == 0) {
             [self sendPacket:frame.u32AVFrameLen];
@@ -517,7 +495,7 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
     frame.u32TimestampSec= 0;//(Easy_U32)timestamp.value/timestamp.timescale;
     frame.u32TimestampUsec = 0;//timestamp.value%timestamp.timescale;
     
-    if(_running) {
+    if (self.running) {
         int result = EasyRTMP_SendPacket(handle, &frame);
         if (result == 0) {
             [self sendPacket:frame.u32AVFrameLen];
@@ -527,20 +505,22 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
 
 #endif
 
+#pragma mark - 流量检测
+
 - (void) sendPacket:(unsigned int)u32AVFrameLen {
     self.sendFrameLength += u32AVFrameLen;
     
-    if (!_timer) {
+    if (!self.timer) {
         NSTimeInterval period = 1.0; // 设置时间间隔
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+        self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
         dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), period * NSEC_PER_SEC, 0);
         dispatch_source_set_event_handler(_timer, ^{
             [self.delegate sendPacketFrameLength:self.sendFrameLength / 1];
             self.sendFrameLength = 0;
         });
         
-        dispatch_resume(_timer);
+        dispatch_resume(self.timer);
     }
 }
 

@@ -413,7 +413,7 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooO-EG-jXg" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="485.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="435.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7g7-5v-Nbo">
                                                 <rect key="frame" x="20" y="25" width="280" height="44"/>
@@ -520,21 +520,8 @@
                                                     <action selector="record:" destination="Rdt-hf-xC0" eventType="touchUpInside" id="ur3-1P-LRS"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OcJ-fi-NWf">
-                                                <rect key="frame" x="20" y="345.5" width="280" height="40"/>
-                                                <color key="backgroundColor" red="0.36862745099999999" green="0.56470588239999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="GAw-S7-wOu"/>
-                                                </constraints>
-                                                <state key="normal" title="推送屏幕分辨率">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="resolution:" destination="Rdt-hf-xC0" eventType="touchUpInside" id="nz5-wS-A9K"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bwm-1y-V9h">
-                                                <rect key="frame" x="20" y="395.5" width="280" height="40"/>
+                                                <rect key="frame" x="20" y="345.5" width="280" height="40"/>
                                                 <color key="backgroundColor" red="0.36862745099999999" green="0.56470588239999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="kHj-se-owZ"/>
@@ -549,7 +536,6 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="OcJ-fi-NWf" firstAttribute="top" secondItem="uxV-Wb-AFw" secondAttribute="bottom" constant="10" id="0K8-4B-DxU"/>
                                             <constraint firstItem="4sW-fI-RZU" firstAttribute="leading" secondItem="ooO-EG-jXg" secondAttribute="leading" constant="20" id="BcT-4n-ive"/>
                                             <constraint firstItem="4sW-fI-RZU" firstAttribute="top" secondItem="5HY-2P-nx5" secondAttribute="bottom" constant="15" id="DV3-2E-yqq"/>
                                             <constraint firstAttribute="trailing" secondItem="uxV-Wb-AFw" secondAttribute="trailing" constant="20" id="FfI-pP-GtC"/>
@@ -557,7 +543,6 @@
                                             <constraint firstItem="7g7-5v-Nbo" firstAttribute="top" secondItem="ooO-EG-jXg" secondAttribute="top" constant="25" id="Jdm-Zd-JoH"/>
                                             <constraint firstAttribute="trailing" secondItem="5HY-2P-nx5" secondAttribute="trailing" constant="20" id="KbH-cg-AwF"/>
                                             <constraint firstItem="uxV-Wb-AFw" firstAttribute="leading" secondItem="ooO-EG-jXg" secondAttribute="leading" constant="20" id="LQn-f4-azj"/>
-                                            <constraint firstItem="Bwm-1y-V9h" firstAttribute="top" secondItem="OcJ-fi-NWf" secondAttribute="bottom" constant="10" id="MFO-EG-L1n"/>
                                             <constraint firstItem="NUY-aO-vde" firstAttribute="leading" secondItem="ooO-EG-jXg" secondAttribute="leading" constant="20" id="MHe-da-2am"/>
                                             <constraint firstItem="5HY-2P-nx5" firstAttribute="top" secondItem="7g7-5v-Nbo" secondAttribute="bottom" constant="25" id="QY4-lq-iPi"/>
                                             <constraint firstItem="GmA-3m-mYZ" firstAttribute="leading" secondItem="NUY-aO-vde" secondAttribute="trailing" id="XhP-l9-iTv"/>
@@ -568,10 +553,9 @@
                                             <constraint firstItem="NUY-aO-vde" firstAttribute="top" secondItem="4sW-fI-RZU" secondAttribute="bottom" constant="15" id="idH-DX-8yA"/>
                                             <constraint firstItem="5HY-2P-nx5" firstAttribute="leading" secondItem="ooO-EG-jXg" secondAttribute="leading" constant="20" id="j8R-t1-hHC"/>
                                             <constraint firstAttribute="bottom" secondItem="Bwm-1y-V9h" secondAttribute="bottom" constant="50" id="kMt-gs-DMy"/>
+                                            <constraint firstItem="Bwm-1y-V9h" firstAttribute="top" secondItem="uxV-Wb-AFw" secondAttribute="bottom" constant="10" id="kw2-Zm-vaw"/>
                                             <constraint firstItem="XoH-mt-8VI" firstAttribute="centerY" secondItem="4sW-fI-RZU" secondAttribute="centerY" id="mpp-kI-INC"/>
-                                            <constraint firstAttribute="trailing" secondItem="OcJ-fi-NWf" secondAttribute="trailing" constant="20" id="o6f-wu-2DJ"/>
                                             <constraint firstItem="m7R-uE-gNR" firstAttribute="leading" secondItem="ooO-EG-jXg" secondAttribute="leading" constant="20" id="pNQ-Sb-NvH"/>
-                                            <constraint firstItem="OcJ-fi-NWf" firstAttribute="leading" secondItem="ooO-EG-jXg" secondAttribute="leading" constant="20" id="pR6-xK-H9Q"/>
                                             <constraint firstItem="lAi-Za-WEi" firstAttribute="centerY" secondItem="m7R-uE-gNR" secondAttribute="centerY" id="pp5-t4-N9r"/>
                                             <constraint firstItem="uxV-Wb-AFw" firstAttribute="top" secondItem="lAi-Za-WEi" secondAttribute="bottom" constant="40" id="rZs-5G-x5P"/>
                                             <constraint firstItem="lAi-Za-WEi" firstAttribute="leading" secondItem="m7R-uE-gNR" secondAttribute="trailing" id="rmS-aH-2Kn"/>
@@ -604,7 +588,6 @@
                         <outlet property="codeBtn" destination="4sW-fI-RZU" id="Kk3-Bf-ghp"/>
                         <outlet property="markBtn" destination="NUY-aO-vde" id="p0X-uz-b7Y"/>
                         <outlet property="recordBtn" destination="uxV-Wb-AFw" id="68T-Cq-oAs"/>
-                        <outlet property="relolutionBtn" destination="OcJ-fi-NWf" id="OA0-na-5xp"/>
                         <outlet property="saveBtn" destination="Bwm-1y-V9h" id="sw2-mw-0oH"/>
                         <outlet property="scanBtn" destination="enp-rn-azB" id="QD9-OA-Dc1"/>
                         <outlet property="textView" destination="Wfa-Eb-cdl" id="vNh-2j-S6g"/>
@@ -614,6 +597,349 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RCw-1W-qjn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="796.875" y="163.75"/>
+        </scene>
+        <!--Net Notifie View Controller-->
+        <scene sceneID="Jcf-cP-Zv7">
+            <objects>
+                <viewController storyboardIdentifier="NetNotifieViewController" id="a79-C3-mfV" customClass="NetNotifieViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="joC-Cu-sZb"/>
+                        <viewControllerLayoutGuide type="bottom" id="cja-e6-kgQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RSd-d4-Lap">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBH-lK-jaQ">
+                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cs6-sQ-Rp1" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="728.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.请检查网络权限是否打开" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbc-CB-q1n">
+                                                <rect key="frame" x="12" y="30" width="296" height="19.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wF-99-Nds">
+                                                <rect key="frame" x="12" y="64.5" width="296" height="59"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="iOS10">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="Helvetica-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="系统，需要开启">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="APP">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="Helvetica-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="使用网络的权限。如果您第一次打开">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="EasyPusher ">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.40782000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="APP">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="Helvetica-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="弹出下面对话框，请点击">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="“">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="Helvetica-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="允许">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="”">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="Helvetica-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="push_setting" translatesAutoresizingMaskIntoConstraints="NO" id="ANN-tb-zpX">
+                                                <rect key="frame" x="40" y="133.5" width="240" height="128"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="240" id="USm-vm-CMz"/>
+                                                    <constraint firstAttribute="height" constant="128" id="sXq-tY-8cT"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rwx-xQ-ff1">
+                                                <rect key="frame" x="12" y="271.5" width="296" height="342.5"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="如果您未遇到上述对话框，或已经选择了不允许。">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content" base64-UTF8="YES">
+Cgo
+</string>
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="Helvetica-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="解决方法：打开【设置】">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="-">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="Helvetica-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="【蜂窝移动网络】">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="-">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="Helvetica-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="【使用无线局域网与蜂窝移动的应用】，找到【EasyPusher】，勾选【无线局域网与蜂窝移动数据】即可。">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content" base64-UTF8="YES">
+Cgo
+</string>
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="Helvetica-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="如果在【使用无线局域网与蜂窝网移动的应用】中，未找到【">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="EasyPusher">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.40782000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="】，        方案一、请重启手机，打开">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="EasyPusher ">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.40782000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="APP">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="Helvetica-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="后，再进入【设置】中尝试。 方案二、更改iOS10中的蜂窝访问网络权限。 方案三、临时启动无线局域网助理">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content" base64-UTF8="YES">
+Cgo
+</string>
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="Helvetica-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="如果您的手机不是中国版，则：打开【设置】">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="-">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="Helvetica-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="【蜂窝移动网络】，找到【">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="EasyPusher">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.40782000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="】，启用开关即可。">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2E-2N-jgL">
+                                                <rect key="frame" x="12" y="644" width="296" height="20"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="2.  ">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="Helvetica-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="检查本地网络状况 ">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="245" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yr0-gD-JIa">
+                                                <rect key="frame" x="12" y="669" width="296" height="39.5"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="请查看您本地的无线网络或手机信号情况，信号差的时候也无法正常获取数据。">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="14" name="PingFangSC-Light"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="w2E-2N-jgL" firstAttribute="trailing" secondItem="tbc-CB-q1n" secondAttribute="trailing" id="1V9-bT-0Cd"/>
+                                            <constraint firstItem="2wF-99-Nds" firstAttribute="trailing" secondItem="tbc-CB-q1n" secondAttribute="trailing" id="3N4-o5-kET"/>
+                                            <constraint firstItem="Rwx-xQ-ff1" firstAttribute="trailing" secondItem="tbc-CB-q1n" secondAttribute="trailing" id="DXW-AG-bhW"/>
+                                            <constraint firstItem="Yr0-gD-JIa" firstAttribute="leading" secondItem="tbc-CB-q1n" secondAttribute="leading" id="DZ3-je-2eW"/>
+                                            <constraint firstItem="Yr0-gD-JIa" firstAttribute="top" secondItem="w2E-2N-jgL" secondAttribute="bottom" constant="5" id="G9z-Q1-xmx"/>
+                                            <constraint firstItem="tbc-CB-q1n" firstAttribute="leading" secondItem="Cs6-sQ-Rp1" secondAttribute="leading" constant="12" id="OhY-Tb-vn5"/>
+                                            <constraint firstItem="2wF-99-Nds" firstAttribute="leading" secondItem="tbc-CB-q1n" secondAttribute="leading" id="PBr-k9-awm"/>
+                                            <constraint firstItem="Rwx-xQ-ff1" firstAttribute="leading" secondItem="tbc-CB-q1n" secondAttribute="leading" id="V9v-m1-8tj"/>
+                                            <constraint firstItem="Yr0-gD-JIa" firstAttribute="trailing" secondItem="tbc-CB-q1n" secondAttribute="trailing" id="W9g-rF-FUj"/>
+                                            <constraint firstItem="2wF-99-Nds" firstAttribute="top" secondItem="tbc-CB-q1n" secondAttribute="bottom" constant="15" id="Zmw-Vl-hTx"/>
+                                            <constraint firstItem="w2E-2N-jgL" firstAttribute="top" secondItem="Rwx-xQ-ff1" secondAttribute="bottom" constant="30" id="g3T-oX-q9b"/>
+                                            <constraint firstItem="tbc-CB-q1n" firstAttribute="top" secondItem="Cs6-sQ-Rp1" secondAttribute="top" constant="30" id="g3c-5p-Kyo"/>
+                                            <constraint firstAttribute="trailing" secondItem="tbc-CB-q1n" secondAttribute="trailing" constant="12" id="lMp-iO-ieQ"/>
+                                            <constraint firstItem="Rwx-xQ-ff1" firstAttribute="top" secondItem="ANN-tb-zpX" secondAttribute="bottom" constant="10" id="obt-JE-2FB"/>
+                                            <constraint firstItem="ANN-tb-zpX" firstAttribute="top" secondItem="2wF-99-Nds" secondAttribute="bottom" constant="10" id="qlv-3t-ZJl"/>
+                                            <constraint firstItem="w2E-2N-jgL" firstAttribute="leading" secondItem="tbc-CB-q1n" secondAttribute="leading" id="u0g-z9-aUS"/>
+                                            <constraint firstAttribute="bottom" secondItem="Yr0-gD-JIa" secondAttribute="bottom" constant="20" id="x4A-3F-k8T"/>
+                                            <constraint firstItem="ANN-tb-zpX" firstAttribute="centerX" secondItem="Cs6-sQ-Rp1" secondAttribute="centerX" id="zQ4-Ac-gK1"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Cs6-sQ-Rp1" firstAttribute="width" secondItem="jBH-lK-jaQ" secondAttribute="width" id="KdW-dv-bSm"/>
+                                    <constraint firstAttribute="bottom" secondItem="Cs6-sQ-Rp1" secondAttribute="bottom" id="PjI-Ky-kI6"/>
+                                    <constraint firstItem="Cs6-sQ-Rp1" firstAttribute="top" secondItem="jBH-lK-jaQ" secondAttribute="top" id="VYC-Cl-ThI"/>
+                                    <constraint firstItem="Cs6-sQ-Rp1" firstAttribute="leading" secondItem="jBH-lK-jaQ" secondAttribute="leading" id="oxd-3y-r5r"/>
+                                    <constraint firstAttribute="trailing" secondItem="Cs6-sQ-Rp1" secondAttribute="trailing" id="xTe-tG-5Mk"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="cja-e6-kgQ" firstAttribute="top" secondItem="jBH-lK-jaQ" secondAttribute="bottom" id="220-IK-es0"/>
+                            <constraint firstItem="jBH-lK-jaQ" firstAttribute="leading" secondItem="RSd-d4-Lap" secondAttribute="leading" id="La9-dP-IfA"/>
+                            <constraint firstItem="jBH-lK-jaQ" firstAttribute="top" secondItem="joC-Cu-sZb" secondAttribute="bottom" id="kjv-ii-rAs"/>
+                            <constraint firstAttribute="trailing" secondItem="jBH-lK-jaQ" secondAttribute="trailing" id="zdg-ID-Spt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="VlD-Wu-a2O"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eJA-w2-xsc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2794" y="164"/>
         </scene>
         <!--Scan View Controller-->
         <scene sceneID="03A-Xi-8Iy">
@@ -769,6 +1095,7 @@
         <image name="close" width="24" height="24"/>
         <image name="pro_android" width="130" height="130"/>
         <image name="pro_ios" width="130" height="130"/>
+        <image name="push_setting" width="400" height="211"/>
         <image name="reverse" width="26" height="21"/>
         <image name="scan" width="19" height="19"/>
         <image name="scan_scope" width="310" height="310"/>

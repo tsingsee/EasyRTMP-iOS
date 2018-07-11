@@ -9,7 +9,6 @@
 #import "SettingViewController.h"
 #import "ScanViewController.h"
 #import "RecordViewController.h"
-#import "ResolutionViewController2.h"
 #import "URLTool.h"
 
 @interface SettingViewController ()<UITextFieldDelegate>
@@ -21,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *markBtn;
 @property (weak, nonatomic) IBOutlet UIButton *audioBtn;
 @property (weak, nonatomic) IBOutlet UIButton *recordBtn;
-@property (weak, nonatomic) IBOutlet UIButton *relolutionBtn;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 
 @end
@@ -32,6 +30,8 @@
     return [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SettingViewController"];
 }
 
+#pragma mark - life cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -39,10 +39,8 @@
     
     HRGViewBorderRadius(self.topView, 3.0, 1.5, UIColorFromRGB(ThemeColor));
     HRGViewBorderRadius(self.recordBtn, 3.0, 0, [UIColor clearColor]);
-    HRGViewBorderRadius(self.relolutionBtn, 3.0, 0, [UIColor clearColor]);
     HRGViewBorderRadius(self.saveBtn, 3.0, 0, [UIColor clearColor]);
-    self.saveBtn.hidden = YES;
-    
+
     [self.codeBtn setImage:[UIImage imageNamed:@"set_select"] forState:UIControlStateNormal];
     [self.codeBtn setImage:[UIImage imageNamed:@"set_selected"] forState:UIControlStateSelected];
     [self.markBtn setImage:[UIImage imageNamed:@"set_select"] forState:UIControlStateNormal];
@@ -56,30 +54,15 @@
     
     // 读取设置的值
     self.textView.text = [URLTool gainURL];
+    
+    if ([URLTool gainOnlyAudio]) {
+        self.audioBtn.selected = YES;
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
-}
-
-- (void)saveIpAndPort {
-    [self.view endEditing:YES];
-    UITextField *ipConfig = (UITextField *)[self.view viewWithTag:1000];
-    
-    [URLTool saveURL:ipConfig.text];
-    
-    UISegmentedControl*seg = (UISegmentedControl *)[self.view viewWithTag:200];
-    if (seg.selectedSegmentIndex == 0) {
-        [URLTool saveOnlyAudio:NO];
-    }else{
-        [URLTool saveOnlyAudio:YES];
-    }
-    
-    if (_delegate) {
-        [_delegate setFinish];
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - click
@@ -117,16 +100,23 @@
     [self basePushViewController:controllr];
 }
 
-// 分辨率
-- (IBAction)resolution:(id)sender {
-    ResolutionViewController2 *controller = [[ResolutionViewController2 alloc] init];
-    controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:controller animated:YES completion:nil];
-}
-
 // 保存
 - (IBAction)save:(id)sender {
+    [self.view endEditing:YES];
     
+    [URLTool saveURL:self.textView.text];
+    
+    if (self.audioBtn.selected) {
+        [URLTool saveOnlyAudio:YES];
+    } else {
+        [URLTool saveOnlyAudio:NO];
+    }
+    
+    if (self.delegate) {
+        [self.delegate setFinish];
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
