@@ -21,8 +21,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [application setIdleTimerDisabled:YES];
     
-//    // Bugly
-//    [Bugly startWithAppId:@"aac2c8fa86"];
+    // Bugly
+    [Bugly startWithAppId:@"aac2c8fa86"];
 
     // IQKeyboardManager
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager]; // 获取类库的单例变量
