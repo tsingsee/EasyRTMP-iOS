@@ -30,8 +30,6 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    
     self.isCanPushViewController = YES;// 每次进入，重新置为YES,表示可以push ViewController
 }
 
