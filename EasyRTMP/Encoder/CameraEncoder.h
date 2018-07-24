@@ -47,4 +47,7 @@
 - (void) swapResolution:(AVCaptureSessionPreset)resolution;
 - (void) swapFrontAndBackCameras;
 
+- (void)startRecord;
+- (void)stopRecord;
+
 @end

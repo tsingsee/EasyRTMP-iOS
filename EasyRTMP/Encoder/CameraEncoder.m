@@ -10,10 +10,12 @@
 #include <pthread.h>
 #import "H264HWEncoder.h"
 #import "AACEncoder.h"
+#import "AVAssetWriteManager.h"
+#import "FolderUtil.h"
 
 static CameraEncoder *selfClass = nil;
 
-@interface CameraEncoder ()<H264HWEncoderDelegate, AACEncoderDelegate> {
+@interface CameraEncoder ()<H264HWEncoderDelegate, AACEncoderDelegate, AVAssetWriteManagerDelegate> {
     Easy_RTMP_Handle handle;
     
     CGSize tempOutputSize;
@@ -42,6 +44,10 @@ static CameraEncoder *selfClass = nil;
 
 @property (nonatomic, strong) dispatch_source_t timer;
 @property (nonatomic, assign) int sendFrameLength;
+
+@property (nonatomic, strong, readwrite) NSURL *videoUrl;
+@property (nonatomic, strong) AVAssetWriteManager *writeManager;
+@property (nonatomic, assign) FMRecordState recordState;
 
 @end
 
@@ -90,7 +96,7 @@ static CameraEncoder *selfClass = nil;
 
 - (void) activate {
     // 激活授权码
-    if (EasyRTMP_Activate("7939703779662B32734B77414B694A5A707433527550644659584E35556C524E55434E58444661672B376A67523246326157346D516D466962334E68514449774D545A4659584E355247467964326C75564756686257566863336B3D") == 0) {
+    if (EasyRTMP_Activate("7939703779662B32734B774162465A62704B6D547066644659584E35556C524E55436C58444661672F36586A5257467A65555268636E6470626C526C5957314A6331526F5A554A6C633352414D6A41784F47566863336B3D") == 0) {
         if (_delegate) {
             [_delegate getConnectStatus:@"激活成功" isFist:1];
         }
@@ -173,7 +179,7 @@ static CameraEncoder *selfClass = nil;
     // 配置输出视频图像格式
     NSDictionary *captureSettings = @{(NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
     self.videoOutput.videoSettings = captureSettings;
-    self.videoOutput.alwaysDiscardsLateVideoFrames = YES;
+    self.videoOutput.alwaysDiscardsLateVideoFrames = YES;//立即丢弃旧帧，节省内存，默认YES
     if ([self.videoCaptureSession canAddOutput:self.videoOutput]) {
         [self.videoCaptureSession addOutput:self.videoOutput];
     }
@@ -233,7 +239,7 @@ static CameraEncoder *selfClass = nil;
             // 配置输出视频图像格式
             NSDictionary *captureSettings = @{(NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
             new_videoOutput.videoSettings = captureSettings;
-            new_videoOutput.alwaysDiscardsLateVideoFrames = YES;
+            new_videoOutput.alwaysDiscardsLateVideoFrames = YES;//立即丢弃旧帧，节省内存，默认YES
             if ([self.videoCaptureSession canAddOutput:new_videoOutput]) {
                 [self.videoCaptureSession addOutput:new_videoOutput];
             }
@@ -318,6 +324,31 @@ static CameraEncoder *selfClass = nil;
 //    }
 }
 
+- (void)startRecord {
+    if (self.recordState != FMRecordStateRecording) {
+        [self.writeManager startWrite];
+        self.recordState = FMRecordStateRecording;
+    }
+}
+
+- (void)stopRecord {
+    [self.writeManager stopWrite];
+    self.recordState = FMRecordStateFinish;
+    
+    [self reset];
+}
+
+- (void)reset {
+    self.recordState = FMRecordStateInit;
+    [self setUpWriter];
+}
+
+- (void)setUpWriter {
+    self.videoUrl = [[NSURL alloc] initFileURLWithPath:[FolderUtil createVideoFilePath]];
+    self.writeManager = [[AVAssetWriteManager alloc] initWithURL:self.videoUrl viewType:TypeFullScreen];
+    self.writeManager.delegate = self;
+}
+
 #pragma mark - private method
 
 - (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition) position {
@@ -329,10 +360,59 @@ static CameraEncoder *selfClass = nil;
     return nil;
 }
 
+- (void) recordCaptureOutput:(AVCaptureOutput*)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection*)connection {
+    if (self.recordState != FMRecordStateRecording) {
+        return;
+    }
+    
+    @autoreleasepool {
+        if(connection == self.videoConnection) {//视频
+            if (!self.writeManager.outputVideoFormatDescription) {
+                @synchronized(self) {
+                    CMFormatDescriptionRef formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer);
+                    self.writeManager.outputVideoFormatDescription = formatDescription;
+                }
+            } else {
+                @synchronized(self) {
+                    if (self.writeManager.writeState == FMRecordStateRecording) {
+                        [self.writeManager appendSampleBuffer:sampleBuffer ofMediaType:AVMediaTypeVideo];
+                    }
+                }
+            }
+        } else if(connection == self.audioConnection) {//音频
+            if (!self.writeManager.outputAudioFormatDescription) {
+                @synchronized(self) {
+                    CMFormatDescriptionRef formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer);
+                    self.writeManager.outputAudioFormatDescription = formatDescription;
+                }
+            }
+            @synchronized(self) {
+                if (self.writeManager.writeState == FMRecordStateRecording) {
+                    [self.writeManager appendSampleBuffer:sampleBuffer ofMediaType:AVMediaTypeAudio];
+                }
+            }
+        }
+    }
+}
+
+#pragma mark - AVAssetWriteManagerDelegate
+
+- (void)updateWritingProgress:(CGFloat)progress {
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(updateRecordingProgress:)]) {
+//        [self.delegate updateRecordingProgress:progress];
+//    }
+}
+
+- (void)finishWriting {
+//    self.recordState = FMRecordStateFinish;
+}
+
 #pragma mark - 推流流程
 
 - (void)startCapture {
     [self.videoCaptureSession startRunning];
+    
+    [self setUpWriter];
 }
 
 - (void) startCamera:(NSString *)hostUrl {
@@ -382,6 +462,8 @@ static CameraEncoder *selfClass = nil;
     handle = NULL;
     
     pthread_mutex_unlock(&releaseLock);
+    
+    [self stopRecord];
 }
 
 #pragma mark - 连接状态回调
@@ -426,9 +508,11 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
 #pragma mark - AVCaptureAudioDataOutputSampleBufferDelegate
 
 -(void) captureOutput:(AVCaptureOutput*)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection*)connection {
-    CFRetain(sampleBuffer);
+    [self recordCaptureOutput:captureOutput didOutputSampleBuffer:sampleBuffer fromConnection:connection];
     
     if (self.running) {
+        CFRetain(sampleBuffer);
+        
         if(connection == self.videoConnection) {
             dispatch_async(self.encodeQueue, ^{
                 if (!self.onlyAudio) {
@@ -443,8 +527,6 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
                 CFRelease(sampleBuffer);
             });
         }
-    } else {
-        CFRelease(sampleBuffer);
     }
 }
 

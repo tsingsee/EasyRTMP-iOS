@@ -95,6 +95,9 @@
     [super viewWillDisappear:animated];
 
     self.navigationController.navigationBarHidden = NO;
+    
+    [self.encoder stopRecord];
+    self.recordBtn.selected = NO;// 到后台则停止录像
 }
 
 #pragma mark - UI
@@ -155,6 +158,7 @@
     } else {
         if (self.pushBtn.selected && self.encoder) {
             [self.encoder stopCamera];
+            self.recordBtn.selected = NO;// 到后台则停止录像
         }
     }
 }
@@ -338,7 +342,11 @@
 - (IBAction)record:(id)sender {
     self.recordBtn.selected = !self.recordBtn.selected;
     
-    // TODO
+    if (self.recordBtn.selected) {
+        [self.encoder startRecord];
+    } else {
+        [self.encoder stopRecord];
+    }
 }
 
 // 设置

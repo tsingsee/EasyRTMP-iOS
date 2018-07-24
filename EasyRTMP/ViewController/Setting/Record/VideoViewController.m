@@ -7,8 +7,10 @@
 //
 
 #import "VideoViewController.h"
+#import "PlayRecordViewController.h"
 #import "PromptView.h"
 #import "VideoCell.h"
+#import "FolderUtil.h"
 
 @interface VideoViewController ()<UICollectionViewDelegate, UICollectionViewDataSource> {
     PromptView *promptView;
@@ -16,6 +18,7 @@
 }
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) NSArray *records;
 
 @end
 
@@ -44,13 +47,15 @@
     // // 注册collectionView尾部的view
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
     [self.view addSubview:self.collectionView];
+    
+    [self gainVideoData];
 }
 
 #pragma mark - UICollectionViewDataSource
 
 // 每组cell的个数
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 20;
+    return self.records.count;
 }
 
 // cell的内容
@@ -65,9 +70,13 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *name = self.records[indexPath.row];
+    NSString *file = [NSString stringWithFormat:@"%@/%@", [FolderUtil videoFolder], name];
     
-    // TODO
-    
+    PlayRecordViewController *controller = [[PlayRecordViewController alloc] init];
+    controller.path = file;
+    controller.title = name;
+    [self basePushViewController:controller];
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -97,15 +106,21 @@
 
 // 读取本地录像
 - (void) gainVideoData {
+    self.records = [FolderUtil listFilesInDirectoryAtPath:[FolderUtil videoFolder]];
     
-    // TODO
-    
-//    [self addNilDataView];
+    if (self.records.count == 0) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self addNilDataView];
+        });
+    } else {
+        [self.collectionView reloadData];
+    }
 }
 
 - (void) addNilDataView {
     if (!promptView) {
         promptView = [[PromptView alloc] initWithFrame:self.view.bounds];
+        [promptView setNilDataWithImagePath:@"" tint:@"没有录像" btnTitle:@""];
     }
     
     [self.view addSubview:promptView];

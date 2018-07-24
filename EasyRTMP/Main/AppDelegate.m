@@ -49,6 +49,9 @@
     
     self.window.rootViewController = rootVC;
     
+//    NSString *pname = [[NSProcessInfo processInfo] processName];
+//    NSLog(@"----->>>>  %@", pname);
+    
     return YES;
 }
 

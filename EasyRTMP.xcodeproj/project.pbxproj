@@ -13,6 +13,10 @@
 		047A9E0E20F36479003CC39F /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A9E0D20F36479003CC39F /* WebViewController.m */; };
 		047A9E1220F37C25003CC39F /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A9E1120F37C25003CC39F /* ScanViewController.m */; };
 		047A9E1520F37E8F003CC39F /* RecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A9E1420F37E8F003CC39F /* RecordViewController.m */; };
+		047E4E2B2106F9080050146A /* AVAssetWriteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E4E2A2106F9080050146A /* AVAssetWriteManager.m */; };
+		047E4E2E2106F98D0050146A /* XCFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E4E2D2106F98D0050146A /* XCFileManager.m */; };
+		047E4E3221070A720050146A /* FolderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E4E3121070A720050146A /* FolderUtil.m */; };
+		047E4E3521070B400050146A /* PlayRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E4E3421070B400050146A /* PlayRecordViewController.m */; };
 		04C61CA220F44B1500D755D9 /* ResolutionViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C61CA120F44B1500D755D9 /* ResolutionViewController2.m */; };
 		04C61CA620F45FBF00D755D9 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C61CA520F45FBF00D755D9 /* VideoViewController.m */; };
 		04C61CAA20F484FD00D755D9 /* PromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C61CA920F484FD00D755D9 /* PromptView.m */; };
@@ -63,6 +67,14 @@
 		047A9E1120F37C25003CC39F /* ScanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
 		047A9E1320F37E8F003CC39F /* RecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordViewController.h; sourceTree = "<group>"; };
 		047A9E1420F37E8F003CC39F /* RecordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordViewController.m; sourceTree = "<group>"; };
+		047E4E292106F9080050146A /* AVAssetWriteManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVAssetWriteManager.h; sourceTree = "<group>"; };
+		047E4E2A2106F9080050146A /* AVAssetWriteManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AVAssetWriteManager.m; sourceTree = "<group>"; };
+		047E4E2C2106F98D0050146A /* XCFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCFileManager.h; sourceTree = "<group>"; };
+		047E4E2D2106F98D0050146A /* XCFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XCFileManager.m; sourceTree = "<group>"; };
+		047E4E3021070A720050146A /* FolderUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FolderUtil.h; sourceTree = "<group>"; };
+		047E4E3121070A720050146A /* FolderUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FolderUtil.m; sourceTree = "<group>"; };
+		047E4E3321070B400050146A /* PlayRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayRecordViewController.h; sourceTree = "<group>"; };
+		047E4E3421070B400050146A /* PlayRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayRecordViewController.m; sourceTree = "<group>"; };
 		04C61CA020F44B1400D755D9 /* ResolutionViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResolutionViewController2.h; sourceTree = "<group>"; };
 		04C61CA120F44B1500D755D9 /* ResolutionViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResolutionViewController2.m; sourceTree = "<group>"; };
 		04C61CA420F45FBF00D755D9 /* VideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
@@ -173,6 +185,19 @@
 			path = Info;
 			sourceTree = "<group>";
 		};
+		047E4E2F210709FE0050146A /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				047E4E292106F9080050146A /* AVAssetWriteManager.h */,
+				047E4E2A2106F9080050146A /* AVAssetWriteManager.m */,
+				047E4E2C2106F98D0050146A /* XCFileManager.h */,
+				047E4E2D2106F98D0050146A /* XCFileManager.m */,
+				047E4E3021070A720050146A /* FolderUtil.h */,
+				047E4E3121070A720050146A /* FolderUtil.m */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
 		04C61CA320F45F7400D755D9 /* Record */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +207,8 @@
 				04C61CA520F45FBF00D755D9 /* VideoViewController.m */,
 				04C61CAE20F48B5200D755D9 /* PhotoViewController.h */,
 				04C61CAF20F48B5200D755D9 /* PhotoViewController.m */,
+				047E4E3321070B400050146A /* PlayRecordViewController.h */,
+				047E4E3421070B400050146A /* PlayRecordViewController.m */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -219,9 +246,10 @@
 		04F7286120F2F2460089EDCA /* Encoder */ = {
 			isa = PBXGroup;
 			children = (
-				04F7286320F2F2460089EDCA /* Codec */,
 				04F7286220F2F2460089EDCA /* CameraEncoder.h */,
 				04F7286C20F2F2460089EDCA /* CameraEncoder.m */,
+				04F7286320F2F2460089EDCA /* Codec */,
+				047E4E2F210709FE0050146A /* Record */,
 			);
 			path = Encoder;
 			sourceTree = "<group>";
@@ -471,6 +499,7 @@
 				F6C510351D858306001EB536 /* PushViewController.m in Sources */,
 				A1195C5D1E6A6FE200535E11 /* InfoViewController.m in Sources */,
 				04C61CB020F48B5200D755D9 /* PhotoViewController.m in Sources */,
+				047E4E3521070B400050146A /* PlayRecordViewController.m in Sources */,
 				04C61CA620F45FBF00D755D9 /* VideoViewController.m in Sources */,
 				04C61CAD20F4857D00D755D9 /* VideoCell.m in Sources */,
 				A1195D291E73D43200535E11 /* NetNotifieViewController.m in Sources */,
@@ -479,7 +508,10 @@
 				A175F55B1E24D32F00C76B21 /* SettingViewController.m in Sources */,
 				04F7287120F2F2460089EDCA /* H264HWEncoder.m in Sources */,
 				047A9DDB20F3448A003CC39F /* BaseViewController.m in Sources */,
+				047E4E3221070A720050146A /* FolderUtil.m in Sources */,
+				047E4E2B2106F9080050146A /* AVAssetWriteManager.m in Sources */,
 				047A9E1520F37E8F003CC39F /* RecordViewController.m in Sources */,
+				047E4E2E2106F98D0050146A /* XCFileManager.m in Sources */,
 				04F7287920F2F26D0089EDCA /* AppDelegate.m in Sources */,
 				04C61CAA20F484FD00D755D9 /* PromptView.m in Sources */,
 				04F7287220F2F2460089EDCA /* CameraEncoder.m in Sources */,
