@@ -54,7 +54,7 @@
         NSArray *deepArr = [manager subpathsOfDirectoryAtPath:path error:&error];
         if (!error) {
             listArr = deepArr;
-        }else {
+        } else {
             listArr = nil;
         }
     } else {
@@ -62,7 +62,7 @@
         NSArray *shallowArr = [manager contentsOfDirectoryAtPath:path error:&error];
         if (!error) {
             listArr = shallowArr;
-        }else {
+        } else {
             listArr = nil;
         }
     }

@@ -27,7 +27,7 @@
     return self;
 }
 
-void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStatus status, VTEncodeInfoFlags infoFlags, CMSampleBufferRef sampleBuffer ) {
+void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStatus status, VTEncodeInfoFlags infoFlags, CMSampleBufferRef sampleBuffer) {
     H264HWEncoder* encoder = (__bridge H264HWEncoder*)outputCallbackRefCon;
     
     if (status == noErr) {
@@ -51,8 +51,6 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
 }
 
 - (void) initSessionWithSize:(CGSize)size {
-//    CFMutableDictionaryRef encoderSpecifications = NULL;
-    
     OSStatus status = VTCompressionSessionCreate(kCFAllocatorDefault,
                                                  size.width,
                                                  size.height,
@@ -67,7 +65,6 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
         int fps = 20;
         
         // 设置码率
-//        int bt = [[[NSUserDefaults standardUserDefaults] objectForKey:Rate] intValue];
         int bt = (int)(size.width * size.height * 20 * 2 * 0.04f);
         if (size.width >= 1920 || size.height >= 1920) {
             bt *= 0.3;
@@ -92,7 +89,7 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
                              kVTCompressionPropertyKey_MaxKeyFrameInterval,
                              ref);
         CFRelease(ref);
-
+        
         ref = CFNumberCreate(NULL, kCFNumberSInt32Type, &fps);
         VTSessionSetProperty(session,
                              kVTCompressionPropertyKey_ExpectedFrameRate,
@@ -130,7 +127,6 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
     
     if( session != NULL && sampleBuffer != NULL) {
         // Create properties
-        
         CMTime timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
 //        CMTime pts = CMTimeMake(CMTimeGetSeconds(timestamp), 1000.0);
 //        NSLog(@"%f", CMTimeGetSeconds(pts));

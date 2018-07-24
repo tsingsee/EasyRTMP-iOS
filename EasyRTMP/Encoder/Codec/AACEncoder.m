@@ -53,9 +53,8 @@
 #pragma mark - public method
 
 - (void) encode:(CMSampleBufferRef)sampleBuffer {
-//    CFRetain(sampleBuffer);
     CMTime timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
-//    dispatch_async(_encoderQueue, ^{
+    
     if (!_audioConverter) {
         [self setupEncoderFromSampleBuffer:sampleBuffer];
     }
@@ -70,7 +69,6 @@
     NSError *error = nil;
     if (status != kCMBlockBufferNoErr) {
         error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
-//        NSLog(@"err:%@",error);
     }
     
     memset(_aacBuffer, 0, _aacBufferSize);
@@ -96,17 +94,15 @@
         data = rawAAC;
     } else {
         error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
-//        NSLog(@"%@",error);
     }
+    
     if (self.delegate != nil) {
         dispatch_async(_callbackQueue, ^{
             [self.delegate gotAACEncodedData:data timestamp:timestamp error:error];
         });
     }
     
-//    CFRelease(sampleBuffer);
     CFRelease(blockBuffer);
-//    });
 }
 
 #pragma mark - 设置属性
@@ -179,7 +175,7 @@
                                 &size,
                                 descriptions);
     if (st) {
-//        NSLog(@"error getting audio format propery: %d", (int)(st));
+        NSLog(@"error getting audio format propery: %d", (int)(st));
         return nil;
     }
     
@@ -199,17 +195,17 @@
 static OSStatus inInputDataProc(AudioConverterRef inAudioConverter, UInt32 *ioNumberDataPackets, AudioBufferList *ioData, AudioStreamPacketDescription **outDataPacketDescription, void *inUserData) {
     AACEncoder *encoder = (__bridge AACEncoder *)(inUserData);
     UInt32 requestedPackets = *ioNumberDataPackets;
-//    NSLog(@"Number of packets requested: %d", (unsigned int)requestedPackets);
+    NSLog(@"Number of packets requested: %d", (unsigned int)requestedPackets);
     size_t copiedSize = [encoder copyPCMBuffer:ioData];
     if (copiedSize < requestedPackets * 2) {
-//        NSLog(@"PCM buffer isn't full enough!");
+        NSLog(@"PCM buffer isn't full enough!");
         *ioNumberDataPackets = 0;
         return -1;
     }
     
     *ioNumberDataPackets = requestedPackets;
     
-    //NSLog(@"Copied %zu samples into ioData", copiedSamples);
+    NSLog(@"Copied %zu samples into ioData", copiedSize);
     return noErr;
 }
 
@@ -224,65 +220,5 @@ static OSStatus inInputDataProc(AudioConverterRef inAudioConverter, UInt32 *ioNu
     _pcmBufferSize = 0;
     return originalBufferSize;
 }
-
-//- (void)createEncoder {
-//    // 打开faac编码器引擎
-//    int nMaxOutputBytes = 0;
-//    hEncoder = faacEncOpen(nSampleRate, nChannels, &nInputSamples, &nMaxOutputBytes);
-//    if(hEncoder == NULL) {
-//        printf("打开faac编码器引擎失败!\n");
-//        return;
-//    }
-//
-//    // 分配内存信息
-//    unsigned int    nPCMBitSize = 16;
-//    int     nPCMBufferSize = nInputSamples * nPCMBitSize / 8;
-//    char*   pbPCMBuffer = (char *)malloc(nPCMBufferSize);
-//    char*   pbAACBuffer = (char *)malloc(nPCMBufferSize);
-//
-//    // 获取当前编码器信息
-//    faacEncConfigurationPtr pConfiguration = {0};
-//    pConfiguration = faacEncGetCurrentConfiguration(hEncoder);
-//
-//    pConfiguration->inputFormat = FAAC_INPUT_16BIT;
-//    pConfiguration->outputFormat = 1;
-//
-//    pConfiguration->aacObjectType = LOW;
-////    pConfiguration->allowMidside = 0;
-////    pConfiguration->useLfe = 0;
-////    pConfiguration->bitRate = 48000;
-////    pConfiguration->bandWidth = 32000;
-//}
-
-///**
-// *  Add ADTS header at the beginning of each and every AAC packet.
-// *  This is needed as MediaCodec encoder generates a packet of raw
-// *  AAC data.
-// *
-// *  Note the packetLen must count in the ADTS header itself.
-// *  See: http://wiki.multimedia.cx/index.php?title=ADTS
-// *  Also: http://wiki.multimedia.cx/index.php?title=MPEG-4_Audio#Channel_Configurations
-// **/
-//- (NSData*) adtsDataForPacketLength:(NSUInteger)packetLength {
-//    int adtsLength = 7;
-//    char *packet = malloc(sizeof(char) * adtsLength);
-//    // Variables Recycled by addADTStoPacket
-//    int profile = 2;  //AAC LC
-//    //39=MediaCodecInfo.CodecProfileLevel.AACObjectELD;
-////    int freqIdx = 11;  //8KHz
-//    int freqIdx = 4;
-//    int chanCfg = 2;  //MPEG-4 Audio Channel Configuration. 1 Channel front-center
-//    NSUInteger fullLength = adtsLength + packetLength;
-//    // fill in ADTS data
-//    packet[0] = (char)0xFF;    // 11111111      = syncword
-//    packet[1] = (char)0xF9;    // 1111 1 00 1  = syncword MPEG-2 Layer CRC
-//    packet[2] = (char)(((profile-1)<<6) + (freqIdx<<2) +(chanCfg>>2));
-//    packet[3] = (char)(((chanCfg&3)<<6) + (fullLength>>11));
-//    packet[4] = (char)((fullLength&0x7FF) >> 3);
-//    packet[5] = (char)(((fullLength&7)<<5) + 0x1F);
-//    packet[6] = (char)0xFC;
-//    NSData *data = [NSData dataWithBytesNoCopy:packet length:adtsLength freeWhenDone:YES];
-//    return data;
-//}
 
 @end

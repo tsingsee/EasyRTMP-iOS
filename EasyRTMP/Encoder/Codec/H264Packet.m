@@ -9,6 +9,7 @@
 #import "H264Packet.h"
 
 @interface H264Packet () {
+    
 }
 
 @end
@@ -90,7 +91,7 @@
             NSData *byteHeader = [NSData dataWithBytes:bytes length:4];
             NSMutableData *fullAVCData = [NSMutableData dataWithData:byteHeader];
             [fullAVCData appendData:data];
-        
+            
             [self.packet appendData:fullAVCData];
             
             // Move to the next NAL unit in the block buffer

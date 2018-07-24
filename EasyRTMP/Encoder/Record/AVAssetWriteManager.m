@@ -41,27 +41,7 @@
 
 @implementation AVAssetWriteManager
 
-#pragma mark - private method
-
-- (void)setUpInitWithType:(FMVideoViewType)type {
-    switch (type) {
-        case Type1X1:
-            _outputSize = CGSizeMake(kScreenWidth, kScreenWidth);
-            break;
-        case Type4X3:
-            _outputSize = CGSizeMake(kScreenWidth, kScreenWidth * 4 / 3);
-            break;
-        case TypeFullScreen:
-            _outputSize = CGSizeMake(kScreenWidth, kScreenHeight);
-            break;
-        default:
-            _outputSize = CGSizeMake(kScreenWidth, kScreenWidth);
-            break;
-    }
-    
-    _writeQueue = dispatch_queue_create("com.5miles", DISPATCH_QUEUE_SERIAL);
-    _recordTime = 0;
-}
+#pragma mark - public methed
 
 - (instancetype)initWithURL:(NSURL *)URL viewType:(FMVideoViewType)type {
     self = [super init];
@@ -141,8 +121,6 @@
     } );
 }
 
-#pragma mark - public methed
-
 - (void)startWrite {
     self.writeState = FMRecordStatePrepareRecording;
     if (!self.assetWriter) {
@@ -184,6 +162,26 @@
 }
 
 #pragma mark - private method
+
+- (void)setUpInitWithType:(FMVideoViewType)type {
+    switch (type) {
+        case Type1X1:
+            _outputSize = CGSizeMake(kScreenWidth, kScreenWidth);
+            break;
+        case Type4X3:
+            _outputSize = CGSizeMake(kScreenWidth, kScreenWidth * 4 / 3);
+            break;
+        case TypeFullScreen:
+            _outputSize = CGSizeMake(kScreenWidth, kScreenHeight);
+            break;
+        default:
+            _outputSize = CGSizeMake(kScreenWidth, kScreenWidth);
+            break;
+    }
+    
+    _writeQueue = dispatch_queue_create("com.5miles", DISPATCH_QUEUE_SERIAL);
+    _recordTime = 0;
+}
 
 // 设置写入视频属性
 - (void)setUpWriter {
