@@ -10,4 +10,6 @@
 
 @interface VideoCell : UICollectionViewCell
 
+@property (strong, nonatomic) UILabel *label;
+
 @end

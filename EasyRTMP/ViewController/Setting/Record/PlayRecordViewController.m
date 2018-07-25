@@ -22,6 +22,7 @@
     [super viewDidLoad];
     
     self.navigationItem.title = self.title;
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void) viewDidAppear:(BOOL)animated {

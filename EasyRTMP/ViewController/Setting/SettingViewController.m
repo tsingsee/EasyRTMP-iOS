@@ -8,7 +8,8 @@
 
 #import "SettingViewController.h"
 #import "ScanViewController.h"
-#import "RecordViewController.h"
+//#import "RecordViewController.h"
+#import "VideoViewController.h"
 #import "URLTool.h"
 
 @interface SettingViewController ()<UITextFieldDelegate>
@@ -96,7 +97,8 @@
 
 // 录像文件
 - (IBAction)record:(id)sender {
-    RecordViewController *controllr = [[RecordViewController alloc] initWithStoryborad];
+//    RecordViewController *controllr = [[RecordViewController alloc] initWithStoryborad];
+    VideoViewController *controllr = [[VideoViewController alloc] init];
     [self basePushViewController:controllr];
 }
 

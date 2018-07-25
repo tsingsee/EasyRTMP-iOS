@@ -27,12 +27,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.title = @"文件夹";
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 0;
     [layout setScrollDirection:UICollectionViewScrollDirectionVertical];// 设置collectionView的滚动方向
     
-    CGRect frame = CGRectMake(5, 0, HRGScreenWidth - 10, HRGScreenHeight - HRGBarHeight - HRGNavHeight - 47);
+    CGRect frame = CGRectMake(2, 0, HRGScreenWidth - 4, HRGScreenHeight - HRGBarHeight - HRGNavHeight - 47);
     self.collectionView = [[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -62,9 +65,41 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     VideoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"VideoCell" forIndexPath:indexPath];
     
-    // TODO
+    NSString *name = self.records[indexPath.row];
+    cell.label.text = [name stringByReplacingOccurrencesOfString:@".mp4" withString:@""];
+    
+    // 长按删除
+    UILongPressGestureRecognizer* longgs = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpress:)];
+    [cell addGestureRecognizer:longgs];//为cell添加手势
+    longgs.minimumPressDuration = 0.6;//定义长按识别时长
+    longgs.view.tag = indexPath.row;//将手势和cell的序号绑定
     
     return cell;
+}
+
+- (void)longpress:(UILongPressGestureRecognizer *) ges {
+    if (ges.state == UIGestureRecognizerStateBegan) {
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"确认删除这个录像吗？"
+                                                                            message:@""
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            // 获取目标cell
+            NSInteger row = ges.view.tag;
+            
+            NSString *name = self.records[row];
+            NSString *file = [NSString stringWithFormat:@"%@/%@", [FolderUtil videoFolder], name];
+            [FolderUtil deleteFilePath:file];
+            
+            [self gainVideoData];
+        }];
+        [controller addAction:cancelAction];
+        [controller addAction:okAction];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate
