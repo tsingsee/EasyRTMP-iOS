@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>4</string>
+	<string>7</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -30,13 +30,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>$(EXECUTABLE_NAME)</string>
+	<string>推流时需要打开您的相机，是否允许？</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>$(EXECUTABLE_NAME)</string>
+	<string>推流时需要打开您的麦克风，是否允许？</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string></string>
+	<string>录像时需要访问您的相册，是否允许？</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>录像时需要访问您的相册，是否允许？</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
