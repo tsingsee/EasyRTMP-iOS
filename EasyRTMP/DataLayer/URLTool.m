@@ -27,9 +27,9 @@ static NSString *OnlyAudioKey = @"OnlyAudioKey";
     NSString *url = [defaults objectForKey:ConfigUrlKey];
     
     // 设置默认url
-//    if (!url || [url containsString:@"rtmp://www.easydss.com/live"] || [url containsString:@"121.40.50.44/live"]) {
+//    if (!url || [url containsString:@"rtmp://demo.easydss.com/live"] || [url containsString:@"121.40.50.44/live"]) {
     if (!url || [url isEqualToString:@""]) {
-        NSMutableString *randomNum = [[NSMutableString alloc] initWithString:@"rtmp://www.easydss.com:10085/live/stream_"];
+        NSMutableString *randomNum = [[NSMutableString alloc] initWithString:@"rtmp://demo.easydss.com:10085/hls/stream_"];
         for (int i = 0; i < 6; i++) {
             int num = arc4random() % 10;
             [randomNum appendString:[NSString stringWithFormat:@"%d",num]];
