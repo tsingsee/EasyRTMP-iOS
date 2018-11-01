@@ -217,7 +217,7 @@
                     self.reverseBtn.enabled = NO;
                     self.screenBtn.enabled = NO;
                 } else {
-                    self.pushBtn.selected = NO;
+//                    self.pushBtn.selected = NO;
                     self.settingBtn.enabled = YES;
                     self.infoBtn.enabled = YES;
                     self.resolutionBtn.enabled = YES;
@@ -334,7 +334,10 @@
         self.settingBtn.enabled = YES;
         self.infoBtn.enabled = YES;
         
-        [self.encoder stopCamera];
+        dispatch_queue_t queue = dispatch_queue_create("stopCamera", DISPATCH_QUEUE_SERIAL);
+        dispatch_async(queue, ^{
+            [self.encoder stopCamera];
+        });
     }
 }
 
