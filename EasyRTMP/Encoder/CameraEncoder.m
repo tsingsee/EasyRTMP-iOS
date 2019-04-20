@@ -16,7 +16,7 @@
 static CameraEncoder *selfClass = nil;
 
 @interface CameraEncoder ()<H264HWEncoderDelegate, AACEncoderDelegate, AVAssetWriteManagerDelegate> {
-    Easy_RTMP_Handle handle;
+    Easy_Handle handle;
     
     CGSize tempOutputSize;
     
@@ -96,7 +96,7 @@ static CameraEncoder *selfClass = nil;
 
 - (void) activate {
     // 激活授权码
-    if (EasyRTMP_Activate("7939703779662B32734B7741365642636F3638577066644659584E35556C524E554C3558444661672F36586A5257467A65555268636E6470626C526C5957314A6331526F5A554A6C633352414D6A41784F47566863336B3D") == 0) {
+    if (EasyRTMP_Activate("79736C3665662B32734B7941725370636F3956524576644659584E35556C524E554C3558444661672F704C2B4947566863336B3D") > 0) {
         if (_delegate) {
             [_delegate getConnectStatus:@"激活成功" isFist:1];
         }
