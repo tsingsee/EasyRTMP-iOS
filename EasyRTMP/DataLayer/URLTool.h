@@ -22,4 +22,8 @@
 + (void) saveOnlyAudio:(BOOL) isAudio;
 + (BOOL) gainOnlyAudio;
 
+// 编码方式：是否是X264软编码
++ (void) saveX264Enxoder:(BOOL) value;
++ (BOOL) gainX264Enxoder;
+
 @end

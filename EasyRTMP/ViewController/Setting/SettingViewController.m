@@ -59,6 +59,10 @@
     if ([URLTool gainOnlyAudio]) {
         self.audioBtn.selected = YES;
     }
+    
+    if ([URLTool gainX264Enxoder]) {
+        self.codeBtn.selected = YES;
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -78,7 +82,7 @@
 - (IBAction)code:(id)sender {
     self.codeBtn.selected = !self.codeBtn.selected;
     
-    // TODO
+    [URLTool saveX264Enxoder:self.codeBtn.selected];
 }
 
 // 水印

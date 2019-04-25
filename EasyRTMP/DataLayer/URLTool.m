@@ -11,6 +11,7 @@
 static NSString *ConfigUrlKey = @"ConfigUrl";
 static NSString *ResolitionKey = @"resolition";
 static NSString *OnlyAudioKey = @"OnlyAudioKey";
+static NSString *X264Encoder = @"X264Encoder";
 
 @implementation URLTool
 
@@ -71,6 +72,19 @@ static NSString *OnlyAudioKey = @"OnlyAudioKey";
 + (BOOL) gainOnlyAudio {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults boolForKey:OnlyAudioKey];
+}
+
+#pragma mark - 编码方式：是否是X264软编码
+
++ (void) saveX264Enxoder:(BOOL) value {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:value forKey:X264Encoder];
+    [defaults synchronize];
+}
+
++ (BOOL) gainX264Enxoder {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:X264Encoder];
 }
 
 @end

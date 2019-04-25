@@ -18,6 +18,9 @@
 
 @end
 
+/**
+ 硬编码
+ */
 @interface H264HWEncoder : NSObject {
     int     _spsppsFound;
     unsigned char *_EncoderBuffer;

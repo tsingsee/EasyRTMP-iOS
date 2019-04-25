@@ -10,12 +10,14 @@
 #include <pthread.h>
 #import "H264HWEncoder.h"
 #import "AACEncoder.h"
+//#import "X264Encoder.h"
 #import "AVAssetWriteManager.h"
 #import "FolderUtil.h"
+#import "URLTool.h"
 
 static CameraEncoder *selfClass = nil;
 
-@interface CameraEncoder ()<H264HWEncoderDelegate, AACEncoderDelegate, AVAssetWriteManagerDelegate> {
+@interface CameraEncoder ()<H264HWEncoderDelegate, /*X264EncoderDelegate,*/ AACEncoderDelegate, AVAssetWriteManagerDelegate> {
     Easy_Handle handle;
     
     CGSize tempOutputSize;
@@ -39,6 +41,7 @@ static CameraEncoder *selfClass = nil;
 
 @property (nonatomic, strong) AVCaptureSession *videoCaptureSession;
 
+//@property (nonatomic, strong) X264Encoder *x264Encoder;
 @property (nonatomic, strong) H264HWEncoder *h264Encoder;
 @property (nonatomic, strong) AACEncoder *aacEncoder;
 
@@ -60,6 +63,9 @@ static CameraEncoder *selfClass = nil;
     
     pthread_mutex_init(&releaseLock, 0);
     
+    self.encodeQueue = dispatch_queue_create("encodeQueue", NULL);
+    
+    // 初始化硬编码
     self.h264Encoder = [[H264HWEncoder alloc] init];
     self.h264Encoder.delegate = self;
     
@@ -80,14 +86,14 @@ static CameraEncoder *selfClass = nil;
     [self setupAudioCapture];
     [self setupVideoCapture:resolution];
     
-    self.encodeQueue = dispatch_queue_create("encodeQueue", NULL);
-    
     selfClass = self;
 }
 
 - (void)dealloc {
 #if TARGET_OS_IPHONE
     [self.h264Encoder invalidate];
+    
+    [self teardown];
 #endif
     self.running = NO;
     
@@ -96,7 +102,10 @@ static CameraEncoder *selfClass = nil;
 
 - (void) activate {
     // 激活授权码
-    if (EasyRTMP_Activate("79736C3665662B32734B7941725370636F3956524576644659584E35556C524E554C3558444661672F704C2B4947566863336B3D") > 0) {
+    int res = EasyRTMP_Activate("79736C3665662B32734B7941725370636F3956524576644659584E35556C524E554C3558444661672F704C2B4947566863336B3D");
+    NSLog(@"key剩余时间：%d", res);
+    
+    if (res > 0) {
         if (_delegate) {
             [_delegate getConnectStatus:@"激活成功" isFist:1];
         }
@@ -177,9 +186,9 @@ static CameraEncoder *selfClass = nil;
     [self.videoOutput setSampleBufferDelegate:self queue:_videoQueue];
     
     // 配置输出视频图像格式
-    NSDictionary *captureSettings = @{(NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
-    self.videoOutput.videoSettings = captureSettings;
-    self.videoOutput.alwaysDiscardsLateVideoFrames = YES;//立即丢弃旧帧，节省内存，默认YES
+    [self.videoOutput setVideoSettings:@{(__bridge NSString *)kCVPixelBufferPixelFormatTypeKey:@(kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange)}];
+    self.videoOutput.alwaysDiscardsLateVideoFrames = NO;
+//    self.videoOutput.alwaysDiscardsLateVideoFrames = YES;//立即丢弃旧帧，节省内存，默认YES
     if ([self.videoCaptureSession canAddOutput:self.videoOutput]) {
         [self.videoCaptureSession addOutput:self.videoOutput];
     }
@@ -366,7 +375,7 @@ static CameraEncoder *selfClass = nil;
     }
     
     @autoreleasepool {
-        if(connection == self.videoConnection) {//视频
+        if(connection == self.videoConnection) {// 视频
             if (!self.writeManager.outputVideoFormatDescription) {
                 @synchronized(self) {
                     CMFormatDescriptionRef formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer);
@@ -379,7 +388,7 @@ static CameraEncoder *selfClass = nil;
                     }
                 }
             }
-        } else if(connection == self.audioConnection) {//音频
+        } else if(connection == self.audioConnection) {// 音频
             if (!self.writeManager.outputAudioFormatDescription) {
                 @synchronized(self) {
                     CMFormatDescriptionRef formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer);
@@ -416,6 +425,8 @@ static CameraEncoder *selfClass = nil;
 }
 
 - (void) startCamera:(NSString *)hostUrl {
+    NSLog(@"推流地址：%@", hostUrl);
+    
     if (handle) {
         return;
     }
@@ -445,6 +456,8 @@ static CameraEncoder *selfClass = nil;
     
     EasyRTMP_Connect(handle, [hostUrl cStringUsingEncoding:NSUTF8StringEncoding]);
     EasyRTMP_InitMetadata(handle, &mediainfo, 1024);
+    
+    [self initX264Encoder];
 }
 
 - (void) stopCamera {
@@ -516,7 +529,12 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
         if(connection == self.videoConnection) {
             dispatch_async(self.encodeQueue, ^{
                 if (!self.onlyAudio) {
-                    [self.h264Encoder encode:sampleBuffer size:self.outputSize];
+                    
+//                    if ([URLTool gainX264Enxoder]) {
+//                        [self.x264Encoder encoding:sampleBuffer];
+//                    } else {
+                        [self.h264Encoder encode:sampleBuffer size:self.outputSize];
+//                    }
                 }
                 self.outputSize = CGSizeMake(0, 0);// 输出尺寸置空，则不需要再初始化VTCompressionSessionRef
                 CFRelease(sampleBuffer);
@@ -534,9 +552,39 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
     NSLog(@"drop frame");
 }
 
+#pragma mark - x264
+
+- (void)initX264Encoder {
+//    dispatch_sync(self.encodeQueue, ^{
+//        NSString *resolution = [URLTool gainResolition];
+//        NSArray *s = [resolution componentsSeparatedByString:@"*"];
+//        CGSize size = CGSizeMake([s[0] floatValue], [s[1] floatValue]);
+//
+//        self.x264Encoder = [[X264Encoder alloc] initX264Encoder:size frameRate:30 maxKeyframeInterval:25 bitrate:1024*1000 profileLevel:@""];
+//
+//        self.x264Encoder.delegate = self;
+//    });
+}
+
+- (void)teardown {
+//    dispatch_sync(self.encodeQueue, ^{
+//        [self.x264Encoder teardown];
+//    });
+}
+
+#pragma mark - X264EncoderDelegate
+
+- (void)gotX264EncoderData:(NSData *)packet keyFrame:(BOOL)keyFrame timestamp:(CMTime)timestamp error:(NSError*)error {
+    [self dealEncodedData:packet keyFrame:keyFrame timestamp:timestamp error:error];
+}
+
 #pragma mark - H264HWEncoderDelegate declare
 
 - (void)gotH264EncodedData:(NSData *)packet keyFrame:(BOOL)keyFrame timestamp:(CMTime)timestamp error:(NSError*)error {
+    [self dealEncodedData:packet keyFrame:keyFrame timestamp:timestamp error:error];
+}
+
+- (void) dealEncodedData:(NSData *)packet keyFrame:(BOOL)keyFrame timestamp:(CMTime)timestamp error:(NSError*)error {
     EASY_AV_Frame frame;
     frame.pBuffer = (void*) packet.bytes;
     
