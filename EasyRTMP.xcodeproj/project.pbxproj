@@ -30,16 +30,6 @@
 		04F7287220F2F2460089EDCA /* CameraEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7286C20F2F2460089EDCA /* CameraEncoder.m */; };
 		04F7287820F2F26D0089EDCA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7287520F2F26D0089EDCA /* main.m */; };
 		04F7287920F2F26D0089EDCA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7287620F2F26D0089EDCA /* AppDelegate.m */; };
-		66747A0422704CE800BDD443 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 667479F622704CE800BDD443 /* libavutil.a */; };
-		66747A0522704CE800BDD443 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 667479F722704CE800BDD443 /* libavfilter.a */; };
-		66747A0622704CE800BDD443 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 667479F822704CE800BDD443 /* libavcodec.a */; };
-		66747A0722704CE800BDD443 /* libpostproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 667479F922704CE800BDD443 /* libpostproc.a */; };
-		66747A0822704CE800BDD443 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 667479FA22704CE800BDD443 /* libavformat.a */; };
-		66747A0922704CE800BDD443 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 667479FB22704CE800BDD443 /* libavdevice.a */; };
-		66747A0A22704CE800BDD443 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 667479FC22704CE800BDD443 /* libswresample.a */; };
-		66747A0B22704CE800BDD443 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 667479FD22704CE800BDD443 /* libswscale.a */; };
-		66747A0C22704CE800BDD443 /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66747A0322704CE800BDD443 /* libx264.a */; };
-		66747A1222704D3500BDD443 /* X264Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 66747A1122704D3500BDD443 /* X264Encoder.m */; };
 		A1195C581E69A22300535E11 /* ResolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1195C561E69A22300535E11 /* ResolutionViewController.m */; };
 		A1195C5D1E6A6FE200535E11 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1195C5B1E6A6FE200535E11 /* InfoViewController.m */; };
 		A1195D251E73A1BD00535E11 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1195D241E73A1BD00535E11 /* CoreTelephony.framework */; };
@@ -237,8 +227,6 @@
 		66747A0022704CE800BDD443 /* x264_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264_config.h; sourceTree = "<group>"; };
 		66747A0122704CE800BDD443 /* x264.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264.h; sourceTree = "<group>"; };
 		66747A0322704CE800BDD443 /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libx264.a; sourceTree = "<group>"; };
-		66747A1022704D3500BDD443 /* X264Encoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = X264Encoder.h; sourceTree = "<group>"; };
-		66747A1122704D3500BDD443 /* X264Encoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = X264Encoder.m; sourceTree = "<group>"; };
 		972B5E7907C06A56F27D883B /* Pods-EasyRTMP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyRTMP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EasyRTMP/Pods-EasyRTMP.debug.xcconfig"; sourceTree = "<group>"; };
 		A1195C551E69A22300535E11 /* ResolutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResolutionViewController.h; sourceTree = "<group>"; };
 		A1195C561E69A22300535E11 /* ResolutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResolutionViewController.m; sourceTree = "<group>"; };
@@ -274,28 +262,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66747A0522704CE800BDD443 /* libavfilter.a in Frameworks */,
-				66747A0422704CE800BDD443 /* libavutil.a in Frameworks */,
-				66747A0B22704CE800BDD443 /* libswscale.a in Frameworks */,
 				A1DBC6381E8BA92C001E25E8 /* libbz2.tbd in Frameworks */,
-				66747A0822704CE800BDD443 /* libavformat.a in Frameworks */,
 				A1DBC6361E8BA91C001E25E8 /* libz.tbd in Frameworks */,
 				A1DBC6351E8BA90A001E25E8 /* libiconv.tbd in Frameworks */,
 				A1DBC6331E8BA8F8001E25E8 /* libicucore.tbd in Frameworks */,
 				A1DBC62B1E8BA7EA001E25E8 /* libc++.tbd in Frameworks */,
-				66747A0722704CE800BDD443 /* libpostproc.a in Frameworks */,
 				04F7286D20F2F2460089EDCA /* libEasyRTMP.a in Frameworks */,
-				66747A0922704CE800BDD443 /* libavdevice.a in Frameworks */,
 				A1DBC63E1E8BA95A001E25E8 /* SystemConfiguration.framework in Frameworks */,
 				A1DBC6551E8BDFE0001E25E8 /* Foundation.framework in Frameworks */,
 				A1DBC63C1E8BA94A001E25E8 /* VideoToolbox.framework in Frameworks */,
 				A1DBC63A1E8BA93C001E25E8 /* AudioToolbox.framework in Frameworks */,
-				66747A0C22704CE800BDD443 /* libx264.a in Frameworks */,
 				A1DBC6311E8BA886001E25E8 /* CFNetwork.framework in Frameworks */,
 				A1195D251E73A1BD00535E11 /* CoreTelephony.framework in Frameworks */,
-				66747A0622704CE800BDD443 /* libavcodec.a in Frameworks */,
 				A1CBFC4B1E4F099900588740 /* AVFoundation.framework in Frameworks */,
-				66747A0A22704CE800BDD443 /* libswresample.a in Frameworks */,
 				047A9E0720F34BFE003CC39F /* Pods_EasyRTMP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,8 +383,6 @@
 			children = (
 				04F7286520F2F2460089EDCA /* AACEncoder.h */,
 				04F7286820F2F2460089EDCA /* AACEncoder.m */,
-				66747A1022704D3500BDD443 /* X264Encoder.h */,
-				66747A1122704D3500BDD443 /* X264Encoder.m */,
 				04F7286620F2F2460089EDCA /* H264HWEncoder.h */,
 				04F7286A20F2F2460089EDCA /* H264HWEncoder.m */,
 				04F7286420F2F2460089EDCA /* H264Packet.h */,
@@ -876,7 +853,6 @@
 			files = (
 				04F7287020F2F2460089EDCA /* H264Packet.m in Sources */,
 				047A9E1220F37C25003CC39F /* ScanViewController.m in Sources */,
-				66747A1222704D3500BDD443 /* X264Encoder.m in Sources */,
 				A1195C581E69A22300535E11 /* ResolutionViewController.m in Sources */,
 				04C61CA220F44B1500D755D9 /* ResolutionViewController2.m in Sources */,
 				04F7286F20F2F2460089EDCA /* AACEncoder.m in Sources */,
@@ -1060,15 +1036,13 @@
 				DEVELOPMENT_TEAM = 33USAS7KQX;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/EasyRTMP/Main/PrefixHeader.pch";
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/EasyRTMP/FFmpeg-iOS/include";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/EasyRTMP/Main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EasyRTMP/EasyRTMPLib",
-					"$(PROJECT_DIR)/EasyRTMP/FFmpeg-iOS/lib",
-					"$(PROJECT_DIR)/EasyRTMP/x264-iOS/lib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1136,15 +1110,13 @@
 				DEVELOPMENT_TEAM = 33USAS7KQX;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "${SRCROOT}/EasyRTMP/Main/PrefixHeader.pch";
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/EasyRTMP/FFmpeg-iOS/include";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/EasyRTMP/Main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EasyRTMP/EasyRTMPLib",
-					"$(PROJECT_DIR)/EasyRTMP/FFmpeg-iOS/lib",
-					"$(PROJECT_DIR)/EasyRTMP/x264-iOS/lib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (

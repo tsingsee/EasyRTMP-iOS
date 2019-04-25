@@ -572,11 +572,11 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
 //    });
 }
 
-#pragma mark - X264EncoderDelegate
-
-- (void)gotX264EncoderData:(NSData *)packet keyFrame:(BOOL)keyFrame timestamp:(CMTime)timestamp error:(NSError*)error {
-    [self dealEncodedData:packet keyFrame:keyFrame timestamp:timestamp error:error];
-}
+//#pragma mark - X264EncoderDelegate
+//
+//- (void)gotX264EncoderData:(NSData *)packet keyFrame:(BOOL)keyFrame timestamp:(CMTime)timestamp error:(NSError*)error {
+//    [self dealEncodedData:packet keyFrame:keyFrame timestamp:timestamp error:error];
+//}
 
 #pragma mark - H264HWEncoderDelegate declare
 
