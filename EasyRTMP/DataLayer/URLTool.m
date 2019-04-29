@@ -12,6 +12,7 @@ static NSString *ConfigUrlKey = @"ConfigUrl";
 static NSString *ResolitionKey = @"resolition";
 static NSString *OnlyAudioKey = @"OnlyAudioKey";
 static NSString *X264Encoder = @"X264Encoder";
+static NSString *activeDay = @"activeDay";
 
 @implementation URLTool
 
@@ -85,6 +86,17 @@ static NSString *X264Encoder = @"X264Encoder";
 + (BOOL) gainX264Enxoder {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults boolForKey:X264Encoder];
+}
+
+#pragma mark - key有效期
+
++ (void) setActiveDay:(int)value {
+    [[NSUserDefaults standardUserDefaults] setInteger:value forKey:activeDay];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (int) activeDay {
+    return (int)[[NSUserDefaults standardUserDefaults] integerForKey:activeDay];
 }
 
 @end

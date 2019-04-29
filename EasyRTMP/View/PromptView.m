@@ -11,7 +11,7 @@
 
 @interface PromptView()
 
-@property (nonatomic, retain) UIButton *imageBtn;// weizhaodao,car_mytt,load_failure
+@property (nonatomic, retain) UIButton *imageBtn;
 @property (nonatomic, retain) UILabel *label;
 @property (nonatomic, retain) UIButton *operationBtn;
 

@@ -35,7 +35,7 @@
 @property (nonatomic, assign) BOOL onlyAudio;
 
 // 初始化
-- (void)initCameraWithOutputSize:(CGSize)size resolution:(AVCaptureSessionPreset)resolution;
+- (int)initCameraWithOutputSize:(CGSize)size resolution:(AVCaptureSessionPreset)resolution;
 - (void) startCapture;
 
 // 开始推流/结束推流

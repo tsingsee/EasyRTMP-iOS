@@ -56,10 +56,21 @@
     // 推流器
     self.encoder = [[CameraEncoder alloc] init];
     self.encoder.delegate = self;
-    [self.encoder initCameraWithOutputSize:CGSizeMake(HRGScreenWidth, HRGScreenHeight) resolution:[self captureSessionPreset]];
+    
+    int days = [self.encoder initCameraWithOutputSize:CGSizeMake(HRGScreenWidth, HRGScreenHeight) resolution:[self captureSessionPreset]];
     self.encoder.previewLayer.frame = CGRectMake(0, 0, HRGScreenWidth, HRGScreenHeight);
     self.encoder.orientation = AVCaptureVideoOrientationPortrait;
     [self.contentView.layer addSublayer:self.encoder.previewLayer];
+    
+    // 保存key有效期
+    [URLTool setActiveDay:days];
+    if (days >= 9999) {
+        [self.infoBtn setImage:[UIImage imageNamed:@"version1"] forState:UIControlStateNormal];
+    } else if (days > 0) {
+        [self.infoBtn setImage:[UIImage imageNamed:@"version2"] forState:UIControlStateNormal];
+    } else {
+        [self.infoBtn setImage:[UIImage imageNamed:@"version3"] forState:UIControlStateNormal];
+    }
     
     self.prev = self.encoder.previewLayer;
     [[self.prev connection] setVideoOrientation:AVCaptureVideoOrientationPortrait];

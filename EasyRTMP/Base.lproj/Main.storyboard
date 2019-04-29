@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -215,91 +215,91 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="412"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9sr-AA-SZz" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="880.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="878.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EasyRTMP-2.0.18.0714" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPf-vy-oXV">
-                                                <rect key="frame" x="67" y="30" width="186" height="21.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <color key="textColor" red="0.36862745098039218" green="0.56470588235294117" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <rect key="frame" x="12" y="30" width="296" height="19.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKi-0f-vg0">
-                                                <rect key="frame" x="12" y="81.5" width="296" height="184"/>
+                                                <rect key="frame" x="12" y="79.5" width="296" height="184"/>
                                                 <string key="text">EasyRTMP是一套调用简单、功能完善、运行高效稳定的RTMP功能组件，经过多年实战和线上运行打造，支持RTMP推送断线重连、环形缓冲、智能丢帧、网络事件回调，支持Windows、Linux、arm（hisiv100/hisiv200/hisiv300/hisiv400/etc..）、Android、iOS平台，支持市面上绝大部分的RTMP流媒体服务器，包括Wowza、Red5、ngnix_rtmp、crtmpserver等主流RTMP服务器，能够完美应用于各种行业的直播需求，手机直播、桌面直播、摄像机直播、课堂直播等等方面！</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.29803921568627451" green="0.29803921568627451" blue="0.29803921568627451" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="配套方案推荐" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVz-sc-VX4">
-                                                <rect key="frame" x="12" y="295.5" width="296" height="20"/>
+                                                <rect key="frame" x="12" y="293.5" width="296" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" red="0.36862745099999999" green="0.56470588239999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EasyRTMP推流组件" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ewV-EO-KNr">
-                                                <rect key="frame" x="97" y="335.5" width="126" height="17"/>
+                                                <rect key="frame" x="97" y="333.5" width="126" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RTMP_android" translatesAutoresizingMaskIntoConstraints="NO" id="n8L-ka-HV5">
-                                                <rect key="frame" x="0.0" y="372.5" width="160" height="130"/>
+                                                <rect key="frame" x="0.0" y="370.5" width="160" height="130"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RTMP_ios" translatesAutoresizingMaskIntoConstraints="NO" id="sdv-X4-gjo">
-                                                <rect key="frame" x="160" y="372.5" width="160" height="130"/>
+                                                <rect key="frame" x="160" y="370.5" width="160" height="130"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Android" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJb-wv-Xv8">
-                                                <rect key="frame" x="54.5" y="512.5" width="51" height="17"/>
+                                                <rect key="frame" x="54.5" y="510.5" width="51" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wrA-5g-MZb">
-                                                <rect key="frame" x="228.5" y="512.5" width="23" height="17"/>
+                                                <rect key="frame" x="228.5" y="510.5" width="23" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EasyDSS RTMP流媒体服务器：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="83Y-Eo-oEq">
-                                                <rect key="frame" x="12" y="544.5" width="296" height="17"/>
+                                                <rect key="frame" x="12" y="542.5" width="296" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EasyPlayerPro全功能播放器：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f54-f8-m0K">
-                                                <rect key="frame" x="12" y="601.5" width="296" height="17"/>
+                                                <rect key="frame" x="12" y="599.5" width="296" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mh5-9d-1GN">
-                                                <rect key="frame" x="32" y="561.5" width="278" height="30"/>
+                                                <rect key="frame" x="32" y="559.5" width="278" height="30"/>
                                                 <state key="normal" title="http://www.easydss.com"/>
                                                 <connections>
                                                     <action selector="easyDSS:" destination="Efu-Ff-0Gz" eventType="touchUpInside" id="QbE-7s-TC8"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3gP-C0-bhj">
-                                                <rect key="frame" x="32" y="618.5" width="278" height="30"/>
+                                                <rect key="frame" x="32" y="616.5" width="278" height="30"/>
                                                 <state key="normal" title="https://github.com/EasyDSS/EasyPlayerPro"/>
                                                 <connections>
                                                     <action selector="github:" destination="Efu-Ff-0Gz" eventType="touchUpInside" id="0e1-bw-Gta"/>
                                                 </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pro_android" translatesAutoresizingMaskIntoConstraints="NO" id="Aow-ZN-a34">
-                                                <rect key="frame" x="0.0" y="663.5" width="160" height="130"/>
+                                                <rect key="frame" x="0.0" y="661.5" width="160" height="130"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pro_ios" translatesAutoresizingMaskIntoConstraints="NO" id="RO4-HA-xwE">
-                                                <rect key="frame" x="160" y="663.5" width="160" height="130"/>
+                                                <rect key="frame" x="160" y="661.5" width="160" height="130"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Android" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BmT-Ck-w8Q">
-                                                <rect key="frame" x="54.5" y="803.5" width="51" height="17"/>
+                                                <rect key="frame" x="54.5" y="801.5" width="51" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M64-oD-MDX">
-                                                <rect key="frame" x="228.5" y="803.5" width="23" height="17"/>
+                                                <rect key="frame" x="228.5" y="801.5" width="23" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -316,6 +316,7 @@
                                             <constraint firstItem="jKi-0f-vg0" firstAttribute="top" secondItem="zPf-vy-oXV" secondAttribute="bottom" constant="30" id="7bs-9K-MGi"/>
                                             <constraint firstAttribute="trailing" secondItem="RO4-HA-xwE" secondAttribute="trailing" id="9ve-ux-edK"/>
                                             <constraint firstItem="sdv-X4-gjo" firstAttribute="top" secondItem="n8L-ka-HV5" secondAttribute="top" id="AHW-JO-IQS"/>
+                                            <constraint firstAttribute="trailing" secondItem="zPf-vy-oXV" secondAttribute="trailing" constant="12" id="EXb-PV-BZc"/>
                                             <constraint firstItem="M64-oD-MDX" firstAttribute="top" secondItem="RO4-HA-xwE" secondAttribute="bottom" constant="10" id="EkG-4l-5Fv"/>
                                             <constraint firstItem="wrA-5g-MZb" firstAttribute="centerX" secondItem="sdv-X4-gjo" secondAttribute="centerX" id="FYt-pG-cEE"/>
                                             <constraint firstItem="f54-f8-m0K" firstAttribute="leading" secondItem="9sr-AA-SZz" secondAttribute="leading" constant="12" id="IiO-2T-eYP"/>
@@ -325,7 +326,6 @@
                                             <constraint firstItem="3gP-C0-bhj" firstAttribute="leading" secondItem="9sr-AA-SZz" secondAttribute="leading" constant="32" id="MGe-4k-cbW"/>
                                             <constraint firstItem="Aow-ZN-a34" firstAttribute="top" secondItem="3gP-C0-bhj" secondAttribute="bottom" constant="15" id="N72-Zm-0rO"/>
                                             <constraint firstItem="RO4-HA-xwE" firstAttribute="width" secondItem="Aow-ZN-a34" secondAttribute="width" id="ORX-jJ-sL5"/>
-                                            <constraint firstItem="zPf-vy-oXV" firstAttribute="centerX" secondItem="9sr-AA-SZz" secondAttribute="centerX" id="PhL-0c-e5V"/>
                                             <constraint firstItem="Mh5-9d-1GN" firstAttribute="top" secondItem="83Y-Eo-oEq" secondAttribute="bottom" id="Rbc-fW-jy7"/>
                                             <constraint firstItem="83Y-Eo-oEq" firstAttribute="leading" secondItem="9sr-AA-SZz" secondAttribute="leading" constant="12" id="Rxd-qX-AjB"/>
                                             <constraint firstItem="jKi-0f-vg0" firstAttribute="leading" secondItem="9sr-AA-SZz" secondAttribute="leading" constant="12" id="T2r-dT-iJh"/>
@@ -348,6 +348,7 @@
                                             <constraint firstItem="eJb-wv-Xv8" firstAttribute="centerX" secondItem="n8L-ka-HV5" secondAttribute="centerX" id="ssC-sB-cLC"/>
                                             <constraint firstAttribute="trailing" secondItem="jKi-0f-vg0" secondAttribute="trailing" constant="12" id="vFd-Sg-Kws"/>
                                             <constraint firstItem="kVz-sc-VX4" firstAttribute="leading" secondItem="9sr-AA-SZz" secondAttribute="leading" constant="12" id="yqR-SI-8FU"/>
+                                            <constraint firstItem="zPf-vy-oXV" firstAttribute="leading" secondItem="9sr-AA-SZz" secondAttribute="leading" constant="12" id="yqp-EN-bu1"/>
                                             <constraint firstItem="sdv-X4-gjo" firstAttribute="width" secondItem="n8L-ka-HV5" secondAttribute="width" id="ywj-Df-zmS"/>
                                             <constraint firstAttribute="trailing" secondItem="sdv-X4-gjo" secondAttribute="trailing" id="zbI-V0-wgo"/>
                                         </constraints>
@@ -392,6 +393,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dVc-mA-ERe"/>
                     </view>
+                    <connections>
+                        <outlet property="nameLabel" destination="zPf-vy-oXV" id="430-UR-pAD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RqK-tt-pSb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -933,7 +937,7 @@ Cgo
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aaY-Xe-ahZ">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avw-Ca-1kV">
                                 <rect key="frame" x="10" y="40" width="44" height="44"/>
@@ -941,11 +945,17 @@ Cgo
                                     <constraint firstAttribute="height" constant="44" id="Tty-Hi-NyO"/>
                                     <constraint firstAttribute="width" constant="44" id="UJG-Nm-2gF"/>
                                 </constraints>
-                                <state key="normal" image="close"/>
+                                <state key="normal" image="back"/>
                                 <connections>
                                     <action selector="close:" destination="zeM-Jh-Cf0" eventType="touchUpInside" id="lk2-iE-cvS"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="扫一扫" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qN8-qo-itj">
+                                <rect key="frame" x="129.5" y="50" width="61.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v9P-vB-EHh">
                                 <rect key="frame" x="5" y="85" width="310" height="310"/>
                                 <color key="backgroundColor" white="1" alpha="0.6047810299295775" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -960,7 +970,7 @@ Cgo
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.36862745098039218" green="0.56470588235294117" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="aaY-Xe-ahZ" firstAttribute="leading" secondItem="I95-0f-sbh" secondAttribute="leading" id="09U-7p-26s"/>
                             <constraint firstItem="v9P-vB-EHh" firstAttribute="trailing" secondItem="dQl-mB-fT3" secondAttribute="trailing" id="0b6-CI-UHP"/>
@@ -973,7 +983,9 @@ Cgo
                             <constraint firstItem="aaY-Xe-ahZ" firstAttribute="top" secondItem="I95-0f-sbh" secondAttribute="top" id="b7k-he-7a3"/>
                             <constraint firstItem="6l9-aw-4tV" firstAttribute="centerX" secondItem="I95-0f-sbh" secondAttribute="centerX" id="gGz-hF-Sbe"/>
                             <constraint firstItem="v9P-vB-EHh" firstAttribute="top" secondItem="dQl-mB-fT3" secondAttribute="top" id="hT4-Wg-ZPX"/>
+                            <constraint firstItem="qN8-qo-itj" firstAttribute="centerX" secondItem="I95-0f-sbh" secondAttribute="centerX" id="kl1-uK-Yn4"/>
                             <constraint firstItem="v9P-vB-EHh" firstAttribute="bottom" secondItem="dQl-mB-fT3" secondAttribute="bottom" id="mxn-Cy-tqB"/>
+                            <constraint firstItem="qN8-qo-itj" firstAttribute="centerY" secondItem="avw-Ca-1kV" secondAttribute="centerY" id="pOQ-ZN-1ou"/>
                             <constraint firstItem="dQl-mB-fT3" firstAttribute="centerY" secondItem="I95-0f-sbh" secondAttribute="centerY" id="skd-05-NPl"/>
                             <constraint firstAttribute="trailing" secondItem="aaY-Xe-ahZ" secondAttribute="trailing" id="z35-N2-y29"/>
                         </constraints>
@@ -1070,7 +1082,7 @@ Cgo
     <resources>
         <image name="RTMP_android" width="130" height="130"/>
         <image name="RTMP_ios" width="130" height="130"/>
-        <image name="close" width="24" height="24"/>
+        <image name="back" width="42.5" height="16"/>
         <image name="pro_android" width="130" height="130"/>
         <image name="pro_ios" width="130" height="130.5"/>
         <image name="push_setting" width="400" height="211"/>

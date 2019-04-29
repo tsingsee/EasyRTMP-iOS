@@ -58,7 +58,7 @@ static CameraEncoder *selfClass = nil;
 
 #pragma mark - lifecycle
 
-- (void)initCameraWithOutputSize:(CGSize)size resolution:(AVCaptureSessionPreset)resolution {
+- (int)initCameraWithOutputSize:(CGSize)size resolution:(AVCaptureSessionPreset)resolution {
     self.outputSize = size;
     
     pthread_mutex_init(&releaseLock, 0);
@@ -76,7 +76,7 @@ static CameraEncoder *selfClass = nil;
     
     self.running = NO;
     
-    [self activate];
+    int res = [self activate];
     
     CMSimpleQueueCreate(kCFAllocatorDefault, 2, &vbuffQueue);
     CMSimpleQueueCreate(kCFAllocatorDefault, 2, &abuffQueue);
@@ -87,6 +87,8 @@ static CameraEncoder *selfClass = nil;
     [self setupVideoCapture:resolution];
     
     selfClass = self;
+    
+    return res;
 }
 
 - (void)dealloc {
@@ -100,7 +102,7 @@ static CameraEncoder *selfClass = nil;
     pthread_mutex_destroy(&releaseLock);
 }
 
-- (void) activate {
+- (int) activate {
     // 激活授权码
     int res = EasyRTMP_Activate("79736C3665662B32734B7941725370636F3956524576644659584E35556C524E554C3558444661672F704C2B4947566863336B3D");
     NSLog(@"key剩余时间：%d", res);
@@ -112,6 +114,8 @@ static CameraEncoder *selfClass = nil;
     } else {
         [_delegate getConnectStatus:@"激活失败" isFist:1];
     }
+    
+    return res;
 }
 
 #pragma mark - setter

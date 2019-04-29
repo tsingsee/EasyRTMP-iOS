@@ -50,7 +50,7 @@
     self.window.rootViewController = rootVC;
     
     NSString *pname = [[NSProcessInfo processInfo] processName];
-    NSLog(@"----->>>>  %@", pname);
+    NSLog(@"进程名：%@", pname);
     
     return YES;
 }

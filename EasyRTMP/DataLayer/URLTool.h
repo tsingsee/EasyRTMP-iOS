@@ -26,4 +26,11 @@
 + (void) saveX264Enxoder:(BOOL) value;
 + (BOOL) gainX264Enxoder;
 
+#pragma mark - key有效期
+
++ (void) setActiveDay:(int)value;
+
++ (int) activeDay;
+
+
 @end
