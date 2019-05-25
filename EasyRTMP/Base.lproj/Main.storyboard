@@ -215,7 +215,7 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="412"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9sr-AA-SZz" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="711.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="671.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EasyRTMP-2.0.18.0714" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPf-vy-oXV">
                                                 <rect key="frame" x="12" y="30" width="296" height="19.5"/>
@@ -332,7 +332,7 @@
                                             <constraint firstItem="RO4-HA-xwE" firstAttribute="leading" secondItem="Aow-ZN-a34" secondAttribute="trailing" id="Tp2-Ap-amj"/>
                                             <constraint firstItem="wrA-5g-MZb" firstAttribute="top" secondItem="sdv-X4-gjo" secondAttribute="bottom" constant="10" id="U0w-eN-fz3"/>
                                             <constraint firstItem="Mh5-9d-1GN" firstAttribute="leading" secondItem="9sr-AA-SZz" secondAttribute="leading" constant="32" id="YWf-jE-KcU"/>
-                                            <constraint firstAttribute="bottom" secondItem="M64-oD-MDX" secondAttribute="bottom" constant="60" id="cbL-lm-aA7"/>
+                                            <constraint firstAttribute="bottom" secondItem="M64-oD-MDX" secondAttribute="bottom" constant="20" id="cbL-lm-aA7"/>
                                             <constraint firstAttribute="trailing" secondItem="3gP-C0-bhj" secondAttribute="trailing" constant="10" id="cfd-B6-X3D"/>
                                             <constraint firstItem="zPf-vy-oXV" firstAttribute="top" secondItem="9sr-AA-SZz" secondAttribute="top" constant="30" id="eKE-Wa-tUR"/>
                                             <constraint firstItem="BmT-Ck-w8Q" firstAttribute="top" secondItem="Aow-ZN-a34" secondAttribute="bottom" constant="10" id="eXO-FI-9ba"/>
