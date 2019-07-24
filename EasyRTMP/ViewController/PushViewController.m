@@ -107,7 +107,7 @@
 
     self.navigationController.navigationBarHidden = NO;
     
-    [self.encoder stopRecord];
+    [self.encoder stopCamera];
     self.recordBtn.selected = NO;// 到后台则停止录像
 }
 
@@ -320,7 +320,6 @@
 
 // 推送
 - (IBAction)push:(id)sender {
-    
     // 获取联网状态
     __weak typeof(self)weakSelf = self;
     CTCellularData *cellularData = [[CTCellularData alloc] init];
