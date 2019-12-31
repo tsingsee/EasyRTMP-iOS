@@ -32,5 +32,4 @@
 
 + (int) activeDay;
 
-
 @end

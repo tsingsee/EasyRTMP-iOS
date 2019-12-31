@@ -15,7 +15,10 @@
 #import "NetNotifieViewController.h"
 #import "URLTool.h"
 #import "CameraEncoder.h"
+#import <ReplayKit/ReplayKit.h>
+#import "WHToast.h"
 
+API_AVAILABLE(ios(12.0))
 @interface PushViewController ()<SetDelegate, EasyResolutionDelegate, ConnectDelegate>
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewMarginTop;
@@ -30,12 +33,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *screenBtn;
 @property (weak, nonatomic) IBOutlet UIButton *infoBtn;
 @property (weak, nonatomic) IBOutlet UIButton *pushBtn;
+@property (weak, nonatomic) IBOutlet UIButton *pushScreenBtn;
 @property (weak, nonatomic) IBOutlet UIButton *recordBtn;
 @property (weak, nonatomic) IBOutlet UIButton *settingBtn;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UIView *btnView;
 
 @property (nonatomic, strong) CameraEncoder *encoder;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *prev;
+
+@property (nonatomic, strong) RPSystemBroadcastPickerView *broadPickerView;
 
 @end
 
@@ -85,6 +92,15 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(someMethod:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     
     self.statusLabel.text = [NSString stringWithFormat:@"断开链接\n%@", [URLTool gainURL]];
+    
+    if (@available(iOS 12.0, *)) {
+        CGFloat w = EasyScreenWidth / 4;
+        _broadPickerView = [[RPSystemBroadcastPickerView alloc] initWithFrame:CGRectMake(w-10, 0, w, 49)];
+        _broadPickerView.preferredExtension = @"org.easydarwin.easydarwinrtmp.EasyScreenLive";
+        [self.btnView insertSubview:_broadPickerView belowSubview:_pushScreenBtn];
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -104,7 +120,7 @@
 
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-
+    
     self.navigationController.navigationBarHidden = NO;
     
     [self.encoder stopCamera];
@@ -126,6 +142,10 @@
     [self.settingBtn setImage:[UIImage imageNamed:@"tab_setting_click"] forState:UIControlStateHighlighted];
     [self.settingBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
     [self.settingBtn setTitleColor:UIColorFromRGB(ThemeColor) forState:UIControlStateHighlighted];
+    [self.pushScreenBtn setImage:[UIImage imageNamed:@"push_screen"] forState:UIControlStateNormal];
+    [self.pushScreenBtn setImage:[UIImage imageNamed:@"push_screen_click"] forState:UIControlStateHighlighted];
+    [self.pushScreenBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
+    [self.pushScreenBtn setTitleColor:UIColorFromRGB(ThemeColor) forState:UIControlStateHighlighted];
     
     [self.reverseBtn setImage:[UIImage imageNamed:@"reverse"] forState:UIControlStateNormal];
     [self.reverseBtn setImage:[UIImage imageNamed:@"reverse_click"] forState:UIControlStateSelected];
@@ -140,12 +160,14 @@
     [self.recordBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
     [self.recordBtn setTitleColor:UIColorFromRGB(ThemeColor) forState:UIControlStateSelected];
     
-    [self.pushBtn setImageEdgeInsets:UIEdgeInsetsMake(-20, 20, 0, 0)];
-    [self.pushBtn setTitleEdgeInsets:UIEdgeInsetsMake(24, -32, 0, 0)];
-    [self.recordBtn setImageEdgeInsets:UIEdgeInsetsMake(-20, 20, 0, 0)];
-    [self.recordBtn setTitleEdgeInsets:UIEdgeInsetsMake(24, -32, 0, 0)];
-    [self.settingBtn setImageEdgeInsets:UIEdgeInsetsMake(-20, 20, 0, 0)];
-    [self.settingBtn setTitleEdgeInsets:UIEdgeInsetsMake(24, -32, 0, 0)];
+    [self.pushBtn setImageEdgeInsets:UIEdgeInsetsMake(-20, 30, 0, 0)];
+    [self.pushBtn setTitleEdgeInsets:UIEdgeInsetsMake(24, -22, 0, 0)];
+    [self.pushScreenBtn setImageEdgeInsets:UIEdgeInsetsMake(-20, 28, 0, 0)];
+    [self.pushScreenBtn setTitleEdgeInsets:UIEdgeInsetsMake(24, -30, 0, 0)];
+    [self.recordBtn setImageEdgeInsets:UIEdgeInsetsMake(-20, 30, 0, 0)];
+    [self.recordBtn setTitleEdgeInsets:UIEdgeInsetsMake(24, -22, 0, 0)];
+    [self.settingBtn setImageEdgeInsets:UIEdgeInsetsMake(-20, 30, 0, 0)];
+    [self.settingBtn setTitleEdgeInsets:UIEdgeInsetsMake(24, -22, 0, 0)];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -276,7 +298,7 @@
     NSArray *resolutionArray = [resolution componentsSeparatedByString:@"*"];
     int width = [resolutionArray[0] intValue];
     int height = [resolutionArray[1] intValue];
-
+    
     if (self.screenBtn.selected) {
         // UI 横屏
         self.mainViewWidth.constant = EasyScreenHeight;
@@ -313,7 +335,7 @@
     if (self.encoder.running) {
         return;
     }
-    
+
     InfoViewController *controller = [[InfoViewController alloc] initWithStoryboard];
     [self basePushViewController:controller];
 }
@@ -348,6 +370,20 @@
         dispatch_async(queue, ^{
             [self.encoder stopCamera];
         });
+    }
+}
+
+- (IBAction)screenLive:(id)sender {
+    if (@available(iOS 12.0, *)) {
+        for (UIView *view in _broadPickerView.subviews) {
+            if ([view isKindOfClass:[UIButton class]]) {
+                [(UIButton*)view sendActionsForControlEvents:UIControlEventTouchDown];
+            }
+        }
+    } else if (@available(iOS 11.0, *)) {
+        // TODO 教程
+    } else {
+        [WHToast showMessage:@"您的手机系统版本低于11.0，无法进行屏幕录制操作，请升级手机系统" duration:2 finishHandler:nil];
     }
 }
 

@@ -12,6 +12,7 @@ PODS:
   - RTRootNavigationController (0.6.7):
     - RTRootNavigationController/Core (= 0.6.7)
   - RTRootNavigationController/Core (0.6.7)
+  - WHToast (0.0.2)
 
 DEPENDENCIES:
   - Bugly
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - Masonry
   - ReactiveCocoa (from `https://github.com/zhao0/ReactiveCocoa.git`, tag `2.5.2`)
   - RTRootNavigationController
+  - WHToast
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -26,6 +28,7 @@ SPEC REPOS:
     - IQKeyboardManager
     - Masonry
     - RTRootNavigationController
+    - WHToast
 
 EXTERNAL SOURCES:
   ReactiveCocoa:
@@ -43,7 +46,8 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   ReactiveCocoa: 3ff25b1bd992ac79c5c79b26b6c0c1713b715bb2
   RTRootNavigationController: d6aa6cbb78a3eaecea4f6e4df63f15dd887836b8
+  WHToast: b5b1c6c2a178b2e848e7416fd25ca6b25c7babf8
 
-PODFILE CHECKSUM: 27c907fc791d75c3528ba624628f7d0d24a88d69
+PODFILE CHECKSUM: f2e731fd1201327cf0c2320d797984d9c1186846
 
 COCOAPODS: 1.5.0

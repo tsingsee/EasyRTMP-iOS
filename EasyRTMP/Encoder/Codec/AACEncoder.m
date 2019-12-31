@@ -110,14 +110,14 @@
 - (void) setupEncoderFromSampleBuffer:(CMSampleBufferRef)sampleBuffer {
     AudioStreamBasicDescription inAudioStreamBasicDescription = *CMAudioFormatDescriptionGetStreamBasicDescription((CMAudioFormatDescriptionRef) CMSampleBufferGetFormatDescription(sampleBuffer));
     
-//    inAudioStreamBasicDescription.mFormatID = kAudioFormatLinearPCM;
+    inAudioStreamBasicDescription.mFormatID = kAudioFormatLinearPCM;
     inAudioStreamBasicDescription.mSampleRate = 44100;
-//    inAudioStreamBasicDescription.mChannelsPerFrame = 1;
-////    inAudioStreamBasicDescription.mBitsPerChannel = 16;
-////    inAudioStreamBasicDescription.mBytesPerFrame = 2;
-//    inAudioStreamBasicDescription.mBytesPerPacket = inAudioStreamBasicDescription.mBytesPerFrame * inAudioStreamBasicDescription.mFramesPerPacket;
-//    inAudioStreamBasicDescription.mFormatFlags = kLinearPCMFormatFlagIsPacked | kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsNonInterleaved;
-//    inAudioStreamBasicDescription.mReserved = 0;
+    inAudioStreamBasicDescription.mChannelsPerFrame = 1;
+    inAudioStreamBasicDescription.mBitsPerChannel = 16;
+    inAudioStreamBasicDescription.mBytesPerFrame = 2;
+    inAudioStreamBasicDescription.mBytesPerPacket = inAudioStreamBasicDescription.mBytesPerFrame * inAudioStreamBasicDescription.mFramesPerPacket;
+    inAudioStreamBasicDescription.mFormatFlags = kLinearPCMFormatFlagIsPacked | kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsNonInterleaved;
+    inAudioStreamBasicDescription.mReserved = 0;
     
     AudioStreamBasicDescription outAudioStreamBasicDescription = {0}; // Always initialize the fields of a new audio stream basic description structure to zero, as shown here: ...
     outAudioStreamBasicDescription.mSampleRate = inAudioStreamBasicDescription.mSampleRate; // The number of frames per second of the data in the stream, when the stream is played at normal speed. For compressed formats, this field indicates the number of frames per second of equivalent decompressed data. The mSampleRate field must be nonzero, except when this structure is used in a listing of supported formats (see “kAudioStreamAnyRate”).
@@ -141,14 +141,14 @@
         NSLog(@"setup converter: %d", (int)status);
     }
     
-//    UInt32 bitRate = 64000;
-//    UInt32 uiSize = sizeof(bitRate);
-//    status = AudioConverterSetProperty(_audioConverter, kAudioConverterEncodeBitRate, uiSize, &bitRate);
-//    
-//    UInt32 value = 0;
-//    uiSize = sizeof(value);
-//    AudioConverterGetProperty(_audioConverter, kAudioConverterPropertyMaximumOutputPacketSize, &uiSize, &value);
-//    NSLog(@"packet size = %d", value);
+    UInt32 bitRate = 64000;
+    UInt32 uiSize = sizeof(bitRate);
+    status = AudioConverterSetProperty(_audioConverter, kAudioConverterEncodeBitRate, uiSize, &bitRate);
+    
+    UInt32 value = 0;
+    uiSize = sizeof(value);
+    AudioConverterGetProperty(_audioConverter, kAudioConverterPropertyMaximumOutputPacketSize, &uiSize, &value);
+    NSLog(@"packet size = %d", value);
 }
 
 - (AudioClassDescription *)getAudioClassDescriptionWithType:(UInt32)type fromManufacturer:(UInt32)manufacturer {

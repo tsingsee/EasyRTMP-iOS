@@ -14,6 +14,8 @@ static NSString *OnlyAudioKey = @"OnlyAudioKey";
 static NSString *X264Encoder = @"X264Encoder";
 static NSString *activeDay = @"activeDay";
 
+static NSString *ExtensionSuiteName = @"group.com.rtmp";
+
 @implementation URLTool
 
 #pragma mark - url
@@ -22,6 +24,8 @@ static NSString *activeDay = @"activeDay";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:url forKey:ConfigUrlKey];
     [defaults synchronize];
+    
+    [[[NSUserDefaults alloc] initWithSuiteName:ExtensionSuiteName] setValue:url forKey:ConfigUrlKey];
 }
 
 + (NSString *) gainURL {

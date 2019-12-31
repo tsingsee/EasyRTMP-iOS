@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -109,7 +109,8 @@
                                         <rect key="frame" x="0.0" y="431" width="320" height="49"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zup-b2-V4Z">
-                                                <rect key="frame" x="0.0" y="0.0" width="106.5" height="49"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="80" height="49"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <state key="normal" title="推送" image="tab_push"/>
                                                 <connections>
@@ -117,7 +118,8 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouy-q7-ni1">
-                                                <rect key="frame" x="106.5" y="0.0" width="107" height="49"/>
+                                                <rect key="frame" x="160" y="0.0" width="80" height="49"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <state key="normal" title="录像" image="tab_record"/>
                                                 <connections>
@@ -125,29 +127,45 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uBc-qB-caI">
-                                                <rect key="frame" x="213.5" y="0.0" width="106.5" height="49"/>
+                                                <rect key="frame" x="240" y="0.0" width="80" height="49"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <state key="normal" title="设置" image="tab_setting"/>
                                                 <connections>
                                                     <action selector="setting:" destination="G1h-VK-ZRe" eventType="touchUpInside" id="LYe-lH-2Fc"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0M5-Mn-iA5">
+                                                <rect key="frame" x="80" y="0.0" width="80" height="49"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="推送屏幕" image="push_screen"/>
+                                                <connections>
+                                                    <action selector="screenLive:" destination="G1h-VK-ZRe" eventType="touchUpInside" id="zc2-WA-89f"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="ouy-q7-ni1" secondAttribute="bottom" id="0Yr-cH-0wW"/>
+                                            <constraint firstItem="0M5-Mn-iA5" firstAttribute="width" secondItem="Zup-b2-V4Z" secondAttribute="width" id="1zb-ou-Nnu"/>
                                             <constraint firstAttribute="bottom" secondItem="Zup-b2-V4Z" secondAttribute="bottom" id="2Kx-1P-7KW"/>
+                                            <constraint firstItem="uBc-qB-caI" firstAttribute="width" secondItem="Zup-b2-V4Z" secondAttribute="width" id="8IT-6T-pwS"/>
+                                            <constraint firstItem="0M5-Mn-iA5" firstAttribute="leading" secondItem="Zup-b2-V4Z" secondAttribute="trailing" id="AY3-rf-THi"/>
                                             <constraint firstItem="Zup-b2-V4Z" firstAttribute="leading" secondItem="LnS-sL-28R" secondAttribute="leading" id="EbD-cw-XPj"/>
+                                            <constraint firstItem="ouy-q7-ni1" firstAttribute="leading" secondItem="0M5-Mn-iA5" secondAttribute="trailing" id="Gxh-Xq-aEC"/>
                                             <constraint firstAttribute="height" constant="49" id="MqH-hi-TNv"/>
+                                            <constraint firstItem="0M5-Mn-iA5" firstAttribute="top" secondItem="LnS-sL-28R" secondAttribute="top" id="ROS-uw-oZV"/>
                                             <constraint firstItem="uBc-qB-caI" firstAttribute="leading" secondItem="ouy-q7-ni1" secondAttribute="trailing" id="Rwx-uk-0Qf"/>
                                             <constraint firstAttribute="bottom" secondItem="uBc-qB-caI" secondAttribute="bottom" id="VW1-Mc-E3e"/>
                                             <constraint firstAttribute="trailing" secondItem="uBc-qB-caI" secondAttribute="trailing" id="WGR-G4-BnC"/>
                                             <constraint firstItem="uBc-qB-caI" firstAttribute="top" secondItem="LnS-sL-28R" secondAttribute="top" id="ahm-BC-pWe"/>
-                                            <constraint firstItem="ouy-q7-ni1" firstAttribute="leading" secondItem="Zup-b2-V4Z" secondAttribute="trailing" id="cv5-cw-038"/>
+                                            <constraint firstItem="ouy-q7-ni1" firstAttribute="width" secondItem="Zup-b2-V4Z" secondAttribute="width" id="cZ2-WQ-Yes"/>
                                             <constraint firstItem="Zup-b2-V4Z" firstAttribute="top" secondItem="LnS-sL-28R" secondAttribute="top" id="e82-tq-xRx"/>
-                                            <constraint firstItem="uBc-qB-caI" firstAttribute="width" secondItem="Zup-b2-V4Z" secondAttribute="width" id="lDJ-eG-gl7"/>
+                                            <constraint firstAttribute="bottom" secondItem="ouy-q7-ni1" secondAttribute="bottom" id="gGS-kI-Aee"/>
                                             <constraint firstItem="ouy-q7-ni1" firstAttribute="top" secondItem="LnS-sL-28R" secondAttribute="top" id="llc-y1-RKF"/>
-                                            <constraint firstItem="ouy-q7-ni1" firstAttribute="width" secondItem="Zup-b2-V4Z" secondAttribute="width" id="mEX-ap-zGa"/>
+                                            <constraint firstItem="ouy-q7-ni1" firstAttribute="top" secondItem="LnS-sL-28R" secondAttribute="top" id="mAI-HY-7pq"/>
+                                            <constraint firstAttribute="bottom" secondItem="0M5-Mn-iA5" secondAttribute="bottom" id="xb7-PM-Nmu"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -180,16 +198,18 @@
                     <navigationItem key="navigationItem" id="1kZ-LK-t3u"/>
                     <connections>
                         <outlet property="bitrateLabel" destination="tRV-bD-hFk" id="2te-wN-fex"/>
+                        <outlet property="btnView" destination="LnS-sL-28R" id="Th2-dp-47f"/>
                         <outlet property="contentView" destination="RD5-17-AGz" id="l4l-Sy-u31"/>
                         <outlet property="infoBtn" destination="GVw-re-CUa" id="r52-M8-zMn"/>
                         <outlet property="mainView" destination="PHZ-05-kjy" id="ocr-Ut-wuw"/>
                         <outlet property="mainViewHeight" destination="Sjz-fY-EJ2" id="noc-qP-TF3"/>
                         <outlet property="mainViewWidth" destination="94f-qk-2M0" id="ro1-1a-Uz3"/>
                         <outlet property="pushBtn" destination="Zup-b2-V4Z" id="Y4V-iW-O96"/>
+                        <outlet property="pushScreenBtn" destination="0M5-Mn-iA5" id="Swv-F9-BeZ"/>
                         <outlet property="recordBtn" destination="ouy-q7-ni1" id="HCF-ZO-K8o"/>
                         <outlet property="resolutionBtn" destination="JZK-2i-I91" id="RHc-3E-X52"/>
                         <outlet property="reverseBtn" destination="HMK-t7-QdC" id="yzp-C1-QlT"/>
-                        <outlet property="screenBtn" destination="RrV-yi-DQ3" id="A9X-lR-uAn"/>
+                        <outlet property="screenBtn" destination="RrV-yi-DQ3" id="Oab-Xe-8Vw"/>
                         <outlet property="settingBtn" destination="uBc-qB-caI" id="I3L-hL-kgm"/>
                         <outlet property="statusLabel" destination="1Zh-XN-cLF" id="pEn-CR-otv"/>
                         <outlet property="topViewMarginTop" destination="hdb-gM-6OI" id="RIn-rT-fiQ"/>
@@ -1082,9 +1102,10 @@ Cgo
     <resources>
         <image name="RTMP_android" width="130" height="130"/>
         <image name="RTMP_ios" width="130" height="130"/>
-        <image name="back" width="42" height="16"/>
+        <image name="back" width="42.5" height="16"/>
         <image name="pro_android" width="130" height="130"/>
-        <image name="pro_ios" width="130" height="130"/>
+        <image name="pro_ios" width="130" height="130.5"/>
+        <image name="push_screen" width="19" height="21"/>
         <image name="push_setting" width="400" height="211"/>
         <image name="reverse" width="26" height="21"/>
         <image name="scan" width="19" height="19"/>
