@@ -1593,7 +1593,7 @@
 				INFOPLIST_FILE = EasyScreenLiveSetupUI/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 2.6;
+				MARKETING_VERSION = 2.7;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.easydarwin.easydarwinrtmp.EasyScreenLiveSetupUI;
@@ -1620,7 +1620,7 @@
 				INFOPLIST_FILE = EasyScreenLiveSetupUI/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 2.6;
+				MARKETING_VERSION = 2.7;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.easydarwin.easydarwinrtmp.EasyScreenLiveSetupUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1638,7 +1638,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = EasyScreenLive/EasyScreenLive.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1654,11 +1654,12 @@
 					"$(PROJECT_DIR)/EasyScreenLive/x264-iOS/lib",
 					"$(PROJECT_DIR)/EasyScreenLive/FFmpeg-iOS/lib",
 				);
-				MARKETING_VERSION = 2.6;
+				MARKETING_VERSION = 2.7;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.easydarwin.easydarwinrtmp.EasyScreenLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1673,7 +1674,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = EasyScreenLive/EasyScreenLive.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1689,10 +1690,11 @@
 					"$(PROJECT_DIR)/EasyScreenLive/x264-iOS/lib",
 					"$(PROJECT_DIR)/EasyScreenLive/FFmpeg-iOS/lib",
 				);
-				MARKETING_VERSION = 2.6;
+				MARKETING_VERSION = 2.7;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.easydarwin.easydarwinrtmp.EasyScreenLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1847,7 +1849,7 @@
 					"$(PROJECT_DIR)/EasyRTMP/FFmpeg-iOS/lib",
 					"$(PROJECT_DIR)/EasyRTMP/x264-iOS/lib",
 				);
-				MARKETING_VERSION = 2.6;
+				MARKETING_VERSION = 2.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1926,7 +1928,7 @@
 					"$(PROJECT_DIR)/EasyRTMP/FFmpeg-iOS/lib",
 					"$(PROJECT_DIR)/EasyRTMP/x264-iOS/lib",
 				);
-				MARKETING_VERSION = 2.6;
+				MARKETING_VERSION = 2.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",

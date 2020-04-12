@@ -30,7 +30,7 @@ EasyRTMP是[TSINGSEE青犀开放平台](http://open.tsingsee.com "TSINGSEE青犀
 
 	[https://itunes.apple.com/us/app/easyrtmp/id1222410811?mt=8](https://itunes.apple.com/us/app/easyrtmp/id1222410811?mt=8 "EasyRTMP_iOS")
 
-	![EasyRTMP_iOS](http://www.easydarwin.org/github/images/easyrtmpios20170409.png)
+	![EasyRTMP_iOS](http://www.easydarwin.org/github/images/app/2020/easyrtmp_iOS.png)
 
 
 
@@ -38,7 +38,7 @@ EasyRTMP是[TSINGSEE青犀开放平台](http://open.tsingsee.com "TSINGSEE青犀
 
 	[https://fir.im/easyrtmp](https://fir.im/easyrtmp "https://fir.im/easyrtmp")
 
-	![EasyRTMP Android](http://www.easydarwin.org/github/images/easyrtmpfirim20170409.png)
+	![EasyRTMP Android](http://www.easydarwin.org/github/images/app/2020/easyrtmp_android.png)
 
 ## 调用过程 ##
 ![EasyRTMP](http://www.easydarwin.org/skin/easydarwin/images/easyrtmp20161101.png)
