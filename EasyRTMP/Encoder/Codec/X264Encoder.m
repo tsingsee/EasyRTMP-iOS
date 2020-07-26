@@ -7,6 +7,7 @@
 //
 
 #import "X264Encoder.h"
+#import <TxtOverlay/TxtOverlay.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -20,6 +21,12 @@ extern "C" {
 #ifdef __cplusplus
 };
 #endif
+
+@interface X264Encoder()
+
+@property (nonatomic, assign) long txt;
+
+@end
 
 @implementation X264Encoder {
     AVCodecContext *pCodecCtx;
@@ -37,7 +44,9 @@ extern "C" {
                       frameRate:(NSUInteger)frameRate
             maxKeyframeInterval:(CGFloat)maxKeyframeInterval
                         bitrate:(NSUInteger)bitrate
-                   profileLevel:(NSString *)profileLevel {
+                   profileLevel:(NSString *)profileLevel
+                          width:(CGFloat) w
+                         height:(CGFloat) h {
     self = [super init];
     
     if (self) {
@@ -47,6 +56,9 @@ extern "C" {
         _bitrate = bitrate;
         _profileLevel = profileLevel;
         [self setupEncoder];
+        
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"SIMYOU" ofType:@"ttf"];
+        self.txt = txtOverlayInit(w, h, [filePath UTF8String], 20);
     }
     
     return self;
@@ -107,7 +119,9 @@ extern "C" {
     
     CVPixelBufferLockBaseAddress(pixelBuffer, 0);
     
-    UInt8 *pY = (UInt8 *)CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 0);// 得到每个平面的数据指针
+    // 获取CVImageBufferRef中的y数据
+    UInt8 *pY = (UInt8 *)CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 0);
+    // 获取CMVImageBufferRef中的uv数据
     UInt8 *pUV = (UInt8 *)CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 1);
     
     size_t width = CVPixelBufferGetWidth(pixelBuffer);
@@ -131,6 +145,22 @@ extern "C" {
         
         pUV += pUVBytes;
     }
+    
+    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
+    [dateFormatter setDateFormat:@"YYYY-MM-dd hh:mm:ss SS"];//设定时间格式,这里可以设置成自己需要的格式
+    NSString *dateString = [dateFormatter stringFromDate:currentDate];//将时间转化成字符串
+    wchar_t* res = (wchar_t*)[dateString cStringUsingEncoding:NSUTF32StringEncoding];
+    
+    NSString *str1 = @"建设工程";
+    wchar_t* res1 = (wchar_t*)[str1 cStringUsingEncoding:NSUTF32StringEncoding];
+    NSString *str2 = @"广州市天河区五山路金山大厦";
+    wchar_t* res2 = (wchar_t*)[str2 cStringUsingEncoding:NSUTF32StringEncoding];
+    
+    // 加水印
+    txtOverlay(self.txt, pYUV420P, res, [dateString length], 10, 40);
+    txtOverlay(self.txt, pYUV420P, res1, [str1 length], 10, (int)(height - 80));
+    txtOverlay(self.txt, pYUV420P, res2, [str2 length], 10, (int)(height - 120));
     
     pFrame->data[0] = pYUV420P;
     pFrame->data[1] = pFrame->data[0] + width * height;
@@ -177,6 +207,8 @@ extern "C" {
     av_free(pFrame);
     pCodecCtx = NULL;
     pFrame = NULL;
+    
+    txtOverlayRelease(self.txt);
 }
 
 @end

@@ -534,11 +534,11 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
             dispatch_async(self.encodeQueue, ^{
                 if (!self.onlyAudio) {
                     
-                    if ([URLTool gainX264Enxoder]) {
+//                    if ([URLTool gainX264Enxoder]) {
                         [self.x264Encoder encoding:sampleBuffer];
-                    } else {
-                        [self.h264Encoder encode:sampleBuffer size:self.outputSize];
-                    }
+//                    } else {
+//                        [self.h264Encoder encode:sampleBuffer size:self.outputSize];
+//                    }
                 }
                 self.outputSize = CGSizeMake(0, 0);// 输出尺寸置空，则不需要再初始化VTCompressionSessionRef
                 CFRelease(sampleBuffer);
@@ -564,7 +564,7 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
         NSArray *s = [resolution componentsSeparatedByString:@"*"];
         CGSize size = CGSizeMake([s[0] floatValue], [s[1] floatValue]);
 
-        self.x264Encoder = [[X264Encoder alloc] initX264Encoder:size frameRate:30 maxKeyframeInterval:25 bitrate:1024*1000 profileLevel:@""];
+        self.x264Encoder = [[X264Encoder alloc] initX264Encoder:size frameRate:30 maxKeyframeInterval:25 bitrate:1024*1000 profileLevel:@"" width:_outputSize.width height:_outputSize.height];
 
         self.x264Encoder.delegate = self;
     });

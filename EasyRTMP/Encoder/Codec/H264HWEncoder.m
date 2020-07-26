@@ -119,6 +119,9 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
 }
 
 - (void) encode:(CMSampleBufferRef)sampleBuffer size:(CGSize)size {
+    
+//    UInt8 *pYUV420P = (UInt8 *)malloc(width * height * 3 / 2);
+    
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     
     if(session == NULL || size.width > 0) {

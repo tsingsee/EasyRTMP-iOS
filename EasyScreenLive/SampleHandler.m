@@ -117,7 +117,7 @@ static NSString *ConfigUrlKey = @"ConfigUrl";
 
 - (void)initX264Encoder {
     dispatch_sync(self.encodeQueue, ^{
-        self.x264Encoder = [[X264Encoder alloc] initX264Encoder:self.outputSize frameRate:30 maxKeyframeInterval:25 bitrate:1024*1000 profileLevel:@""];
+        self.x264Encoder = [[X264Encoder alloc] initX264Encoder:self.outputSize frameRate:30 maxKeyframeInterval:25 bitrate:1024*1000 profileLevel:@"" width:_outputSize.width height:_outputSize.height];
         
         self.x264Encoder.delegate = self;
     });

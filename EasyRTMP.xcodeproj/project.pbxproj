@@ -74,6 +74,9 @@
 		6635795B22C60BDD0075E217 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A1DBC6341E8BA90A001E25E8 /* libiconv.tbd */; };
 		6635795C22C60BE50075E217 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A1DBC62E1E8BA869001E25E8 /* libz.tbd */; };
 		6635795D22C60BEC0075E217 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A1DBC6371E8BA92C001E25E8 /* libbz2.tbd */; };
+		666895CB24CB2E0400285715 /* SIMYOU.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 666895CA24CB2E0300285715 /* SIMYOU.ttf */; };
+		66DE848724CD961F00E65910 /* TxtOverlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DE848524CD948200E65910 /* TxtOverlay.framework */; };
+		66DE848824CD961F00E65910 /* TxtOverlay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 66DE848524CD948200E65910 /* TxtOverlay.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A1195C581E69A22300535E11 /* ResolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1195C561E69A22300535E11 /* ResolutionViewController.m */; };
 		A1195C5D1E6A6FE200535E11 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1195C5B1E6A6FE200535E11 /* InfoViewController.m */; };
 		A1195D251E73A1BD00535E11 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1195D241E73A1BD00535E11 /* CoreTelephony.framework */; };
@@ -123,6 +126,17 @@
 				663578A222C60A590075E217 /* EasyScreenLiveSetupUI.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66DE848924CD962000E65910 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				66DE848824CD961F00E65910 /* TxtOverlay.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -452,6 +466,8 @@
 		6635794322C60A8B0075E217 /* H264HWEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = H264HWEncoder.m; sourceTree = "<group>"; };
 		6635795E22C60CDD0075E217 /* EasyScreenLive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EasyScreenLive.entitlements; sourceTree = "<group>"; };
 		6635795F22C60CF30075E217 /* EasyRTMP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EasyRTMP.entitlements; sourceTree = "<group>"; };
+		666895CA24CB2E0300285715 /* SIMYOU.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SIMYOU.ttf; sourceTree = "<group>"; };
+		66DE848524CD948200E65910 /* TxtOverlay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TxtOverlay.framework; sourceTree = "<group>"; };
 		972B5E7907C06A56F27D883B /* Pods-EasyRTMP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyRTMP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EasyRTMP/Pods-EasyRTMP.debug.xcconfig"; sourceTree = "<group>"; };
 		A1195C551E69A22300535E11 /* ResolutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResolutionViewController.h; sourceTree = "<group>"; };
 		A1195C561E69A22300535E11 /* ResolutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResolutionViewController.m; sourceTree = "<group>"; };
@@ -533,6 +549,7 @@
 				A1DBC6331E8BA8F8001E25E8 /* libicucore.tbd in Frameworks */,
 				A1DBC62B1E8BA7EA001E25E8 /* libc++.tbd in Frameworks */,
 				6635787C22C609710075E217 /* libavfilter.a in Frameworks */,
+				66DE848724CD961F00E65910 /* TxtOverlay.framework in Frameworks */,
 				6635787B22C609710075E217 /* libavutil.a in Frameworks */,
 				6635788222C609710075E217 /* libswscale.a in Frameworks */,
 				6635787F22C609710075E217 /* libavformat.a in Frameworks */,
@@ -1206,6 +1223,14 @@
 			path = Encoder;
 			sourceTree = "<group>";
 		};
+		6668934624C5F1C700285715 /* Freetype */ = {
+			isa = PBXGroup;
+			children = (
+				66DE848524CD948200E65910 /* TxtOverlay.framework */,
+			);
+			path = Freetype;
+			sourceTree = "<group>";
+		};
 		667D99D82007AD8F00F580D7 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1283,6 +1308,7 @@
 				04F7285D20F2F2460089EDCA /* EasyRTMPLib */,
 				663577F122C609700075E217 /* FFmpeg-iOS */,
 				6635787522C609710075E217 /* x264-iOS */,
+				6668934624C5F1C700285715 /* Freetype */,
 				F6C5102D1D858306001EB536 /* Supporting Files */,
 			);
 			path = EasyRTMP;
@@ -1291,6 +1317,7 @@
 		F6C5102D1D858306001EB536 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				666895CA24CB2E0300285715 /* SIMYOU.ttf */,
 				F6C5103B1D858306001EB536 /* LaunchScreen.storyboard */,
 				04DF407420F2FE120002EAB9 /* Main.storyboard */,
 				F6C510391D858306001EB536 /* Assets.xcassets */,
@@ -1345,6 +1372,7 @@
 				F6C510281D858306001EB536 /* Resources */,
 				73AB458BCE39B739FC6189FF /* [CP] Embed Pods Frameworks */,
 				663578AC22C60A590075E217 /* Embed App Extensions */,
+				66DE848924CD962000E65910 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1432,6 +1460,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				666895CB24CB2E0400285715 /* SIMYOU.ttf in Resources */,
 				04DF407620F2FE120002EAB9 /* Main.storyboard in Resources */,
 				F6C5103D1D858306001EB536 /* LaunchScreen.storyboard in Resources */,
 				F6C5103A1D858306001EB536 /* Assets.xcassets in Resources */,
@@ -1751,7 +1780,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1810,7 +1839,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
 					"$(OTHER_LDFLAGS)",
@@ -1838,6 +1867,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 33USAS7KQX;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EasyRTMP/Freetype",
+				);
 				GCC_PREFIX_HEADER = "${SRCROOT}/EasyRTMP/Main/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/EasyRTMP/FFmpeg-iOS/include";
 				INFOPLIST_FILE = "$(SRCROOT)/EasyRTMP/Main/Info.plist";
@@ -1848,6 +1881,7 @@
 					"$(PROJECT_DIR)/EasyRTMP/EasyRTMPLib",
 					"$(PROJECT_DIR)/EasyRTMP/FFmpeg-iOS/lib",
 					"$(PROJECT_DIR)/EasyRTMP/x264-iOS/lib",
+					"$(PROJECT_DIR)/EasyRTMP/Freetype",
 				);
 				MARKETING_VERSION = 2.8;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1917,6 +1951,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 33USAS7KQX;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EasyRTMP/Freetype",
+				);
 				GCC_PREFIX_HEADER = "${SRCROOT}/EasyRTMP/Main/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/EasyRTMP/FFmpeg-iOS/include";
 				INFOPLIST_FILE = "$(SRCROOT)/EasyRTMP/Main/Info.plist";
@@ -1927,6 +1965,7 @@
 					"$(PROJECT_DIR)/EasyRTMP/EasyRTMPLib",
 					"$(PROJECT_DIR)/EasyRTMP/FFmpeg-iOS/lib",
 					"$(PROJECT_DIR)/EasyRTMP/x264-iOS/lib",
+					"$(PROJECT_DIR)/EasyRTMP/Freetype",
 				);
 				MARKETING_VERSION = 2.8;
 				ONLY_ACTIVE_ARCH = YES;
