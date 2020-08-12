@@ -18,6 +18,8 @@
 #import <ReplayKit/ReplayKit.h>
 #import "WHToast.h"
 
+#import "VideoPlayerController.h"
+
 API_AVAILABLE(ios(12.0))
 @interface PushViewController ()<SetDelegate, EasyResolutionDelegate, ConnectDelegate>
 
@@ -63,8 +65,9 @@ API_AVAILABLE(ios(12.0))
     // 推流器
     self.encoder = [[CameraEncoder alloc] init];
     self.encoder.delegate = self;
+    self.encoder.filePath = [[NSBundle mainBundle] pathForResource:@"SIMYOU" ofType:@"ttf"];
     
-    int days = [self.encoder initCameraWithOutputSize:[self captureSessionSize] resolution:[self captureSessionPreset]];
+    int days = [self.encoder initCameraWithOutputSize:[self captureSessionSize] resolution:[self captureSessionPreset] key:@"79736C3665662B32734B79416C2F4A656F51316F5066644659584E35556C524E55436C58444661672F37332F5A57467A65513D3D"];
     self.encoder.previewLayer.frame = CGRectMake(0, 0, EasyScreenWidth, EasyScreenHeight);
     self.encoder.orientation = AVCaptureVideoOrientationPortrait;
     [self.contentView.layer addSublayer:self.encoder.previewLayer];
@@ -215,11 +218,11 @@ API_AVAILABLE(ios(12.0))
     if (self.screenBtn.selected) {
         // 横屏推流
         self.encoder.orientation = AVCaptureVideoOrientationLandscapeRight;
-        self.encoder.outputSize = CGSizeMake(height, width);
+        [self.encoder updateOutputSize:CGSizeMake(height, width)];
     } else {
         // 竖屏推流
         self.encoder.orientation = AVCaptureVideoOrientationPortrait;
-        self.encoder.outputSize = CGSizeMake(width, height);
+        [self.encoder updateOutputSize:CGSizeMake(width, height)];
     }
     
     [self.resolutionBtn setTitle:[NSString stringWithFormat:@"分辨率：%@", [URLTool gainResolition]] forState:UIControlStateNormal];
@@ -339,7 +342,7 @@ API_AVAILABLE(ios(12.0))
         
         // 横屏推流
         self.encoder.orientation = AVCaptureVideoOrientationLandscapeRight;
-        self.encoder.outputSize = CGSizeMake(height, width);
+        [self.encoder updateOutputSize:CGSizeMake(height, width)];
     } else {
         // UI 竖屏
         self.mainViewWidth.constant = EasyScreenWidth;
@@ -350,7 +353,7 @@ API_AVAILABLE(ios(12.0))
         
         // 竖屏推流
         self.encoder.orientation = AVCaptureVideoOrientationPortrait;
-        self.encoder.outputSize = CGSizeMake(width, height);
+        [self.encoder updateOutputSize:CGSizeMake(width, height)];
     }
     
     // 状态栏
@@ -366,8 +369,15 @@ API_AVAILABLE(ios(12.0))
         return;
     }
 
-    InfoViewController *controller = [[InfoViewController alloc] initWithStoryboard];
-    [self basePushViewController:controller];
+    URLModel *model = [[URLModel alloc] initDefault];
+    model.url = @"rtmp://demo.easydss.com:10085/hls/ted1";
+    
+    VideoPlayerController* pvc = [[VideoPlayerController alloc] init];
+    pvc.model = model;
+    [self.navigationController pushViewController:pvc animated:YES];
+    
+//    InfoViewController *controller = [[InfoViewController alloc] initWithStoryboard];
+//    [self basePushViewController:controller];
 }
 
 // 推送
@@ -433,7 +443,7 @@ API_AVAILABLE(ios(12.0))
     if (self.encoder.running) {
         return;
     }
-    
+        
     SettingViewController *controller = [[SettingViewController alloc] initWithStoryboard];
     controller.delegate = self;
     [self.navigationController pushViewController:controller animated:YES];

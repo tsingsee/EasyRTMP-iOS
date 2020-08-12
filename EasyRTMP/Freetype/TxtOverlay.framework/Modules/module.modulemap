@@ -1,6 +1,0 @@
-framework module TxtOverlay {
-  umbrella header "TxtOverlay.h"
-
-  export *
-  module * { export * }
-}

@@ -12,6 +12,7 @@ target 'EasyRTMP' do
 
     pod 'Bugly'
     pod 'WHToast'
+    pod 'YYKit'
     
     #    pod 'ReactiveCocoa', '~> 2.5'
     pod 'ReactiveCocoa', :git => 'https://github.com/zhao0/ReactiveCocoa.git', :tag => '2.5.2'

@@ -11,6 +11,7 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import <Bugly/Bugly.h>
 #import "PushViewController.h"
+#include "EasyRTMPClientAPI.h"
 
 @interface AppDelegate ()
 
@@ -20,6 +21,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [application setIdleTimerDisabled:YES];
+    
+    int days = EasyRTMPClient_Activate(
+                                       "59615A6742762B32734B79416C2F4A656F51316F5066464659584E355547786865575679556C524E55434E58444661672F37332F5A57467A65513D3D");
+    NSLog(@"key有效期：%d", days);
     
     // Bugly
     [Bugly startWithAppId:@"aac2c8fa86"];
