@@ -50,4 +50,6 @@
 - (void)startRecord;
 - (void)stopRecord;
 
+- (void) updateOutputSize:(CGSize)outputSize;
+
 @end

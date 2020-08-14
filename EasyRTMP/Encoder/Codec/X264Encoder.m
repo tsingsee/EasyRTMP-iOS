@@ -44,9 +44,7 @@ extern "C" {
                       frameRate:(NSUInteger)frameRate
             maxKeyframeInterval:(CGFloat)maxKeyframeInterval
                         bitrate:(NSUInteger)bitrate
-                   profileLevel:(NSString *)profileLevel
-                          width:(CGFloat) w
-                         height:(CGFloat) h {
+                   profileLevel:(NSString *)profileLevel {
     self = [super init];
     
     if (self) {
@@ -58,7 +56,7 @@ extern "C" {
         [self setupEncoder];
         
         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"SIMYOU" ofType:@"ttf"];
-        self.txt = txtOverlayInit(w, h, [filePath UTF8String], 20);
+        self.txt = txtOverlayInit(_videoSize.width, _videoSize.height, [filePath UTF8String], 20);
     }
     
     return self;
@@ -66,7 +64,7 @@ extern "C" {
 
 - (void)setupEncoder {
     avcodec_register_all();
-    avcodec_register(NULL);
+//    avcodec_register(NULL);
     
     frameCounter = 0;
     frameWidth = self.videoSize.width;
@@ -174,6 +172,17 @@ extern "C" {
         return;
     }
     
+//    int ret = avcodec_send_frame(pCodecCtx, pFrame);
+//    if (ret < 0) {
+//        av_frame_free(&pFrame);
+//        av_log(NULL,AV_LOG_WARNING,"Error avcodec_send_frame: %s LINE:%d", av_err2str(ret), __LINE__);
+//    }
+//
+//    ret = avcodec_receive_packet(pCodecCtx, &packet);
+//    if (ret < 0){
+//        av_log(NULL,AV_LOG_WARNING,"Error avcodec_receive_packet: %s LINE:%d", av_err2str(ret), __LINE__);
+//        av_frame_free(&pFrame);
+//    }
     int ret = avcodec_encode_video2(pCodecCtx, &packet, pFrame, &got_picture);
     
     if(ret < 0) {
