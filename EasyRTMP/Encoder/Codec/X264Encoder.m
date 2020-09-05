@@ -150,15 +150,8 @@ extern "C" {
     NSString *dateString = [dateFormatter stringFromDate:currentDate];//将时间转化成字符串
     wchar_t* res = (wchar_t*)[dateString cStringUsingEncoding:NSUTF32StringEncoding];
     
-    NSString *str1 = @"建设工程";
-    wchar_t* res1 = (wchar_t*)[str1 cStringUsingEncoding:NSUTF32StringEncoding];
-    NSString *str2 = @"广州市天河区五山路金山大厦";
-    wchar_t* res2 = (wchar_t*)[str2 cStringUsingEncoding:NSUTF32StringEncoding];
-    
     // 加水印
     txtOverlay(self.txt, pYUV420P, res, [dateString length], 10, 40);
-    txtOverlay(self.txt, pYUV420P, res1, [str1 length], 10, (int)(height - 80));
-    txtOverlay(self.txt, pYUV420P, res2, [str2 length], 10, (int)(height - 120));
     
     pFrame->data[0] = pYUV420P;
     pFrame->data[1] = pFrame->data[0] + width * height;
