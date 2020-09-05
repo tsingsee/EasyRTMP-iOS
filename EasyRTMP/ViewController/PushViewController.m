@@ -67,7 +67,7 @@ API_AVAILABLE(ios(12.0))
     self.encoder.delegate = self;
     self.encoder.filePath = [[NSBundle mainBundle] pathForResource:@"SIMYOU" ofType:@"ttf"];
     
-    int days = [self.encoder initCameraWithOutputSize:[self captureSessionSize] resolution:[self captureSessionPreset] key:@"79736C3665662B32734B79416C2F4A656F51316F5066644659584E35556C524E55436C58444661672F37332F5A57467A65513D3D"];
+    int days = [self.encoder initCameraWithOutputSize:[self captureSessionSize] resolution:[self captureSessionPreset] key:@"79736C3665662B32734B7741706B56666F4C705A3066644659584E35556C524E55436C58444661672F39482F5A57467A65513D3D"];
     self.encoder.previewLayer.frame = CGRectMake(0, 0, EasyScreenWidth, EasyScreenHeight);
     self.encoder.orientation = AVCaptureVideoOrientationPortrait;
     [self.contentView.layer addSublayer:self.encoder.previewLayer];
