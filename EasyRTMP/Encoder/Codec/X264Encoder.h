@@ -36,9 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
                       frameRate:(NSUInteger)frameRate
             maxKeyframeInterval:(CGFloat)maxKeyframeInterval
                         bitrate:(NSUInteger)bitrate
-                   profileLevel:(NSString *)profileLevel
-                          width:(CGFloat) w
-                          height:(CGFloat) h;
+                   profileLevel:(NSString *)profileLevel;
 
 - (void)encoding:(CMSampleBufferRef)sample;
 

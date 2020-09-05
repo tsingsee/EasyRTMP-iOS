@@ -215,11 +215,11 @@ API_AVAILABLE(ios(12.0))
     if (self.screenBtn.selected) {
         // 横屏推流
         self.encoder.orientation = AVCaptureVideoOrientationLandscapeRight;
-        self.encoder.outputSize = CGSizeMake(height, width);
+        [self.encoder updateOutputSize:CGSizeMake(height, width)];
     } else {
         // 竖屏推流
         self.encoder.orientation = AVCaptureVideoOrientationPortrait;
-        self.encoder.outputSize = CGSizeMake(width, height);
+        [self.encoder updateOutputSize:CGSizeMake(width, height)];
     }
     
     [self.resolutionBtn setTitle:[NSString stringWithFormat:@"分辨率：%@", [URLTool gainResolition]] forState:UIControlStateNormal];
@@ -339,7 +339,7 @@ API_AVAILABLE(ios(12.0))
         
         // 横屏推流
         self.encoder.orientation = AVCaptureVideoOrientationLandscapeRight;
-        self.encoder.outputSize = CGSizeMake(height, width);
+        [self.encoder updateOutputSize:CGSizeMake(height, width)];
     } else {
         // UI 竖屏
         self.mainViewWidth.constant = EasyScreenWidth;
@@ -350,7 +350,7 @@ API_AVAILABLE(ios(12.0))
         
         // 竖屏推流
         self.encoder.orientation = AVCaptureVideoOrientationPortrait;
-        self.encoder.outputSize = CGSizeMake(width, height);
+        [self.encoder updateOutputSize:CGSizeMake(width, height)];
     }
     
     // 状态栏

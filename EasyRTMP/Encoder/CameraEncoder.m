@@ -69,6 +69,8 @@ static CameraEncoder *selfClass = nil;
     self.h264Encoder = [[H264HWEncoder alloc] init];
     self.h264Encoder.delegate = self;
     
+    [self initX264Encoder];
+    
 #if TARGET_OS_IPHONE
     self.aacEncoder = [[AACEncoder alloc] init];
     self.aacEncoder.delegate = self;
@@ -104,7 +106,7 @@ static CameraEncoder *selfClass = nil;
 
 - (int) activate {
     // 激活授权码
-    int res = EasyRTMP_Activate("79736C3665662B32734B79416C2F4A656F51316F5066644659584E35556C524E55436C58444661672F37332F5A57467A65513D3D");
+    int res = EasyRTMP_Activate("79736C3665662B32734B7741706B56666F4C705A3066644659584E35556C524E55436C58444661672F39482F5A57467A65513D3D");
     NSLog(@"key剩余时间：%d", res);
     
     if (res > 0) {
@@ -126,6 +128,22 @@ static CameraEncoder *selfClass = nil;
     if (_outputSize.width > 0) {
         tempOutputSize = CGSizeMake(_outputSize.width, _outputSize.height);
     }
+}
+
+- (void) updateOutputSize:(CGSize)outputSize {
+    _outputSize = outputSize;
+    
+    if (_outputSize.width > 0) {
+        tempOutputSize = CGSizeMake(_outputSize.width, _outputSize.height);
+    }
+    
+    dispatch_sync(self.encodeQueue, ^{
+        [self.x264Encoder teardown];
+        
+        self.x264Encoder = [[X264Encoder alloc] initX264Encoder:outputSize frameRate:30 maxKeyframeInterval:25 bitrate:1024*1000 profileLevel:@""];
+
+        self.x264Encoder.delegate = self;
+    });
 }
 
 - (void) setOrientation:(AVCaptureVideoOrientation)orientation {
@@ -460,8 +478,6 @@ static CameraEncoder *selfClass = nil;
     
     EasyRTMP_Connect(handle, [hostUrl cStringUsingEncoding:NSUTF8StringEncoding]);
     EasyRTMP_InitMetadata(handle, &mediainfo, 1024);
-    
-    [self initX264Encoder];
 }
 
 - (void) stopCamera {
@@ -564,7 +580,7 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
         NSArray *s = [resolution componentsSeparatedByString:@"*"];
         CGSize size = CGSizeMake([s[0] floatValue], [s[1] floatValue]);
 
-        self.x264Encoder = [[X264Encoder alloc] initX264Encoder:size frameRate:30 maxKeyframeInterval:25 bitrate:1024*1000 profileLevel:@"" width:_outputSize.width height:_outputSize.height];
+        self.x264Encoder = [[X264Encoder alloc] initX264Encoder:size frameRate:30 maxKeyframeInterval:25 bitrate:1024*1000 profileLevel:@""];
 
         self.x264Encoder.delegate = self;
     });

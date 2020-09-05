@@ -44,9 +44,7 @@ extern "C" {
                       frameRate:(NSUInteger)frameRate
             maxKeyframeInterval:(CGFloat)maxKeyframeInterval
                         bitrate:(NSUInteger)bitrate
-                   profileLevel:(NSString *)profileLevel
-                          width:(CGFloat) w
-                         height:(CGFloat) h {
+                   profileLevel:(NSString *)profileLevel {
     self = [super init];
     
     if (self) {
@@ -58,7 +56,7 @@ extern "C" {
         [self setupEncoder];
         
         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"SIMYOU" ofType:@"ttf"];
-        self.txt = txtOverlayInit(w, h, [filePath UTF8String], 20);
+        self.txt = txtOverlayInit(_videoSize.width, _videoSize.height, [filePath UTF8String], 20);
     }
     
     return self;
