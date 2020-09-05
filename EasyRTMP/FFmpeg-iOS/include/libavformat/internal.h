@@ -140,16 +140,6 @@ struct AVFormatInternal {
      * Whether or not avformat_init_output fully initialized streams
      */
     int streams_initialized;
-
-    /**
-     * ID3v2 tag useful for MP3 demuxing
-     */
-    AVDictionary *id3v2_meta;
-
-    /*
-     * Prefer the codec framerate for avg_frame_rate computation.
-     */
-    int prefer_codec_framerate;
 };
 
 struct AVStreamInternal {
@@ -182,15 +172,6 @@ struct AVStreamInternal {
     int avctx_inited;
 
     enum AVCodecID orig_codec_id;
-
-    /* the context for extracting extradata in find_stream_info()
-     * inited=1/bsf=NULL signals that extracting is not possible (codec not
-     * supported) */
-    struct {
-        AVBSFContext *bsf;
-        AVPacket     *pkt;
-        int inited;
-    } extract_extradata;
 
     /**
      * Whether the internal avctx needs to be updated from codecpar (after a late change to codecpar)
@@ -676,13 +657,14 @@ int ff_bprint_to_codecpar_extradata(AVCodecParameters *par, struct AVBPrint *buf
 
 /**
  * Find the next packet in the interleaving queue for the given stream.
- * The pkt parameter is filled in with the queued packet, including
- * references to the data (which the caller is not allowed to keep or
- * modify).
+ * The packet is not removed from the interleaving queue, but only
+ * a pointer to it is returned.
  *
- * @return 0 if a packet was found, a negative value if no packet was found
+ * @param ts_offset the ts difference between packet in the queue and the muxer.
+ *
+ * @return a pointer to the next packet, or NULL if no packet is queued
+ *         for this stream.
  */
-int ff_interleaved_peek(AVFormatContext *s, int stream,
-                        AVPacket *pkt, int add_offset);
+const AVPacket *ff_interleaved_peek(AVFormatContext *s, int stream, int64_t *ts_offset);
 
 #endif /* AVFORMAT_INTERNAL_H */

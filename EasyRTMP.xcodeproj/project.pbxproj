@@ -31,10 +31,10 @@
 		04F7287820F2F26D0089EDCA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7287520F2F26D0089EDCA /* main.m */; };
 		04F7287920F2F26D0089EDCA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7287620F2F26D0089EDCA /* AppDelegate.m */; };
 		66112AF6233392F000B33FC4 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A1DBC62C1E8BA833001E25E8 /* libstdc++.tbd */; };
+		6632515724EADAF700963B6F /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6632515624EADAF700963B6F /* IJKMediaFramework.framework */; };
 		6635788322C609710075E217 /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6635787A22C609710075E217 /* libx264.a */; };
 		6635788622C60A3A0075E217 /* X264Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6635788522C60A3A0075E217 /* X264Encoder.m */; };
 		666895CB24CB2E0400285715 /* SIMYOU.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 666895CA24CB2E0300285715 /* SIMYOU.ttf */; };
-		66CD25CC24E6E11C00A20C74 /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66CD25CA24E6E01900A20C74 /* IJKMediaFramework.framework */; };
 		66CD26EB24E6E35D00A20C74 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66CD26E324E6E35C00A20C74 /* libcrypto.a */; };
 		66CD26EC24E6E35D00A20C74 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66CD26E424E6E35C00A20C74 /* libavutil.a */; };
 		66CD26ED24E6E35D00A20C74 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66CD26E524E6E35C00A20C74 /* libavfilter.a */; };
@@ -144,6 +144,7 @@
 		04F7287620F2F26D0089EDCA /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		04F7287720F2F26D0089EDCA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1DDF0159A3C68E6B998F514C /* Pods-EasyRTMP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyRTMP.release.xcconfig"; path = "Pods/Target Support Files/Pods-EasyRTMP/Pods-EasyRTMP.release.xcconfig"; sourceTree = "<group>"; };
+		6632515624EADAF700963B6F /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
 		6635787722C609710075E217 /* x264_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264_config.h; sourceTree = "<group>"; };
 		6635787822C609710075E217 /* x264.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264.h; sourceTree = "<group>"; };
 		6635787A22C609710075E217 /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libx264.a; sourceTree = "<group>"; };
@@ -153,7 +154,6 @@
 		6635789922C60A590075E217 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6635795F22C60CF30075E217 /* EasyRTMP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EasyRTMP.entitlements; sourceTree = "<group>"; };
 		666895CA24CB2E0300285715 /* SIMYOU.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SIMYOU.ttf; sourceTree = "<group>"; };
-		66CD25CA24E6E01900A20C74 /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
 		66CD265B24E6E35C00A20C74 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		66CD265C24E6E35C00A20C74 /* buffersrc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffersrc.h; sourceTree = "<group>"; };
 		66CD265D24E6E35C00A20C74 /* buffersink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffersink.h; sourceTree = "<group>"; };
@@ -334,11 +334,11 @@
 				A1DBC62B1E8BA7EA001E25E8 /* libc++.tbd in Frameworks */,
 				66DE848724CD961F00E65910 /* TxtOverlay.framework in Frameworks */,
 				04F7286D20F2F2460089EDCA /* libEasyRTMP.a in Frameworks */,
-				66CD25CC24E6E11C00A20C74 /* IJKMediaFramework.framework in Frameworks */,
 				66CD26F224E6E35D00A20C74 /* libswscale.a in Frameworks */,
 				66CD26F124E6E35D00A20C74 /* libssl.a in Frameworks */,
 				6635788322C609710075E217 /* libx264.a in Frameworks */,
 				66CD26EC24E6E35D00A20C74 /* libavutil.a in Frameworks */,
+				6632515724EADAF700963B6F /* IJKMediaFramework.framework in Frameworks */,
 				A1DBC63E1E8BA95A001E25E8 /* SystemConfiguration.framework in Frameworks */,
 				66CD26EF24E6E35D00A20C74 /* libavformat.a in Frameworks */,
 				66CD26EB24E6E35D00A20C74 /* libcrypto.a in Frameworks */,
@@ -849,7 +849,7 @@
 		F6C5102C1D858306001EB536 /* EasyRTMP */ = {
 			isa = PBXGroup;
 			children = (
-				66CD25CA24E6E01900A20C74 /* IJKMediaFramework.framework */,
+				6632515624EADAF700963B6F /* IJKMediaFramework.framework */,
 				6635795F22C60CF30075E217 /* EasyRTMP.entitlements */,
 				04F7287320F2F26D0089EDCA /* Main */,
 				04C61CA720F484F300D755D9 /* View */,
