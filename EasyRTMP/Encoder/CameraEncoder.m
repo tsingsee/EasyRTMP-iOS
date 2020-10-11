@@ -106,7 +106,7 @@ static CameraEncoder *selfClass = nil;
 
 - (int) activate {
     // 激活授权码
-    int res = EasyRTMP_Activate("79736C3665662B32734B7741706B56666F4C705A3066644659584E35556C524E55436C58444661672F39482F5A57467A65513D3D");
+    int res = EasyRTMP_Activate("79736C3665662B32734B79412B5942666F4838475950644659584E35556C524E55436C58444661672F2B442F5A57467A65513D3D");
     NSLog(@"key剩余时间：%d", res);
     
     if (res > 0) {
@@ -548,13 +548,12 @@ int easyPusher_Callback(int _id, char *pBuf, EASY_RTMP_STATE_T _state, void *_us
         
         if(connection == self.videoConnection) {
             dispatch_async(self.encodeQueue, ^{
-                if (!self.onlyAudio) {
-                    
-//                    if ([URLTool gainX264Enxoder]) {
+                if (!self.onlyAudio) { 
+                    if ([URLTool gainX264Enxoder]) {
                         [self.x264Encoder encoding:sampleBuffer];
-//                    } else {
-//                        [self.h264Encoder encode:sampleBuffer size:self.outputSize];
-//                    }
+                    } else {
+                        [self.h264Encoder encode:sampleBuffer size:self.outputSize];
+                    }
                 }
                 self.outputSize = CGSizeMake(0, 0);// 输出尺寸置空，则不需要再初始化VTCompressionSessionRef
                 CFRelease(sampleBuffer);
