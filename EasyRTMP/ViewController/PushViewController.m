@@ -16,7 +16,7 @@
 #import "URLTool.h"
 #import "CameraEncoder.h"
 #import <ReplayKit/ReplayKit.h>
-#import "WHToast.h"
+#import <WHToast/WHToast.h>
 #import "PlayViewController.h"
 
 API_AVAILABLE(ios(12.0))

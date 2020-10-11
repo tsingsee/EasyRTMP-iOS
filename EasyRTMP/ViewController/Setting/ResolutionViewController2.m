@@ -8,7 +8,7 @@
 
 #import "ResolutionViewController2.h"
 #import "URLTool.h"
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 
 @interface ResolutionViewController2 ()
 

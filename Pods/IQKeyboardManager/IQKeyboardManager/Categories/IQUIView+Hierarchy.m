@@ -23,6 +23,7 @@
 
 #import "IQUIView+Hierarchy.h"
 #import "IQUITextFieldView+Additions.h"
+#import "IQUIViewController+Additions.h"
 
 #import <UIKit/UICollectionView.h>
 #import <UIKit/UIAlertController.h>
@@ -92,6 +93,8 @@
 {
     UIViewController *matchController = [self viewContainingController];
     
+    UIViewController *parentContainerViewController = nil;
+    
     if (matchController.navigationController)
     {
         UINavigationController *navController = matchController.navigationController;
@@ -115,22 +118,22 @@
 
         if (navController == parentController)
         {
-            return navController.topViewController;
+            parentContainerViewController = navController.topViewController;
         }
         else
         {
-            return parentController;
+            parentContainerViewController = parentController;
         }
     }
     else if (matchController.tabBarController)
     {
         if ([matchController.tabBarController.selectedViewController isKindOfClass:[UINavigationController class]])
         {
-            return [(UINavigationController*)matchController.tabBarController.selectedViewController topViewController];
+            parentContainerViewController = [(UINavigationController*)matchController.tabBarController.selectedViewController topViewController];
         }
         else
         {
-            return matchController.tabBarController.selectedViewController;
+            parentContainerViewController = matchController.tabBarController.selectedViewController;
         }
     }
     else
@@ -146,11 +149,20 @@
             matchParentController = matchController.parentViewController;
         }
         
-        return matchController;
+        parentContainerViewController = matchController;
     }
+    
+    UIViewController *finalController = [parentContainerViewController parentIQContainerViewController] ?: parentContainerViewController;
+    
+    return finalController;
 }
 
--(UIView*)superviewOfClassType:(Class)classType
+-(UIView*)superviewOfClassType:(nonnull Class)classType
+{
+    return [self superviewOfClassType:classType belowView:nil];
+}
+
+-(nullable __kindof UIView*)superviewOfClassType:(nonnull Class)classType belowView:(nullable UIView*)belowView
 {
     UIView *superview = self.superview;
     
@@ -178,6 +190,10 @@
                 return superview;
             }
         }
+        else if (belowView == superview)
+        {
+            return nil;
+        }
         
         superview = superview.superview;
     }
@@ -189,27 +205,29 @@
 {
     BOOL _IQcanBecomeFirstResponder = NO;
     
-    if ([self isKindOfClass:[UITextField class]])
-    {
-        _IQcanBecomeFirstResponder = [(UITextField*)self isEnabled];
+    if ([self conformsToProtocol:@protocol(UITextInput)]) {
+        if ([self respondsToSelector:@selector(isEditable)] && [self isKindOfClass:[UIScrollView class]])
+        {
+            _IQcanBecomeFirstResponder = [(UITextView*)self isEditable];
+        }
+        else if ([self respondsToSelector:@selector(isEnabled)])
+        {
+            _IQcanBecomeFirstResponder = [(UITextField*)self isEnabled];
+        }
     }
-    else if ([self isKindOfClass:[UITextView class]])
-    {
-        _IQcanBecomeFirstResponder = [(UITextView*)self isEditable];
-    }
-
+    
     if (_IQcanBecomeFirstResponder == YES)
     {
-        _IQcanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && !self.searchBar);
+        _IQcanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && !self.textFieldSearchBar);
     }
     
     return _IQcanBecomeFirstResponder;
 }
 
-- (NSArray*)responderSiblings
+- (NSArray<UIView*>*)responderSiblings
 {
     //	Getting all siblings
-    NSArray *siblings = self.superview.subviews;
+    NSArray<UIView*> *siblings = self.superview.subviews;
     
     //Array of (UITextField/UITextView's).
     NSMutableArray<UIView*> *tempTextFields = [[NSMutableArray alloc] init];
@@ -221,7 +239,7 @@
     return tempTextFields;
 }
 
-- (NSArray*)deepResponderViews
+- (NSArray<UIView*>*)deepResponderViews
 {
     NSMutableArray<UIView*> *textFields = [[NSMutableArray alloc] init];
     
@@ -231,10 +249,9 @@
         {
             [textFields addObject:textField];
         }
-        
         //Sometimes there are hidden or disabled views and textField inside them still recorded, so we added some more validations here (Bug ID: #458)
         //Uncommented else (Bug ID: #625)
-        if (textField.subviews.count && [textField isUserInteractionEnabled] && ![textField isHidden] && [textField alpha]!=0.0)
+        else if (textField.subviews.count && [textField isUserInteractionEnabled] && ![textField isHidden] && [textField alpha]!=0.0)
         {
             [textFields addObjectsFromArray:[textField deepResponderViews]];
         }
@@ -370,7 +387,7 @@
     return debugInfo;
 }
 
--(UISearchBar *)searchBar
+-(UISearchBar *)textFieldSearchBar
 {
     UIResponder *searchBar = [self nextResponder];
     
@@ -411,7 +428,6 @@
 }
 
 @end
-
 
 @implementation NSObject (IQ_Logging)
 

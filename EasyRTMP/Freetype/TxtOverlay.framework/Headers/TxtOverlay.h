@@ -16,6 +16,7 @@ extern "C" {
 #endif
 
 long txtOverlayInit(int w, int h, const char* fonts, int size);
+//void txtOverlay(long ctx, unsigned char* buffer, wchar_t* txt, int x, int y);
 void txtOverlay(long ctx, unsigned char* buffer, wchar_t* txt, size_t len, int x, int y);
 void txtOverlayRelease(long ctx);
 

@@ -7,7 +7,7 @@
 //
 
 #import "PromptView.h"
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 
 @interface PromptView()
 
@@ -53,7 +53,7 @@
     // 图标
     _imageBtn = [[UIButton alloc] init];
     [self addSubview:_imageBtn];
-    [_imageBtn makeConstraints:^(MASConstraintMaker *make) {
+    [_imageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.centerY.equalTo(self).offset(-30);
     }];
@@ -63,9 +63,9 @@
     _label.font = [UIFont systemFontOfSize:15];
     _label.textColor = EasyColor(108, 108, 108);
     [self addSubview:_label];
-    [_label makeConstraints:^(MASConstraintMaker *make) {
+    [_label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(self.imageBtn.bottom).offset(@20);
+        make.top.equalTo(self.imageBtn.mas_bottom).offset(20);
     }];
     
     // 按钮
@@ -77,10 +77,10 @@
     [_operationBtn addTarget:self action:@selector(operation) forControlEvents:UIControlEventTouchUpInside];
     _operationBtn.hidden = YES;
     [self addSubview:_operationBtn];
-    [_operationBtn makeConstraints:^(MASConstraintMaker *make) {
+    [_operationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(self.label.bottom).offset(@15);
-        make.width.equalTo(EasyScreenWidth - 100);
+        make.top.equalTo(self.label.mas_bottom).offset(15);
+        make.width.equalTo(@(EasyScreenWidth - 100));
         make.height.equalTo(@40);
     }];
 }
@@ -105,11 +105,11 @@
     // 提示信息
     if (tint && ![tint isEqualToString:@""]) {
         _label.text = tint;
-        [_label updateConstraints:^(MASConstraintMaker *make) {
+        [_label mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@20);
         }];
     } else {
-        [_label updateConstraints:^(MASConstraintMaker *make) {
+        [_label mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);
         }];
     }

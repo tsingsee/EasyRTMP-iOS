@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "UIImage+WHToast.h"
 #import "WHToast.h"
 #import "WHToastConfig.h"
 #import "WHToastView.h"
